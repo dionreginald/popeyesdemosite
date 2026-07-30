@@ -125,6 +125,20 @@
   .tab{padding:9px 18px;border-radius:20px;border:1.5px solid var(--line-dark);background:transparent;font-weight:600;font-size:13.5px;color:var(--brown);}
   .tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);}
   .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
+
+  /* ============ GALLERY (admin-managed photos) ============ */
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:130px;gap:14px;}
+  .gallery-item{position:relative;border-radius:14px;overflow:hidden;background:var(--cream-2);}
+  .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;}
+  .gallery-item .g-caption{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;background:linear-gradient(to top, rgba(27,19,16,0.75), transparent);color:#fff;font-size:12.5px;font-weight:600;}
+  .gallery-item.size-small{grid-column:span 1;grid-row:span 1;}
+  .gallery-item.size-medium{grid-column:span 2;grid-row:span 1;}
+  .gallery-item.size-large{grid-column:span 2;grid-row:span 2;}
+  @media (max-width:700px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:120px;}
+    .gallery-item.size-medium{grid-column:span 2;}
+    .gallery-item.size-large{grid-column:span 2;grid-row:span 2;}
+  }
   .item-card{background:#fff;border-radius:14px;border:1px solid var(--line-dark);padding:18px;display:flex;flex-direction:column;gap:10px;position:relative;transition:transform .15s, box-shadow .15s;}
   .item-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(74,42,27,0.10);}
   .item-emoji{width:56px;height:56px;border-radius:12px;background:var(--cream-2);display:flex;align-items:center;justify-content:center;font-size:28px;}
@@ -275,6 +289,15 @@
   .price-tag{font-family:'Space Mono',monospace;font-weight:700;color:var(--red);}
   .empty{opacity:0.5;font-size:13px;padding:16px 0;}
   .pill{font-family:'Space Mono',monospace;font-size:10px;padding:2px 8px;border-radius:10px;background:var(--cream-2);}
+
+  .cust-block{border-bottom:1px solid var(--line-dark);padding-bottom:18px;margin-bottom:18px;}
+  .cust-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .cust-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+  .cust-head b{font-family:'Fraunces',serif;font-size:16px;color:var(--ink);}
+  .cust-order-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:10px 0;border-top:1px dashed var(--line-dark);}
+  .cust-order-id{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;}
+  .cust-order-items{font-size:12.5px;opacity:0.75;margin-top:4px;}
+  .status-select{font-family:'Space Mono',monospace;font-size:11px;padding:4px 6px;border-radius:6px;border:1px solid var(--line-dark);background:var(--cream);}
 </style>
 </head>
 <body>
@@ -289,6 +312,7 @@
           <a href="#menu">Menu</a>
           <a href="#restaurants">Restaurants</a>
           <a href="#offers">Offers</a>
+          <a href="#gallery">Gallery</a>
           <a href="#catering">Catering</a>
         </nav>
       </div>
@@ -363,6 +387,16 @@
       <div class="mono" style="font-size:12px;opacity:0.6;margin-bottom:4px;">DIAL THE HUNGRY LINE</div>
       <a href="tel:0112123123" style="font-family:'Fraunces',serif;font-weight:800;font-size:26px;color:var(--red);text-decoration:none;">011 212 3123</a>
     </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <div class="section-head">
+      <div>
+        <h2>Gallery</h2>
+        <div class="section-sub">A look inside the kitchen and at the food leaving it.</div>
+      </div>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
   </section>
 
   <section class="section" id="catering">
@@ -444,6 +478,9 @@
       <button class="nav-item" data-panel="postsPanel" onclick="switchPanel('postsPanel',this)">Posts</button>
       <button class="nav-item" data-panel="commentsPanel" onclick="switchPanel('commentsPanel',this)">Comments</button>
       <button class="nav-item" data-panel="restaurantsPanel" onclick="switchPanel('restaurantsPanel',this)">Restaurants</button>
+      <button class="nav-item" data-panel="offersPanel" onclick="switchPanel('offersPanel',this)">Offers</button>
+      <button class="nav-item" data-panel="galleryPanel" onclick="switchPanel('galleryPanel',this)">Gallery</button>
+      <button class="nav-item" data-panel="customersPanel" onclick="switchPanel('customersPanel',this)">Customers</button>
       <button class="nav-item" data-panel="settingsPanel" onclick="switchPanel('settingsPanel',this)">Settings</button>
       <hr class="nav-sep">
       <button class="nav-item" onclick="goHome()">← View customer site</button>
@@ -522,6 +559,41 @@
         </div>
       </div>
 
+      <div class="panel" id="offersPanel">
+        <div class="main-head"><div><h2>Offers</h2><p>Combo items derive from the menu automatically — pick which ones to feature on the Offers page and give them a custom blurb.</p></div></div>
+        <div id="offersAdminCard"></div>
+      </div>
+
+      <div class="panel" id="galleryPanel">
+        <div class="main-head"><div><h2>Gallery</h2><p>Photos shown on the customer site's Gallery section.</p></div></div>
+        <div class="card">
+          <h3 style="font-size:15px;margin-bottom:14px;">Add photo</h3>
+          <div class="form-grid">
+            <div class="field full"><label>Image URL</label><input id="gUrl" placeholder="https://example.com/photo.jpg"></div>
+            <div class="field"><label>Size</label>
+              <select id="gSize">
+                <option value="small">Small</option>
+                <option value="medium" selected>Medium</option>
+                <option value="large">Large</option>
+              </select>
+            </div>
+            <div class="field"><label>Caption (optional)</label><input id="gCaption" placeholder="Fresh out of the fryer"></div>
+          </div>
+          <button class="save-btn" onclick="addGalleryImage()">Add photo</button>
+        </div>
+        <div class="card">
+          <table>
+            <thead><tr><th>Photo</th><th>Size</th><th>Caption</th><th></th></tr></thead>
+            <tbody id="galleryTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" id="customersPanel">
+        <div class="main-head"><div><h2>Customers</h2><p>Registered accounts and their order history. Update order status as it moves through the kitchen.</p></div></div>
+        <div class="card" id="customersCard"></div>
+      </div>
+
       <div class="panel" id="settingsPanel">
         <div class="main-head"><div><h2>Settings</h2><p>Manage admin access.</p></div></div>
         <div class="card" style="max-width:360px;">
@@ -592,8 +664,9 @@ const DEFAULT_RESTAURANTS = [
   { id:"r4", name:"Kandy", addr:"ODEL MALL KANDY, No.377, Srimavo Bandaranaike Mw, Peradeniya Rd", map:"https://www.google.com/maps/place/Popeyes+Louisiana+Kitchen+-+Kandy/@7.2858931,80.6263323,15z" },
   { id:"r5", name:"Havelock City Mall", addr:"Level 4, Havelock City Mall, Colombo 05", map:"https://maps.app.goo.gl/kBPJQXvNGRu9WoQD9" }
 ];
+const ORDER_STATUSES = ["Placed","Preparing","Out for delivery","Delivered","Cancelled"];
 
-let menu = [], posts = [], comments = {}, cart = [], activeCategory = "All", settings = null, restaurants = [];
+let menu = [], posts = [], comments = {}, cart = [], activeCategory = "All", settings = null, restaurants = [], gallery = [];
 let customers = {}, currentCustomer = null, acctMode = 'login';
 
 function money(n){ return "Rs. " + Number(n).toLocaleString("en-LK"); }
@@ -628,6 +701,10 @@ async function loadRestaurants(){
   if(!restaurants){ restaurants = DEFAULT_RESTAURANTS; try{ await window.storage.set('restaurants', JSON.stringify(restaurants), true); }catch(e){} }
 }
 async function saveRestaurants(){ try{ await window.storage.set('restaurants', JSON.stringify(restaurants), true); }catch(e){ showToast("Couldn't save — try again"); } }
+async function loadGallery(){
+  try{ let r = await window.storage.get('gallery', true); gallery = r ? JSON.parse(r.value) : []; }catch(e){ gallery = []; }
+}
+async function saveGallery(){ try{ await window.storage.set('gallery', JSON.stringify(gallery), true); }catch(e){ showToast("Couldn't save — try again"); } }
 
 /* ============ CUSTOMER ACCOUNTS + ORDER HISTORY ============ */
 async function loadCustomers(){
@@ -755,6 +832,7 @@ function renderMobileNav(){
     <a href="#menu" class="mnav-link" onclick="closeMobileNav()">Menu <span class="arrow">›</span></a>
     <a href="#restaurants" class="mnav-link" onclick="closeMobileNav()">Restaurants <span class="arrow">›</span></a>
     <a href="#offers" class="mnav-link" onclick="closeMobileNav()">Offers <span class="arrow">›</span></a>
+    <a href="#gallery" class="mnav-link" onclick="closeMobileNav()">Gallery <span class="arrow">›</span></a>
     <a href="#catering" class="mnav-link" onclick="closeMobileNav()">Catering <span class="arrow">›</span></a>
     <a href="#kitchen" class="mnav-link rewards" onclick="closeMobileNav()">Rewards <span class="arrow">›</span></a>
     <div class="mnav-section">Account</div>
@@ -785,14 +863,14 @@ window.addEventListener('hashchange', route);
 /* ============ CUSTOMER VIEW ============ */
 let customerBooted = false;
 async function initCustomer(){
-  await Promise.all([loadMenu(), loadPosts(), loadComments(), loadCustomers(), loadRestaurants()]);
+  await Promise.all([loadMenu(), loadPosts(), loadComments(), loadCustomers(), loadRestaurants(), loadGallery()]);
   if(!currentCustomer) await loadSession();
   updateAcctButton();
-  renderTabs(); renderMenu(); renderPosts(); updateCartUI(); renderOffers(); renderRestaurants();
+  renderTabs(); renderMenu(); renderPosts(); updateCartUI(); renderOffers(); renderRestaurants(); renderGallery();
   if(!customerBooted){
     customerBooted = true;
     renderCarousel(); renderCatTiles();
-    setInterval(async ()=>{ if(!location.hash.startsWith('#admin')){ await loadMenu(); await loadPosts(); await loadComments(); await loadRestaurants(); renderTabs(); renderMenu(); renderPosts(); renderOffers(); renderRestaurants(); } }, 15000);
+    setInterval(async ()=>{ if(!location.hash.startsWith('#admin')){ await loadMenu(); await loadPosts(); await loadComments(); await loadRestaurants(); await loadGallery(); renderTabs(); renderMenu(); renderPosts(); renderOffers(); renderRestaurants(); renderGallery(); } }, 15000);
   }
 }
 
@@ -914,9 +992,10 @@ function renderMenu(){
 function renderOffers(){
   const grid = document.getElementById('offersGrid');
   if(!grid) return;
-  const deals = menu.filter(m=>m.comboPrice);
+  const deals = menu.filter(m=>m.comboPrice && m.offerFeatured !== false);
   if(!deals.length){ grid.innerHTML = '<div class="empty-note">No combo deals live right now — check back soon.</div>'; return; }
   grid.innerHTML = deals.map(item => {
+    const blurb = (item.offerBlurb && item.offerBlurb.trim()) ? item.offerBlurb : `${item.desc||''} Comes with a side and a drink.`;
     return `
     <div class="item-card">
       <div class="badges">
@@ -924,7 +1003,7 @@ function renderOffers(){
       </div>
       <div class="item-emoji">${item.emoji||'🍗'}</div>
       <div class="item-name">${item.name} Combo</div>
-      <div class="item-desc">${item.desc||''} Comes with a side and a drink.</div>
+      <div class="item-desc">${blurb}</div>
       <div class="offer-save">Combo from ${money(item.comboPrice)}</div>
       <div class="add-row">
         <button class="add-btn combo" onclick="addToCart('${item.id}',true)">Add combo</button>
@@ -944,6 +1023,19 @@ function renderRestaurants(){
       <div class="r-name">${loc.name}</div>
       <div class="r-addr">${loc.addr}</div>
       <a class="r-link" href="${loc.map}" target="_blank" rel="noopener">Get directions →</a>
+    </div>
+  `).join('');
+}
+
+/* ============ GALLERY (admin-managed photos) ============ */
+function renderGallery(){
+  const grid = document.getElementById('galleryGrid');
+  if(!grid) return;
+  if(!gallery.length){ grid.innerHTML = '<div class="empty-note">No photos yet — check back soon.</div>'; return; }
+  grid.innerHTML = gallery.map(g => `
+    <div class="gallery-item size-${g.size||'medium'}">
+      <img src="${g.url}" alt="${g.caption||''}" loading="lazy" onerror="this.parentElement.style.display='none'">
+      ${g.caption ? `<div class="g-caption">${g.caption}</div>` : ''}
     </div>
   `).join('');
 }
@@ -1083,8 +1175,8 @@ async function tryLogin(){
 document.getElementById('pwInput')?.addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); });
 
 async function adminLoadAll(){
-  await Promise.all([loadMenu(), loadPosts(), loadComments(), loadRestaurants()]);
-  renderMenuTable(); renderPostsTable(); renderComments(); renderRestaurantsTable();
+  await Promise.all([loadMenu(), loadPosts(), loadComments(), loadRestaurants(), loadCustomers(), loadGallery()]);
+  renderMenuTable(); renderPostsTable(); renderComments(); renderRestaurantsTable(); renderCustomersPanel(); renderOffersAdminPanel(); renderGalleryTable();
 }
 
 function switchPanel(id, btn){
@@ -1229,6 +1321,128 @@ async function deleteRestaurant(id){
   await saveRestaurants();
   renderRestaurantsTable();
   showToast("Branch removed");
+}
+
+function renderCustomersPanel(){
+  const card = document.getElementById('customersCard');
+  if(!card) return;
+  const emails = Object.keys(customers);
+  if(!emails.length){ card.innerHTML = '<div class="empty">No customer accounts yet.</div>'; return; }
+  card.innerHTML = emails.map(email => {
+    const cust = customers[email];
+    const orders = (cust.orders || []).slice().reverse();
+    const spent = (cust.orders || []).reduce((s,o)=>s + (o.total||0), 0);
+    return `
+      <div class="cust-block">
+        <div class="cust-head">
+          <div>
+            <b>${cust.name}</b>
+            <div style="font-size:12.5px;opacity:0.6;">${email}</div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:center;">
+            <span class="pill">${(cust.orders||[]).length} order${(cust.orders||[]).length===1?'':'s'}</span>
+            <span class="price-tag">${money(spent)} lifetime</span>
+          </div>
+        </div>
+        ${orders.length ? orders.map(o => `
+          <div class="cust-order-row">
+            <div style="flex:1;">
+              <div class="cust-order-id">#${o.id} <span style="opacity:0.5;font-weight:400;">${o.date||''}</span></div>
+              <div class="cust-order-items">${o.items.map(i=>`${i.qty}× ${i.name}`).join(', ')}</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div class="price-tag" style="margin-bottom:6px;">${money(o.total)}</div>
+              <select class="status-select" onchange="updateOrderStatus('${email}','${o.id}',this.value)">
+                ${ORDER_STATUSES.map(s=>`<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+        `).join('') : '<div class="empty" style="padding:10px 0;">No orders yet.</div>'}
+      </div>
+    `;
+  }).join('');
+}
+async function updateOrderStatus(email, orderId, status){
+  const cust = customers[email];
+  if(!cust) return;
+  const order = (cust.orders||[]).find(o=>o.id===orderId);
+  if(!order) return;
+  order.status = status;
+  await saveCustomersDB();
+  showToast("Order #" + orderId + " marked " + status);
+}
+
+function renderOffersAdminPanel(){
+  const card = document.getElementById('offersAdminCard');
+  if(!card) return;
+  const deals = menu.filter(m=>m.comboPrice);
+  if(!deals.length){ card.innerHTML = '<div class="card"><div class="empty">No combo-priced items on the menu yet. Set a combo price on a menu item to feature it here.</div></div>'; return; }
+  card.innerHTML = deals.map(item => {
+    const featured = item.offerFeatured !== false;
+    const defaultBlurb = `${item.desc||''} Comes with a side and a drink.`;
+    return `
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px;">
+          <div><b>${item.emoji||''} ${item.name} Combo</b> <span class="pill">${money(item.comboPrice)}</span></div>
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;">
+            <input type="checkbox" ${featured?'checked':''} onchange="toggleOfferFeatured('${item.id}', this.checked)"> Show on Offers page
+          </label>
+        </div>
+        <div class="field full" style="margin-bottom:8px;">
+          <label>Custom blurb (optional — overrides the default combo description)</label>
+          <textarea rows="2" id="offerBlurb-${item.id}" placeholder="${defaultBlurb}">${item.offerBlurb||''}</textarea>
+        </div>
+        <button class="save-btn" onclick="saveOfferBlurb('${item.id}')">Save blurb</button>
+      </div>
+    `;
+  }).join('');
+}
+async function toggleOfferFeatured(id, checked){
+  const item = menu.find(m=>m.id===id);
+  if(!item) return;
+  item.offerFeatured = checked;
+  await saveMenu();
+  showToast(checked ? "Combo featured on Offers page" : "Combo hidden from Offers page");
+}
+async function saveOfferBlurb(id){
+  const item = menu.find(m=>m.id===id);
+  if(!item) return;
+  const val = document.getElementById('offerBlurb-'+id).value.trim();
+  item.offerBlurb = val || null;
+  await saveMenu();
+  showToast("Offer blurb saved");
+}
+
+function renderGalleryTable(){
+  const tbody = document.getElementById('galleryTable');
+  if(!tbody) return;
+  if(!gallery.length){ tbody.innerHTML = '<tr><td colspan="4" class="empty">No photos yet. Add one above.</td></tr>'; return; }
+  tbody.innerHTML = gallery.map(g => `
+    <tr>
+      <td><img src="${g.url}" alt="" style="width:52px;height:52px;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'"></td>
+      <td><span class="pill">${g.size||'medium'}</span></td>
+      <td style="font-size:12.5px;opacity:0.75;">${g.caption||''}</td>
+      <td class="row-actions"><button class="icon-btn danger" onclick="deleteGalleryImage('${g.id}')">Delete</button></td>
+    </tr>
+  `).join('');
+}
+async function addGalleryImage(){
+  const url = document.getElementById('gUrl').value.trim();
+  const size = document.getElementById('gSize').value;
+  const caption = document.getElementById('gCaption').value.trim();
+  if(!url){ showToast("Image URL is required"); return; }
+  gallery.push({id:uid('g'), url, size, caption});
+  await saveGallery();
+  renderGalleryTable();
+  ['gUrl','gCaption'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('gSize').value = 'medium';
+  showToast("Photo added");
+}
+async function deleteGalleryImage(id){
+  gallery = gallery.filter(g=>g.id!==id);
+  await saveGallery();
+  renderGalleryTable();
+  showToast("Photo removed");
 }
 
 async function changePassword(){
