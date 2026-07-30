@@ -61,6 +61,7 @@
   .checkboxes label{display:flex;align-items:center;gap:6px;font-weight:500;}
   .save-btn{background:var(--ink);color:var(--cream);border:none;padding:10px 20px;border-radius:8px;font-weight:700;font-size:13.5px;margin-top:6px;}
   .save-btn:hover{background:var(--red);}
+  .hint{font-size:11.5px;opacity:0.5;grid-column:1/-1;margin-top:-6px;margin-bottom:4px;}
 
   table{width:100%;border-collapse:collapse;font-size:13.5px;}
   th{text-align:left;padding:10px 8px;border-bottom:2px solid var(--line);font-size:11.5px;text-transform:uppercase;letter-spacing:0.04em;opacity:0.55;}
@@ -105,11 +106,14 @@
       <div class="card">
         <h3 style="font-size:15px;margin-bottom:14px;">Add item</h3>
         <div class="form-grid">
-          <div class="field"><label>Name</label><input id="mName" placeholder="Spicy Chicken Sandwich"></div>
+          <div class="field"><label>Name</label><input id="mName" placeholder="Classic Chicken"></div>
           <div class="field"><label>Category</label><input id="mCategory" placeholder="Sandwiches"></div>
-          <div class="field"><label>Price (Rs.)</label><input id="mPrice" type="number" placeholder="990"></div>
+          <div class="field"><label>Item type label</label><input id="mLabel" placeholder="Sandwich / Burger / Piece"></div>
           <div class="field"><label>Emoji icon</label><input id="mEmoji" placeholder="🥪"></div>
+          <div class="field"><label>Single price (Rs.)</label><input id="mPrice" type="number" placeholder="1600"></div>
+          <div class="field"><label>Combo price (Rs.) — optional</label><input id="mCombo" type="number" placeholder="2500"></div>
           <div class="field full"><label>Description</label><textarea id="mDesc" rows="2" placeholder="Short description shown on the card"></textarea></div>
+          <div class="hint">Leave combo price blank for items that don't offer a combo (sides, drinks, etc.)</div>
           <div class="checkboxes">
             <label><input type="checkbox" id="mSpicy"> Spicy</label>
             <label><input type="checkbox" id="mPopular"> Popular</label>
@@ -119,7 +123,7 @@
       </div>
       <div class="card">
         <table>
-          <thead><tr><th>Item</th><th>Category</th><th>Price</th><th>Tags</th><th></th></tr></thead>
+          <thead><tr><th>Item</th><th>Category</th><th>Single</th><th>Combo</th><th>Tags</th><th></th></tr></thead>
           <tbody id="menuTable"></tbody>
         </table>
       </div>
@@ -195,16 +199,16 @@ if(!window.storage){
 }
 
 const DEFAULT_MENU = [
-  {id:"m1",category:"Chicken",name:"Louisiana Fried Chicken",price:1290,desc:"Hand-battered, bone-in, Cajun spiced. 3 pieces.",emoji:"🍗",spicy:true,popular:true},
-  {id:"m2",category:"Chicken",name:"Mild Fried Chicken",price:1290,desc:"Classic recipe, all the crunch, none of the heat.",emoji:"🍗",spicy:false,popular:false},
-  {id:"m3",category:"Sandwiches",name:"Spicy Chicken Sandwich",price:990,desc:"Crispy fillet, pickles, brioche bun, Cajun mayo.",emoji:"🥪",spicy:true,popular:true},
-  {id:"m4",category:"Sandwiches",name:"Classic Chicken Sandwich",price:950,desc:"Crispy fillet, pickles, brioche bun.",emoji:"🥪",spicy:false,popular:false},
-  {id:"m5",category:"Tenders",name:"Cajun Tenders (5pc)",price:1150,desc:"Hand-breaded tenders, choice of dip.",emoji:"🍤",spicy:true,popular:true},
-  {id:"m6",category:"Sides",name:"Cajun Fries",price:450,desc:"Crispy fries dusted in Cajun spice.",emoji:"🍟",spicy:true,popular:false},
-  {id:"m7",category:"Sides",name:"Red Beans & Rice",price:490,desc:"Slow-cooked New Orleans classic.",emoji:"🍚",spicy:false,popular:false},
-  {id:"m8",category:"Sides",name:"Buttermilk Biscuit",price:250,desc:"Warm, flaky, served with honey.",emoji:"🥐",spicy:false,popular:true},
-  {id:"m9",category:"Beverages",name:"Peach Iced Tea",price:390,desc:"House-brewed, lightly sweet.",emoji:"🧊",spicy:false,popular:false},
-  {id:"m10",category:"Combos",name:"Big Box Combo",price:1890,desc:"2pc chicken, tender, fries, biscuit, drink.",emoji:"🍱",spicy:true,popular:true}
+  {id:"m1",category:"Sandwiches",label:"Sandwich",name:"Classic Chicken",price:1600,comboPrice:2500,desc:"Crispy fillet, pickles, brioche bun.",emoji:"🥪",spicy:false,popular:true},
+  {id:"m2",category:"Sandwiches",label:"Sandwich",name:"Spicy Chicken",price:1600,comboPrice:2500,desc:"Crispy fillet, pickles, brioche bun, Cajun mayo.",emoji:"🥪",spicy:true,popular:true},
+  {id:"m3",category:"Burgers",label:"Burger",name:"Grilled Chicken",price:1600,comboPrice:2500,desc:"Grilled fillet, cheese, red onion, lettuce.",emoji:"🍔",spicy:false,popular:false},
+  {id:"m4",category:"Burgers",label:"Burger",name:"Grilled Fried",price:2250,comboPrice:3150,desc:"Grilled and fried fillets stacked, cheese, Cajun sauce.",emoji:"🍔",spicy:true,popular:true},
+  {id:"m5",category:"Burgers",label:"Burger",name:"Cajun Shrimp",price:1950,comboPrice:2850,desc:"Crispy Cajun shrimp, lettuce, mayo, sesame bun.",emoji:"🍔",spicy:true,popular:false},
+  {id:"m6",category:"Tenders",label:"5pc",name:"Cajun Tenders",price:1150,comboPrice:1750,desc:"Hand-breaded tenders, choice of dip.",emoji:"🍤",spicy:true,popular:true},
+  {id:"m7",category:"Sides",label:"",name:"Cajun Fries",price:450,comboPrice:null,desc:"Crispy fries dusted in Cajun spice.",emoji:"🍟",spicy:true,popular:false},
+  {id:"m8",category:"Sides",label:"",name:"Red Beans & Rice",price:490,comboPrice:null,desc:"Slow-cooked New Orleans classic.",emoji:"🍚",spicy:false,popular:false},
+  {id:"m9",category:"Sides",label:"",name:"Buttermilk Biscuit",price:250,comboPrice:null,desc:"Warm, flaky, served with honey.",emoji:"🥐",spicy:false,popular:true},
+  {id:"m10",category:"Beverages",label:"",name:"Peach Iced Tea",price:390,comboPrice:null,desc:"House-brewed, lightly sweet.",emoji:"🧊",spicy:false,popular:false}
 ];
 const DEFAULT_POSTS = [
   {id:"p1",title:"Ghost Pepper Tenders are back",date:"Jul 24, 2026",body:"Limited batch, back by popular demand. Ask your server for the heat level before you regret it.",tag:"New drop",image:""},
@@ -272,12 +276,13 @@ function switchPanel(id, btn){
 
 function renderMenuTable(){
   const tbody = document.getElementById('menuTable');
-  if(!menu.length){ tbody.innerHTML = '<tr><td colspan="5" class="empty">No menu items yet. Add one above.</td></tr>'; return; }
+  if(!menu.length){ tbody.innerHTML = '<tr><td colspan="6" class="empty">No menu items yet. Add one above.</td></tr>'; return; }
   tbody.innerHTML = menu.map(item => `
     <tr>
       <td><b>${item.emoji||''} ${item.name}</b><br><span style="opacity:0.55;font-size:12px;">${item.desc||''}</span></td>
       <td><span class="pill">${item.category}</span></td>
       <td class="price-tag">${money(item.price)}</td>
+      <td class="price-tag">${item.comboPrice ? money(item.comboPrice) : '—'}</td>
       <td>${item.spicy?'🌶️ ':''}${item.popular?'⭐':''}</td>
       <td class="row-actions">
         <button class="icon-btn danger" onclick="deleteMenuItem('${item.id}')">Delete</button>
@@ -289,16 +294,19 @@ function renderMenuTable(){
 async function addMenuItem(){
   const name = document.getElementById('mName').value.trim();
   const category = document.getElementById('mCategory').value.trim() || "Misc";
+  const label = document.getElementById('mLabel').value.trim();
   const price = parseFloat(document.getElementById('mPrice').value);
+  const comboRaw = document.getElementById('mCombo').value.trim();
+  const comboPrice = comboRaw ? parseFloat(comboRaw) : null;
   const emoji = document.getElementById('mEmoji').value.trim() || "🍗";
   const desc = document.getElementById('mDesc').value.trim();
   const spicy = document.getElementById('mSpicy').checked;
   const popular = document.getElementById('mPopular').checked;
-  if(!name || isNaN(price)){ showToast("Name and price are required"); return; }
-  menu.push({id:uid('m'), name, category, price, desc, emoji, spicy, popular});
+  if(!name || isNaN(price)){ showToast("Name and single price are required"); return; }
+  menu.push({id:uid('m'), name, category, label, price, comboPrice: (comboPrice && !isNaN(comboPrice)) ? comboPrice : null, desc, emoji, spicy, popular});
   await saveMenu();
   renderMenuTable();
-  ['mName','mCategory','mPrice','mEmoji','mDesc'].forEach(id=>document.getElementById(id).value='');
+  ['mName','mCategory','mLabel','mPrice','mCombo','mEmoji','mDesc'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('mSpicy').checked=false;
   document.getElementById('mPopular').checked=false;
   showToast("Menu item added");

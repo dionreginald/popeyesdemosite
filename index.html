@@ -50,6 +50,20 @@
     .header-inner{grid-template-columns:auto 1fr auto;}
   }
 
+  /* mobile nav drawer */
+  .mnav-head{display:flex;align-items:center;gap:10px;padding-bottom:16px;margin-bottom:8px;border-bottom:1px solid var(--line-dark);}
+  .mnav-head .logo-mark{width:34px;height:34px;font-size:17px;}
+  .mnav-head .logo-text{font-size:18px;color:var(--ink);}
+  .mnav-link{display:flex;align-items:center;justify-content:space-between;padding:15px 4px;border-bottom:1px solid var(--line-dark);font-size:15.5px;font-weight:600;color:var(--ink);text-decoration:none;}
+  .mnav-link:hover{color:var(--red);}
+  .mnav-link .arrow{opacity:0.35;font-size:13px;}
+  .mnav-link.rewards{color:var(--red-dark);}
+  .mnav-section{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;opacity:0.45;margin:22px 0 4px;}
+  .mnav-acct{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--cream-2);border-radius:10px;padding:12px 14px;margin-top:16px;}
+  .mnav-acct b{font-family:'Fraunces',serif;font-size:14.5px;}
+  .mnav-acct button{background:var(--ink);color:var(--cream);border:none;padding:8px 14px;border-radius:8px;font-weight:700;font-size:12.5px;}
+  .mnav-acct button:hover{background:var(--red);}
+
   .hero{background:radial-gradient(circle at 85% 20%, rgba(214,48,28,0.35), transparent 45%),var(--ink);color:var(--cream);padding:76px 24px 88px;position:relative;overflow:hidden;border-bottom:1px solid var(--line);}
   .hero-inner{max-width:1120px;margin:0 auto;position:relative;z-index:2;}
   .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--marigold);background:rgba(242,169,59,0.12);padding:6px 12px;border-radius:20px;border:1px solid rgba(242,169,59,0.3);margin-bottom:22px;}
@@ -133,6 +147,13 @@
   .add-btn.combo{background:var(--teal);}
   .add-btn.combo:hover{background:var(--red);}
   .empty-note{font-size:14px;opacity:0.6;font-family:'Space Mono',monospace;}
+
+  .restaurant-card{background:#fff;border-radius:14px;border:1px solid var(--line-dark);padding:20px;display:flex;flex-direction:column;gap:10px;}
+  .restaurant-card .r-name{font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:var(--ink);}
+  .restaurant-card .r-addr{font-size:13.5px;color:var(--brown);opacity:0.75;flex:1;min-height:38px;}
+  .restaurant-card .r-link{align-self:flex-start;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--red);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;}
+  .restaurant-card .r-link:hover{color:var(--red-dark);}
+  .offer-save{background:#FBEAD2;color:#8A5A0E;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;padding:3px 9px;border-radius:10px;display:inline-block;margin-top:2px;}
 
   .ticket-rail{background:var(--ink);}
   .ticket-rail .section-head h2, .ticket-rail .section-sub{color:var(--cream);}
@@ -263,12 +284,12 @@
   <header>
     <div class="header-inner">
       <div class="nav-left">
-        <button class="hamburger" aria-label="Open menu" onclick="showToast('Full site nav isn\'t part of this demo')">☰</button>
+        <button class="hamburger" aria-label="Open menu" onclick="openMobileNav()">☰</button>
         <nav>
           <a href="#menu">Menu</a>
-          <a href="#" onclick="showToast('Restaurant locator isn\'t part of this demo'); return false;">Restaurants</a>
-          <a href="#" onclick="showToast('Offers page isn\'t part of this demo'); return false;">Offers</a>
-          <a href="#" onclick="showToast('Catering page isn\'t part of this demo'); return false;">Catering</a>
+          <a href="#restaurants">Restaurants</a>
+          <a href="#offers">Offers</a>
+          <a href="#catering">Catering</a>
         </nav>
       </div>
       <div class="logo">
@@ -320,6 +341,60 @@
     <div class="rail" id="postsRail"></div>
   </section>
 
+  <section class="section" id="offers">
+    <div class="section-head">
+      <div>
+        <h2>Offers</h2>
+        <div class="section-sub">Combo deals live on the menu — here's every one that's currently saving you money.</div>
+      </div>
+    </div>
+    <div class="menu-grid" id="offersGrid"></div>
+  </section>
+
+  <section class="section" id="restaurants" style="background:var(--cream-2);border-radius:20px;">
+    <div class="section-head">
+      <div>
+        <h2>Restaurants</h2>
+        <div class="section-sub">Dine in, takeaway, or drive-thru at any of these branches.</div>
+      </div>
+    </div>
+    <div class="menu-grid" id="restaurantsGrid"></div>
+    <div style="margin-top:28px;text-align:center;">
+      <div class="mono" style="font-size:12px;opacity:0.6;margin-bottom:4px;">DIAL THE HUNGRY LINE</div>
+      <a href="tel:0112123123" style="font-family:'Fraunces',serif;font-weight:800;font-size:26px;color:var(--red);text-decoration:none;">011 212 3123</a>
+    </div>
+  </section>
+
+  <section class="section" id="catering">
+    <div class="section-head">
+      <div>
+        <h2>Catering</h2>
+        <div class="section-sub">Feeding a crowd? Party trays and group boxes, ready for pickup or delivery.</div>
+      </div>
+    </div>
+    <div class="menu-grid">
+      <div class="item-card">
+        <div class="item-emoji">🍗</div>
+        <div class="item-name">Party buckets</div>
+        <div class="item-desc">Bulk bone-in chicken and tenders, portioned for groups — ask your branch for current bucket sizes and pricing.</div>
+      </div>
+      <div class="item-card">
+        <div class="item-emoji">🥪</div>
+        <div class="item-name">Sandwich boxes</div>
+        <div class="item-desc">Individually boxed sandwiches with a side, good for office lunches and corporate orders.</div>
+      </div>
+      <div class="item-card">
+        <div class="item-emoji">🍚</div>
+        <div class="item-name">Sides &amp; biscuits, by the tray</div>
+        <div class="item-desc">Red beans and rice, Cajun fries, and fresh-baked biscuits, ordered in bulk to round out any spread.</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;text-align:center;">
+      <div class="section-sub" style="max-width:520px;margin:0 auto 14px;">Catering availability and minimum order sizes vary by branch — call ahead to confirm and place large orders a day or two before your event.</div>
+      <a href="tel:0112123123" class="btn btn-primary" style="display:inline-flex;background:var(--red);color:#fff;">Call to arrange catering</a>
+    </div>
+  </section>
+
   <footer>
     Popeyes Sri Lanka — demo site. Not affiliated with Popeyes Louisiana Kitchen, Inc.
     <br><br><a href="#admin">Staff login</a>
@@ -339,6 +414,12 @@
   <div class="drawer" id="acctDrawer">
     <div class="drawer-head"><h3 id="acctTitle">Sign in</h3><button onclick="closeAccount()">✕</button></div>
     <div class="drawer-body" id="acctBody"></div>
+  </div>
+
+  <div class="overlay" id="mnavOverlay" onclick="closeMobileNav()"></div>
+  <div class="drawer" id="mnavDrawer">
+    <div class="drawer-head"><h3>Menu</h3><button onclick="closeMobileNav()">✕</button></div>
+    <div class="drawer-body" id="mnavBody"></div>
   </div>
 </div>
 
@@ -633,6 +714,32 @@ function reorder(orderId){
   showToast("Added past order to your bag");
 }
 
+/* ============ MOBILE NAV DRAWER ============ */
+function openMobileNav(){ renderMobileNav(); document.getElementById('mnavOverlay').classList.add('open'); document.getElementById('mnavDrawer').classList.add('open'); }
+function closeMobileNav(){ document.getElementById('mnavOverlay').classList.remove('open'); document.getElementById('mnavDrawer').classList.remove('open'); }
+function renderMobileNav(){
+  const body = document.getElementById('mnavBody');
+  body.innerHTML = `
+    <a href="#menu" class="mnav-link" onclick="closeMobileNav()">Menu <span class="arrow">›</span></a>
+    <a href="#restaurants" class="mnav-link" onclick="closeMobileNav()">Restaurants <span class="arrow">›</span></a>
+    <a href="#offers" class="mnav-link" onclick="closeMobileNav()">Offers <span class="arrow">›</span></a>
+    <a href="#catering" class="mnav-link" onclick="closeMobileNav()">Catering <span class="arrow">›</span></a>
+    <a href="#kitchen" class="mnav-link rewards" onclick="closeMobileNav()">Rewards <span class="arrow">›</span></a>
+    <div class="mnav-section">Account</div>
+    ${currentCustomer ? `
+      <div class="mnav-acct">
+        <div><b>${currentCustomer.name.split(' ')[0]}</b><br><span style="font-size:11.5px;opacity:0.6;">${currentCustomer.email}</span></div>
+        <button onclick="closeMobileNav();openAccount();">My orders</button>
+      </div>
+    ` : `
+      <div class="mnav-acct">
+        <div style="font-size:13px;opacity:0.7;">Not signed in</div>
+        <button onclick="closeMobileNav();openAccount();">Sign in</button>
+      </div>
+    `}
+  `;
+}
+
 /* ============ ROUTER ============ */
 function route(){
   const isAdmin = location.hash.startsWith('#admin');
@@ -649,11 +756,11 @@ async function initCustomer(){
   await Promise.all([loadMenu(), loadPosts(), loadComments(), loadCustomers()]);
   if(!currentCustomer) await loadSession();
   updateAcctButton();
-  renderTabs(); renderMenu(); renderPosts(); updateCartUI();
+  renderTabs(); renderMenu(); renderPosts(); updateCartUI(); renderOffers(); renderRestaurants();
   if(!customerBooted){
     customerBooted = true;
     renderCarousel(); renderCatTiles();
-    setInterval(async ()=>{ if(!location.hash.startsWith('#admin')){ await loadMenu(); await loadPosts(); await loadComments(); renderTabs(); renderMenu(); renderPosts(); } }, 15000);
+    setInterval(async ()=>{ if(!location.hash.startsWith('#admin')){ await loadMenu(); await loadPosts(); await loadComments(); renderTabs(); renderMenu(); renderPosts(); renderOffers(); } }, 15000);
   }
 }
 
@@ -767,6 +874,50 @@ function renderMenu(){
         <button class="add-btn" onclick="addToCart('${item.id}',false)">Add ${item.label||'item'}</button>
         ${item.comboPrice ? `<button class="add-btn combo" onclick="addToCart('${item.id}',true)">Add combo</button>` : ''}
       </div>
+    </div>
+  `).join('');
+}
+
+/* ============ OFFERS (derived from combo pricing on the live menu) ============ */
+function renderOffers(){
+  const grid = document.getElementById('offersGrid');
+  if(!grid) return;
+  const deals = menu.filter(m=>m.comboPrice);
+  if(!deals.length){ grid.innerHTML = '<div class="empty-note">No combo deals live right now — check back soon.</div>'; return; }
+  grid.innerHTML = deals.map(item => {
+    return `
+    <div class="item-card">
+      <div class="badges">
+        ${item.spicy?'<span class="badge badge-spicy">Spicy</span>':''}
+      </div>
+      <div class="item-emoji">${item.emoji||'🍗'}</div>
+      <div class="item-name">${item.name} Combo</div>
+      <div class="item-desc">${item.desc||''} Comes with a side and a drink.</div>
+      <div class="offer-save">Combo from ${money(item.comboPrice)}</div>
+      <div class="add-row">
+        <button class="add-btn combo" onclick="addToCart('${item.id}',true)">Add combo</button>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+/* ============ RESTAURANTS (real branch list) ============ */
+const RESTAURANT_LOCATIONS = [
+  { name:"Mount Lavinia", addr:"Softlogic GLOMARK, No.282, Galle Rd, Mount Lavinia", map:"https://goo.gl/maps/qLkefMocCnyaU2qK7" },
+  { name:"Bambalapitiya", addr:"No.1, Laurie's Place, R. A. De Mel Mawatha, Colombo 4", map:"https://www.google.com/maps/place/Popeyes+Louisiana+Kitchen+-+Bambalapitiya/@6.8958193,79.8547004,17z" },
+  { name:"Negombo", addr:"No.213/A, Colombo Road, Negombo", map:"https://www.google.com/maps/place/Popeyes+Louisiana+Kitchen+-+Negombo/@7.2070869,79.8506487,15z" },
+  { name:"Kandy", addr:"ODEL MALL KANDY, No.377, Srimavo Bandaranaike Mw, Peradeniya Rd", map:"https://www.google.com/maps/place/Popeyes+Louisiana+Kitchen+-+Kandy/@7.2858931,80.6263323,15z" },
+  { name:"Havelock City Mall", addr:"Level 4, Havelock City Mall, Colombo 05", map:"https://maps.app.goo.gl/kBPJQXvNGRu9WoQD9" }
+];
+function renderRestaurants(){
+  const grid = document.getElementById('restaurantsGrid');
+  if(!grid) return;
+  grid.innerHTML = RESTAURANT_LOCATIONS.map(loc => `
+    <div class="restaurant-card">
+      <div class="r-name">${loc.name}</div>
+      <div class="r-addr">${loc.addr}</div>
+      <a class="r-link" href="${loc.map}" target="_blank" rel="noopener">Get directions →</a>
     </div>
   `).join('');
 }
