@@ -96,6 +96,7 @@
     <button class="nav-item active" data-panel="menuPanel" onclick="switchPanel('menuPanel',this)">Menu items</button>
     <button class="nav-item" data-panel="postsPanel" onclick="switchPanel('postsPanel',this)">Posts</button>
     <button class="nav-item" data-panel="commentsPanel" onclick="switchPanel('commentsPanel',this)">Comments</button>
+    <button class="nav-item" data-panel="restaurantsPanel" onclick="switchPanel('restaurantsPanel',this)">Restaurants</button>
     <button class="nav-item" data-panel="settingsPanel" onclick="switchPanel('settingsPanel',this)">Settings</button>
   </div>
 
@@ -152,6 +153,25 @@
     <div class="panel" id="commentsPanel">
       <div class="main-head"><div><h2>Comments</h2><p>Moderate what customers leave on your posts.</p></div></div>
       <div class="card" id="commentsCard"></div>
+    </div>
+
+    <div class="panel" id="restaurantsPanel">
+      <div class="main-head"><div><h2>Restaurants</h2><p>Branches shown on the customer site's Restaurants section.</p></div></div>
+      <div class="card">
+        <h3 style="font-size:15px;margin-bottom:14px;">Add branch</h3>
+        <div class="form-grid">
+          <div class="field"><label>Branch name</label><input id="rName" placeholder="Mount Lavinia"></div>
+          <div class="field"><label>Google Maps link</label><input id="rMap" placeholder="https://goo.gl/maps/..."></div>
+          <div class="field full"><label>Address</label><input id="rAddr" placeholder="No.282, Galle Rd, Mount Lavinia"></div>
+        </div>
+        <button class="save-btn" onclick="addRestaurant()">Add branch</button>
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Branch</th><th>Address</th><th>Map link</th><th></th></tr></thead>
+          <tbody id="restaurantsTable"></tbody>
+        </table>
+      </div>
     </div>
 
     <div class="panel" id="settingsPanel">
@@ -216,8 +236,15 @@ const DEFAULT_POSTS = [
   {id:"p3",title:"Now open till 11 PM",date:"Jul 10, 2026",body:"Colombo branch extended hours for the weekend crowd. Come hungry, stay late.",tag:"Announcement",image:""}
 ];
 const DEFAULT_SETTINGS = { adminPassword: "popeyes123" };
+const DEFAULT_RESTAURANTS = [
+  { id:"r1", name:"Mount Lavinia", addr:"Softlogic GLOMARK, No.282, Galle Rd, Mount Lavinia", map:"https://goo.gl/maps/qLkefMocCnyaU2qK7" },
+  { id:"r2", name:"Bambalapitiya", addr:"No.1, Laurie's Place, R. A. De Mel Mawatha, Colombo 4", map:"https://www.google.com/maps/place/Popeyes+Louisiana+Kitchen+-+Bambalapitiya/@6.8958193,79.8547004,17z" },
+  { id:"r3", name:"Negombo", addr:"No.213/A, Colombo Road, Negombo", map:"https://www.google.com/maps/place/Popeyes+Louisiana+Kitchen+-+Negombo/@7.2070869,79.8506487,15z" },
+  { id:"r4", name:"Kandy", addr:"ODEL MALL KANDY, No.377, Srimavo Bandaranaike Mw, Peradeniya Rd", map:"https://www.google.com/maps/place/Popeyes+Louisiana+Kitchen+-+Kandy/@7.2858931,80.6263323,15z" },
+  { id:"r5", name:"Havelock City Mall", addr:"Level 4, Havelock City Mall, Colombo 05", map:"https://maps.app.goo.gl/kBPJQXvNGRu9WoQD9" }
+];
 
-let menu = [], posts = [], comments = {}, settings = DEFAULT_SETTINGS;
+let menu = [], posts = [], comments = {}, restaurants = [], settings = DEFAULT_SETTINGS;
 
 function showToast(msg){
   const t = document.getElementById('toast');
@@ -258,14 +285,20 @@ async function loadAll(){
     let r = await window.storage.get('comments', true);
     comments = r ? JSON.parse(r.value) : {};
   }catch(e){ comments = {}; }
+  try{
+    let r = await window.storage.get('restaurants', true);
+    restaurants = r ? JSON.parse(r.value) : DEFAULT_RESTAURANTS;
+  }catch(e){ restaurants = DEFAULT_RESTAURANTS; }
   renderMenuTable();
   renderPostsTable();
   renderComments();
+  renderRestaurantsTable();
 }
 
 async function saveMenu(){ try{ await window.storage.set('menu-items', JSON.stringify(menu), true); }catch(e){ showToast("Couldn't save — try again"); } }
 async function savePosts(){ try{ await window.storage.set('posts', JSON.stringify(posts), true); }catch(e){ showToast("Couldn't save — try again"); } }
 async function saveComments(){ try{ await window.storage.set('comments', JSON.stringify(comments), true); }catch(e){ showToast("Couldn't save — try again"); } }
+async function saveRestaurants(){ try{ await window.storage.set('restaurants', JSON.stringify(restaurants), true); }catch(e){ showToast("Couldn't save — try again"); } }
 
 function switchPanel(id, btn){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
@@ -381,6 +414,36 @@ async function deleteComment(pid, idx){
   await saveComments();
   renderComments();
   showToast("Comment removed");
+}
+
+function renderRestaurantsTable(){
+  const tbody = document.getElementById('restaurantsTable');
+  if(!restaurants.length){ tbody.innerHTML = '<tr><td colspan="4" class="empty">No branches yet. Add one above.</td></tr>'; return; }
+  tbody.innerHTML = restaurants.map(loc => `
+    <tr>
+      <td><b>${loc.name}</b></td>
+      <td style="font-size:12.5px;opacity:0.75;">${loc.addr}</td>
+      <td><a href="${loc.map}" target="_blank" rel="noopener" style="font-size:12.5px;">${loc.map}</a></td>
+      <td class="row-actions"><button class="icon-btn danger" onclick="deleteRestaurant('${loc.id}')">Delete</button></td>
+    </tr>
+  `).join('');
+}
+async function addRestaurant(){
+  const name = document.getElementById('rName').value.trim();
+  const addr = document.getElementById('rAddr').value.trim();
+  const map = document.getElementById('rMap').value.trim();
+  if(!name || !addr){ showToast("Branch name and address are required"); return; }
+  restaurants.push({id:uid('r'), name, addr, map: map || '#'});
+  await saveRestaurants();
+  renderRestaurantsTable();
+  ['rName','rAddr','rMap'].forEach(id=>document.getElementById(id).value='');
+  showToast("Branch added");
+}
+async function deleteRestaurant(id){
+  restaurants = restaurants.filter(r=>r.id!==id);
+  await saveRestaurants();
+  renderRestaurantsTable();
+  showToast("Branch removed");
 }
 
 async function changePassword(){
