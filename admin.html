@@ -84,6 +84,65 @@
   .status-select{font-family:'Space Mono',monospace;font-size:11px;padding:4px 6px;border-radius:6px;border:1px solid var(--line);background:var(--cream);}
   .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--cream);padding:12px 22px;border-radius:8px;font-size:13.5px;font-weight:600;z-index:200;opacity:0;transition:all .25s;border-left:4px solid var(--marigold);}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ============ ORDERS — STATS STRIP ============ */
+  .stats-strip{display:flex;gap:14px;margin-bottom:20px;flex-wrap:wrap;}
+  .stat-box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;flex:1;min-width:150px;}
+  .stat-box .num{font-family:'Fraunces',serif;font-weight:800;font-size:26px;color:var(--ink);}
+  .stat-box .lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:0.04em;opacity:0.55;font-weight:600;margin-top:2px;}
+  .stat-box.best .num{font-size:16px;font-family:'Work Sans',sans-serif;font-weight:700;}
+
+  /* ============ ORDERS — FILTER BAR ============ */
+  .order-filters{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;align-items:center;}
+  .order-filters input, .order-filters select{padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff;}
+  .order-filters input[type="text"]{flex:1;min-width:180px;}
+
+  /* ============ KANBAN BOARD ============ */
+  .kanban-board{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;align-items:start;overflow-x:auto;padding-bottom:8px;}
+  .kanban-col{background:var(--cream-2);border-radius:12px;padding:12px 10px;min-height:120px;min-width:170px;}
+  .kanban-col.dragover{background:rgba(214,48,28,0.12);outline:2px dashed var(--red);}
+  .kanban-col-head{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;opacity:0.7;margin-bottom:10px;padding:0 2px;}
+  .kanban-col-head .count{background:rgba(74,42,27,0.12);border-radius:10px;padding:1px 7px;font-family:'Space Mono',monospace;font-weight:700;}
+  .kanban-col[data-status="Cancelled"] .kanban-col-head{color:var(--red-dark);}
+  .order-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 11px;margin-bottom:9px;cursor:grab;box-shadow:0 1px 2px rgba(0,0,0,0.04);}
+  .order-card:hover{border-color:var(--red);}
+  .order-card.dragging{opacity:0.4;}
+  .order-card.new-flash{animation:flashNew 1.6s ease 2;}
+  @keyframes flashNew{0%,100%{box-shadow:0 1px 2px rgba(0,0,0,0.04);}50%{box-shadow:0 0 0 3px rgba(214,48,28,0.45);}}
+  .order-card .oc-id{font-family:'Space Mono',monospace;font-weight:700;font-size:12px;}
+  .order-card .oc-cust{font-size:12px;font-weight:600;margin-top:3px;color:var(--ink);}
+  .order-card .oc-items{font-size:11px;opacity:0.6;margin-top:3px;line-height:1.4;}
+  .order-card .oc-foot{display:flex;justify-content:space-between;align-items:center;margin-top:7px;}
+  .order-card .oc-total{font-family:'Space Mono',monospace;font-weight:700;font-size:11.5px;color:var(--red);}
+  .order-card .oc-eta{font-size:10px;font-family:'Space Mono',monospace;background:var(--cream-2);padding:1px 6px;border-radius:8px;opacity:0.75;}
+  .kanban-empty{font-size:11.5px;opacity:0.4;padding:8px 4px;}
+
+  /* ============ NAV BADGE ============ */
+  .nav-item{position:relative;}
+  .nav-badge{position:absolute;right:10px;top:9px;background:var(--marigold);color:var(--ink);font-size:10px;font-weight:800;border-radius:10px;padding:1px 7px;font-family:'Space Mono',monospace;}
+
+  /* ============ ORDER DETAIL MODAL ============ */
+  .modal-overlay{position:fixed;inset:0;background:rgba(27,19,16,0.55);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;}
+  .modal-overlay.open{display:flex;}
+  .modal-box{background:var(--cream);border-radius:14px;max-width:520px;width:100%;max-height:88vh;overflow-y:auto;padding:26px 28px;border-top:5px solid var(--marigold);}
+  .modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+  .modal-head h3{font-size:20px;}
+  .modal-close{background:none;border:none;font-size:20px;opacity:0.5;line-height:1;padding:2px;}
+  .modal-close:hover{opacity:1;color:var(--red);}
+  .modal-sub{font-size:12px;opacity:0.6;margin-bottom:18px;}
+  .modal-section{margin-bottom:16px;}
+  .modal-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;opacity:0.55;margin-bottom:6px;}
+  .modal-items{font-size:13px;line-height:1.7;}
+  .modal-history{display:flex;flex-direction:column;gap:5px;}
+  .modal-history-row{font-size:11.5px;font-family:'Space Mono',monospace;opacity:0.7;display:flex;justify-content:space-between;}
+  .status-btn-row{display:flex;gap:6px;flex-wrap:wrap;}
+  .status-btn{border:1px solid var(--line);background:#fff;padding:7px 12px;border-radius:20px;font-size:12px;font-weight:600;}
+  .status-btn.active{background:var(--red);color:#fff;border-color:var(--red);}
+  .status-btn:hover{border-color:var(--red);}
+  .modal-field-row{display:flex;gap:10px;}
+  .modal-field-row .field{flex:1;}
+  .cancel-box{background:rgba(214,48,28,0.06);border:1px solid rgba(214,48,28,0.25);border-radius:10px;padding:12px 14px;margin-top:6px;}
+  @media (max-width:900px){ .kanban-board{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -95,6 +154,7 @@
     <div class="gate-error" id="gateError"></div>
     <input type="password" id="pwInput" placeholder="Admin password">
     <button onclick="tryLogin()">Sign in</button>
+    <a href="index.html" style="display:block;text-align:center;margin-top:14px;font-size:12.5px;color:var(--brown);opacity:0.6;text-decoration:none;">← Back to customer site</a>
   </div>
 </div>
 
@@ -108,6 +168,8 @@
     <button class="nav-item" data-panel="restaurantsPanel" onclick="switchPanel('restaurantsPanel',this)">Restaurants</button>
     <button class="nav-item" data-panel="offersPanel" onclick="switchPanel('offersPanel',this)">Offers</button>
     <button class="nav-item" data-panel="galleryPanel" onclick="switchPanel('galleryPanel',this)">Gallery</button>
+    <button class="nav-item" data-panel="contentPanel" onclick="switchPanel('contentPanel',this)">Content</button>
+    <button class="nav-item" data-panel="ordersPanel" onclick="switchPanel('ordersPanel',this)">Orders<span class="nav-badge" id="ordersBadge" style="display:none;"></span></button>
     <button class="nav-item" data-panel="customersPanel" onclick="switchPanel('customersPanel',this)">Customers</button>
     <button class="nav-item" data-panel="settingsPanel" onclick="switchPanel('settingsPanel',this)">Settings</button>
   </div>
@@ -216,9 +278,73 @@
       </div>
     </div>
 
+    <div class="panel" id="ordersPanel">
+      <div class="main-head"><div><h2>Orders</h2><p>Live order queue — drag cards between columns, or click one for full detail.</p></div></div>
+      <div class="stats-strip" id="statsStrip"></div>
+      <div class="order-filters">
+        <input type="text" id="orderSearch" placeholder="Search by order ID or customer..." oninput="renderKanban()">
+        <select id="orderStatusFilter" onchange="renderKanban()">
+          <option value="">All statuses</option>
+        </select>
+        <select id="orderDateFilter" onchange="renderKanban()">
+          <option value="">All dates</option>
+          <option value="today">Today</option>
+          <option value="7d">Last 7 days</option>
+        </select>
+      </div>
+      <div class="kanban-board" id="kanbanBoard"></div>
+    </div>
+
     <div class="panel" id="customersPanel">
-      <div class="main-head"><div><h2>Customers</h2><p>Registered accounts and their order history. Update order status as it moves through the kitchen.</p></div></div>
+      <div class="main-head"><div><h2>Customers</h2><p>Registered accounts and lifetime order history (read-only — manage live status from the Orders tab).</p></div></div>
       <div class="card" id="customersCard"></div>
+    </div>
+
+    <div class="panel" id="contentPanel">
+      <div class="main-head"><div><h2>Content</h2><p>Edit the "Our Story" section and customer testimonials shown on the homepage.</p></div></div>
+      <div class="card">
+        <h3 style="font-size:15px;margin-bottom:14px;">Our Story section</h3>
+        <div class="form-grid">
+          <div class="field"><label>Eyebrow label</label><input id="stEyebrow" placeholder="Our story"></div>
+          <div class="field"><label>Badge number</label><input id="stBadgeNum" placeholder="1972"></div>
+          <div class="field full"><label>Badge sub-label</label><input id="stBadgeLabel" placeholder="New Orleans, LA"></div>
+          <div class="field full"><label>Headline (HTML allowed, e.g. use &lt;em&gt; to highlight a word)</label><input id="stHeading" placeholder="Louisiana heat, &lt;em&gt;Sri Lankan&lt;/em&gt; soul."></div>
+          <div class="field full"><label>Paragraph 1</label><textarea id="stPara1" rows="3"></textarea></div>
+          <div class="field full"><label>Paragraph 2</label><textarea id="stPara2" rows="3"></textarea></div>
+          <div class="field"><label>Stat 1 value</label><input id="stStat1Val" placeholder="50+"></div>
+          <div class="field"><label>Stat 1 label</label><input id="stStat1Lbl" placeholder="Years of recipe"></div>
+          <div class="field"><label>Stat 2 value</label><input id="stStat2Val" placeholder="10+"></div>
+          <div class="field"><label>Stat 2 label</label><input id="stStat2Lbl" placeholder="Branches islandwide"></div>
+          <div class="field"><label>Stat 3 value</label><input id="stStat3Val" placeholder="100%"></div>
+          <div class="field"><label>Stat 3 label</label><input id="stStat3Lbl" placeholder="Cooked to order"></div>
+        </div>
+        <button class="save-btn" onclick="saveStorySection()">Save story section</button>
+      </div>
+
+      <div class="card">
+        <h3 style="font-size:15px;margin-bottom:14px;">Add testimonial</h3>
+        <div class="form-grid">
+          <div class="field"><label>Customer name</label><input id="tsName" placeholder="Nadeesha K."></div>
+          <div class="field"><label>Location</label><input id="tsLoc" placeholder="Colombo 07"></div>
+          <div class="field"><label>Rating</label>
+            <select id="tsRating">
+              <option value="5" selected>★★★★★ (5)</option>
+              <option value="4">★★★★☆ (4)</option>
+              <option value="3">★★★☆☆ (3)</option>
+              <option value="2">★★☆☆☆ (2)</option>
+              <option value="1">★☆☆☆☆ (1)</option>
+            </select>
+          </div>
+          <div class="field full"><label>Quote</label><textarea id="tsQuote" rows="2" placeholder="What the customer said"></textarea></div>
+        </div>
+        <button class="save-btn" onclick="addTestimonial()">Add testimonial</button>
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Name</th><th>Location</th><th>Rating</th><th>Quote</th><th></th></tr></thead>
+          <tbody id="testimonialsTable"></tbody>
+        </table>
+      </div>
     </div>
 
     <div class="panel" id="settingsPanel">
@@ -230,6 +356,10 @@
     </div>
 
   </div>
+</div>
+
+<div class="modal-overlay" id="orderModalOverlay" onclick="if(event.target===this) closeOrderModal()">
+  <div class="modal-box" id="orderModalBox"></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -282,7 +412,25 @@ const DEFAULT_POSTS = [
   {id:"p2",title:"Biscuit Fridays",date:"Jul 18, 2026",body:"Every Friday, biscuits are half price with any combo. Dine-in and takeaway.",tag:"Promo",image:""},
   {id:"p3",title:"Now open till 11 PM",date:"Jul 10, 2026",body:"Colombo branch extended hours for the weekend crowd. Come hungry, stay late.",tag:"Announcement",image:""}
 ];
-const DEFAULT_SETTINGS = { adminPassword: "popeyes123" };
+const DEFAULT_SETTINGS = {
+  adminPassword: "popeyes123",
+  story: {
+    eyebrow: "Our story",
+    badgeNum: "1972",
+    badgeLabel: "New Orleans, LA",
+    heading: 'Louisiana heat, <em style="color:var(--red);">Sri Lankan</em> soul.',
+    para1: "It started with a simple idea: fried chicken worth queuing for. Bold Cajun spice, a hand-battered crunch, and biscuits baked fresh through the day — the same recipe that built a following in New Orleans, now cooked fresh in every branch across the island.",
+    para2: "Every order is made after you order it, not before. That's the whole philosophy — no shortcuts, no heat lamps, just hot food out of the fryer and into your hands.",
+    stat1Val: "50+", stat1Lbl: "Years of recipe",
+    stat2Val: "10+", stat2Lbl: "Branches islandwide",
+    stat3Val: "100%", stat3Lbl: "Cooked to order"
+  }
+};
+const DEFAULT_TESTIMONIALS = [
+  { id:"t1", name:"Nadeesha K.", loc:"Colombo 07", rating:5, quote:"The spicy tenders are ridiculous — proper crunch, actual heat, and it comes out fast even during the dinner rush." },
+  { id:"t2", name:"Ruwan D.", loc:"Rajagiriya", rating:5, quote:"Ordered a party bucket for an office lunch with barely a day's notice and they sorted it without any fuss." },
+  { id:"t3", name:"Shalini F.", loc:"Nugegoda", rating:4, quote:"Biscuits are the real MVP here — soft, buttery, and still warm by the time delivery reaches my door." }
+];
 const DEFAULT_RESTAURANTS = [
   { id:"r1", name:"Mount Lavinia", addr:"Softlogic GLOMARK, No.282, Galle Rd, Mount Lavinia", map:"https://goo.gl/maps/qLkefMocCnyaU2qK7" },
   { id:"r2", name:"Bambalapitiya", addr:"No.1, Laurie's Place, R. A. De Mel Mawatha, Colombo 4", map:"https://www.google.com/maps/place/Popeyes+Louisiana+Kitchen+-+Bambalapitiya/@6.8958193,79.8547004,17z" },
@@ -291,9 +439,13 @@ const DEFAULT_RESTAURANTS = [
   { id:"r5", name:"Havelock City Mall", addr:"Level 4, Havelock City Mall, Colombo 05", map:"https://maps.app.goo.gl/kBPJQXvNGRu9WoQD9" }
 ];
 
-const ORDER_STATUSES = ["Placed","Preparing","Out for delivery","Delivered","Cancelled"];
+const ORDER_STATUSES = ["Placed","Preparing","Ready","Out for delivery","Delivered","Cancelled"];
+const KANBAN_COLUMNS = ["Placed","Preparing","Ready","Out for delivery","Delivered","Cancelled"];
 
-let menu = [], posts = [], comments = {}, restaurants = [], customers = {}, gallery = [], settings = DEFAULT_SETTINGS;
+let menu = [], posts = [], comments = {}, restaurants = [], customers = {}, gallery = [], settings = DEFAULT_SETTINGS, testimonials = [];
+let knownOrderIds = null; // Set of order ids seen since this admin session opened
+let ordersPollTimer = null;
+let activeModalOrder = null; // {email, id}
 
 function showToast(msg){
   const t = document.getElementById('toast');
@@ -311,6 +463,7 @@ async function tryLogin(){
     s = r ? JSON.parse(r.value) : null;
   }catch(e){ s = null; }
   if(!s){ s = DEFAULT_SETTINGS; try{ await window.storage.set('settings', JSON.stringify(s), true); }catch(e){} }
+  if(!s.story){ s.story = DEFAULT_SETTINGS.story; try{ await window.storage.set('settings', JSON.stringify(s), true); }catch(e){} }
   settings = s;
   if(pw === settings.adminPassword){
     document.getElementById('gate').style.display = 'none';
@@ -346,6 +499,11 @@ async function loadAll(){
     let r = await window.storage.get('gallery', true);
     gallery = r ? JSON.parse(r.value) : [];
   }catch(e){ gallery = []; }
+  try{
+    let r = await window.storage.get('testimonials', true);
+    testimonials = r ? JSON.parse(r.value) : null;
+  }catch(e){ testimonials = null; }
+  if(!testimonials){ testimonials = DEFAULT_TESTIMONIALS; try{ await window.storage.set('testimonials', JSON.stringify(testimonials), true); }catch(e){} }
   renderMenuTable();
   renderPostsTable();
   renderComments();
@@ -353,6 +511,38 @@ async function loadAll(){
   renderCustomersPanel();
   renderOffersAdminPanel();
   renderGalleryTable();
+  renderContentPanel();
+  populateStatusFilter();
+  renderOrdersPanel();
+  if(knownOrderIds === null){
+    // first load — seed known IDs silently, no alert for pre-existing orders
+    knownOrderIds = new Set(getAllOrders().map(o=>o.id));
+  }
+  if(!ordersPollTimer){ ordersPollTimer = setInterval(pollForNewOrders, 8000); }
+}
+
+/* ============ ORDERS — DATA HELPERS ============ */
+function getAllOrders(){
+  const out = [];
+  Object.keys(customers).forEach(email=>{
+    const cust = customers[email];
+    (cust.orders||[]).forEach(o=>{
+      out.push({ ...o, email, custName: cust.name });
+    });
+  });
+  out.sort((a,b)=> (b.placedAt||0) - (a.placedAt||0));
+  return out;
+}
+function findOrder(email, id){
+  const cust = customers[email];
+  if(!cust) return null;
+  return (cust.orders||[]).find(o=>o.id===id) || null;
+}
+function populateStatusFilter(){
+  const sel = document.getElementById('orderStatusFilter');
+  if(!sel || sel.dataset.filled) return;
+  sel.insertAdjacentHTML('beforeend', ORDER_STATUSES.map(s=>`<option value="${s}">${s}</option>`).join(''));
+  sel.dataset.filled = '1';
 }
 
 async function saveMenu(){ try{ await window.storage.set('menu-items', JSON.stringify(menu), true); }catch(e){ showToast("Couldn't save — try again"); } }
@@ -361,6 +551,8 @@ async function saveComments(){ try{ await window.storage.set('comments', JSON.st
 async function saveRestaurants(){ try{ await window.storage.set('restaurants', JSON.stringify(restaurants), true); }catch(e){ showToast("Couldn't save — try again"); } }
 async function saveCustomersDB(){ try{ await window.storage.set('customers', JSON.stringify(customers), true); }catch(e){ showToast("Couldn't save — try again"); } }
 async function saveGallery(){ try{ await window.storage.set('gallery', JSON.stringify(gallery), true); }catch(e){ showToast("Couldn't save — try again"); } }
+async function saveTestimonials(){ try{ await window.storage.set('testimonials', JSON.stringify(testimonials), true); }catch(e){ showToast("Couldn't save — try again"); } }
+async function saveSettings(){ try{ await window.storage.set('settings', JSON.stringify(settings), true); }catch(e){ showToast("Couldn't save — try again"); } }
 
 function switchPanel(id, btn){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
@@ -536,9 +728,7 @@ function renderCustomersPanel(){
             </div>
             <div style="text-align:right;flex-shrink:0;">
               <div class="price-tag" style="margin-bottom:6px;">${money(o.total)}</div>
-              <select class="status-select" onchange="updateOrderStatus('${email}','${o.id}',this.value)">
-                ${ORDER_STATUSES.map(s=>`<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
-              </select>
+              <span class="pill">${o.status||'Placed'}</span>
             </div>
           </div>
         `).join('') : '<div class="empty" style="padding:10px 0;">No orders yet.</div>'}
@@ -546,14 +736,220 @@ function renderCustomersPanel(){
     `;
   }).join('');
 }
-async function updateOrderStatus(email, orderId, status){
+async function updateOrderStatus(email, orderId, status, opts){
+  opts = opts || {};
   const cust = customers[email];
   if(!cust) return;
   const order = (cust.orders||[]).find(o=>o.id===orderId);
   if(!order) return;
   order.status = status;
+  order.history = order.history || [];
+  order.history.push({ status, at: Date.now() });
+  if(opts.cancelReason) order.cancelReason = opts.cancelReason;
   await saveCustomersDB();
   showToast("Order #" + orderId + " marked " + status);
+  renderOrdersPanel();
+  renderCustomersPanel();
+  if(activeModalOrder && activeModalOrder.id === orderId) renderOrderModal(email, orderId);
+}
+
+/* ============ ORDERS — STATS + KANBAN ============ */
+function renderOrdersPanel(){
+  renderStatsStrip();
+  renderKanban();
+}
+function isToday(ts){
+  if(!ts) return false;
+  const d = new Date(ts), n = new Date();
+  return d.toDateString() === n.toDateString();
+}
+function renderStatsStrip(){
+  const strip = document.getElementById('statsStrip');
+  if(!strip) return;
+  const all = getAllOrders();
+  const todays = all.filter(o=>isToday(o.placedAt) && o.status!=='Cancelled');
+  const revenue = todays.reduce((s,o)=>s+(o.total||0),0);
+  const itemCount = {};
+  todays.forEach(o=>(o.items||[]).forEach(i=>{ itemCount[i.name] = (itemCount[i.name]||0) + i.qty; }));
+  let best = '—';
+  const bestEntry = Object.entries(itemCount).sort((a,b)=>b[1]-a[1])[0];
+  if(bestEntry) best = `${bestEntry[0]} (${bestEntry[1]})`;
+  strip.innerHTML = `
+    <div class="stat-box"><div class="num">${todays.length}</div><div class="lbl">Orders today</div></div>
+    <div class="stat-box"><div class="num">${money(revenue)}</div><div class="lbl">Revenue today</div></div>
+    <div class="stat-box best"><div class="num">${best}</div><div class="lbl">Best seller today</div></div>
+  `;
+}
+function renderKanban(){
+  const board = document.getElementById('kanbanBoard');
+  if(!board) return;
+  const search = (document.getElementById('orderSearch')?.value || '').trim().toLowerCase();
+  const statusFilter = document.getElementById('orderStatusFilter')?.value || '';
+  const dateFilter = document.getElementById('orderDateFilter')?.value || '';
+  let all = getAllOrders();
+  if(search){
+    all = all.filter(o => o.id.toLowerCase().includes(search) || (o.custName||'').toLowerCase().includes(search) || o.email.toLowerCase().includes(search));
+  }
+  if(statusFilter){ all = all.filter(o => (o.status||'Placed') === statusFilter); }
+  if(dateFilter === 'today'){ all = all.filter(o => isToday(o.placedAt)); }
+  if(dateFilter === '7d'){ const cutoff = Date.now() - 7*24*60*60*1000; all = all.filter(o => (o.placedAt||0) >= cutoff); }
+
+  // awaiting-action badge = orders still in "Placed"
+  const placedCount = getAllOrders().filter(o=>(o.status||'Placed')==='Placed').length;
+  const badge = document.getElementById('ordersBadge');
+  if(badge){ badge.style.display = placedCount ? 'inline-block' : 'none'; badge.textContent = placedCount; }
+
+  board.innerHTML = KANBAN_COLUMNS.map(status => {
+    const colOrders = all.filter(o => (o.status||'Placed') === status);
+    return `
+      <div class="kanban-col" data-status="${status}"
+        ondragover="event.preventDefault(); this.classList.add('dragover');"
+        ondragleave="this.classList.remove('dragover');"
+        ondrop="handleKanbanDrop(event,'${status}')">
+        <div class="kanban-col-head"><span>${status}</span><span class="count">${colOrders.length}</span></div>
+        ${colOrders.length ? colOrders.map(o => `
+          <div class="order-card ${knownOrderIds && !knownOrderIds.has(o.id) ? 'new-flash' : ''}" draggable="true"
+            ondragstart="event.dataTransfer.setData('text/plain', JSON.stringify({email:'${o.email}',id:'${o.id}'})); this.classList.add('dragging');"
+            ondragend="this.classList.remove('dragging');"
+            onclick="openOrderModal('${o.email}','${o.id}')">
+            <div class="oc-id">#${o.id}</div>
+            <div class="oc-cust">${o.custName}</div>
+            <div class="oc-items">${(o.items||[]).map(i=>`${i.qty}× ${i.name}`).join(', ')}</div>
+            <div class="oc-foot">
+              <span class="oc-total">${money(o.total)}</span>
+              ${o.etaMinutes ? `<span class="oc-eta">${o.etaMinutes} min</span>` : ''}
+            </div>
+          </div>
+        `).join('') : '<div class="kanban-empty">No orders</div>'}
+      </div>
+    `;
+  }).join('');
+}
+function handleKanbanDrop(event, newStatus){
+  event.preventDefault();
+  event.currentTarget.classList.remove('dragover');
+  let data;
+  try{ data = JSON.parse(event.dataTransfer.getData('text/plain')); }catch(e){ return; }
+  if(!data) return;
+  if(newStatus === 'Cancelled'){
+    openOrderModal(data.email, data.id, true);
+    return;
+  }
+  updateOrderStatus(data.email, data.id, newStatus);
+}
+async function pollForNewOrders(){
+  try{
+    let r = await window.storage.get('customers', true);
+    customers = r ? JSON.parse(r.value) : {};
+  }catch(e){ return; }
+  const all = getAllOrders();
+  const currentIds = new Set(all.map(o=>o.id));
+  if(knownOrderIds){
+    const fresh = all.filter(o => !knownOrderIds.has(o.id));
+    if(fresh.length){
+      playNewOrderChime();
+      showToast(fresh.length === 1 ? `New order #${fresh[0].id} from ${fresh[0].custName}` : `${fresh.length} new orders came in`);
+    }
+  }
+  knownOrderIds = currentIds;
+  renderOrdersPanel();
+  renderCustomersPanel();
+}
+function playNewOrderChime(){
+  try{
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [880, 1175].forEach((freq, i) => {
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + i*0.14 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i*0.14 + 0.32);
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + i*0.14); osc.stop(ctx.currentTime + i*0.14 + 0.34);
+    });
+  }catch(e){ /* audio not available, silently skip */ }
+}
+
+/* ============ ORDER DETAIL MODAL ============ */
+function openOrderModal(email, id, focusCancel){
+  activeModalOrder = { email, id };
+  renderOrderModal(email, id, focusCancel);
+  document.getElementById('orderModalOverlay').classList.add('open');
+}
+function closeOrderModal(){
+  activeModalOrder = null;
+  document.getElementById('orderModalOverlay').classList.remove('open');
+}
+function renderOrderModal(email, id, focusCancel){
+  const order = findOrder(email, id);
+  const box = document.getElementById('orderModalBox');
+  if(!order){ box.innerHTML = '<div class="empty">Order not found.</div>'; return; }
+  const cust = customers[email] || {};
+  const history = (order.history && order.history.length) ? order.history : [{status: order.status||'Placed', at: order.placedAt}];
+  box.innerHTML = `
+    <div class="modal-head">
+      <div><h3>Order #${order.id}</h3><div class="modal-sub">${cust.name || ''} · ${email}</div></div>
+      <button class="modal-close" onclick="closeOrderModal()">✕</button>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-label">Items</div>
+      <div class="modal-items">${(order.items||[]).map(i=>`${i.qty}× ${i.name} — ${money(i.price*i.qty)}`).join('<br>')}</div>
+      <div style="margin-top:8px;font-weight:700;">Total: <span class="price-tag">${money(order.total)}</span></div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-label">Update status</div>
+      <div class="status-btn-row">
+        ${ORDER_STATUSES.map(s=>`<button class="status-btn ${order.status===s?'active':''}" onclick="updateOrderStatus('${email}','${id}','${s}')">${s}</button>`).join('')}
+      </div>
+    </div>
+
+    <div class="modal-section modal-field-row">
+      <div class="field">
+        <label>Estimated prep time (minutes)</label>
+        <input type="number" id="modalEta" value="${order.etaMinutes||''}" placeholder="e.g. 20">
+      </div>
+      <div class="field">
+        <label>Branch</label>
+        <select id="modalBranch">
+          <option value="">Unassigned</option>
+          ${restaurants.map(r=>`<option value="${r.id}" ${order.branchId===r.id?'selected':''}>${r.name}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <button class="save-btn" onclick="saveOrderMeta('${email}','${id}')">Save ETA & branch</button>
+
+    <div class="modal-section" style="margin-top:18px;">
+      <div class="modal-section-label">Stage history</div>
+      <div class="modal-history">
+        ${history.map(h => `<div class="modal-history-row"><span>${h.status}</span><span>${h.at ? new Date(h.at).toLocaleString() : ''}</span></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="modal-section cancel-box">
+      <div class="modal-section-label">Cancel / refund</div>
+      <textarea id="modalCancelReason" rows="2" placeholder="Reason for cancellation or refund">${order.cancelReason||''}</textarea>
+      <button class="save-btn" style="background:var(--red);margin-top:8px;" onclick="cancelOrderWithReason('${email}','${id}')">Cancel this order</button>
+    </div>
+  `;
+  if(focusCancel){ setTimeout(()=>document.getElementById('modalCancelReason')?.focus(), 50); }
+}
+async function saveOrderMeta(email, id){
+  const order = findOrder(email, id);
+  if(!order) return;
+  const etaRaw = document.getElementById('modalEta').value.trim();
+  order.etaMinutes = etaRaw ? parseInt(etaRaw,10) : null;
+  order.branchId = document.getElementById('modalBranch').value || null;
+  await saveCustomersDB();
+  showToast("Order details saved");
+  renderOrdersPanel();
+}
+async function cancelOrderWithReason(email, id){
+  const reason = document.getElementById('modalCancelReason').value.trim();
+  if(!reason){ showToast("Add a reason before cancelling"); return; }
+  await updateOrderStatus(email, id, 'Cancelled', { cancelReason: reason });
+  closeOrderModal();
 }
 
 function renderOffersAdminPanel(){
@@ -627,6 +1023,72 @@ async function deleteGalleryImage(id){
   await saveGallery();
   renderGalleryTable();
   showToast("Photo removed");
+}
+
+function renderContentPanel(){
+  const s = (settings && settings.story) ? settings.story : DEFAULT_SETTINGS.story;
+  const ids = {
+    stEyebrow:'eyebrow', stBadgeNum:'badgeNum', stBadgeLabel:'badgeLabel', stHeading:'heading',
+    stPara1:'para1', stPara2:'para2', stStat1Val:'stat1Val', stStat1Lbl:'stat1Lbl',
+    stStat2Val:'stat2Val', stStat2Lbl:'stat2Lbl', stStat3Val:'stat3Val', stStat3Lbl:'stat3Lbl'
+  };
+  Object.keys(ids).forEach(elId => {
+    const el = document.getElementById(elId);
+    if(el) el.value = s[ids[elId]] || '';
+  });
+  renderTestimonialsTable();
+}
+async function saveStorySection(){
+  if(!settings) settings = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
+  settings.story = {
+    eyebrow: document.getElementById('stEyebrow').value.trim(),
+    badgeNum: document.getElementById('stBadgeNum').value.trim(),
+    badgeLabel: document.getElementById('stBadgeLabel').value.trim(),
+    heading: document.getElementById('stHeading').value.trim(),
+    para1: document.getElementById('stPara1').value.trim(),
+    para2: document.getElementById('stPara2').value.trim(),
+    stat1Val: document.getElementById('stStat1Val').value.trim(),
+    stat1Lbl: document.getElementById('stStat1Lbl').value.trim(),
+    stat2Val: document.getElementById('stStat2Val').value.trim(),
+    stat2Lbl: document.getElementById('stStat2Lbl').value.trim(),
+    stat3Val: document.getElementById('stStat3Val').value.trim(),
+    stat3Lbl: document.getElementById('stStat3Lbl').value.trim()
+  };
+  await saveSettings();
+  showToast("Story section saved");
+}
+function renderTestimonialsTable(){
+  const tbody = document.getElementById('testimonialsTable');
+  if(!tbody) return;
+  if(!testimonials.length){ tbody.innerHTML = '<tr><td colspan="5" class="empty">No testimonials yet. Add one above.</td></tr>'; return; }
+  tbody.innerHTML = testimonials.map(t => `
+    <tr>
+      <td>${t.name||''}</td>
+      <td>${t.loc||''}</td>
+      <td><span class="pill">${'★'.repeat(t.rating||5)}</span></td>
+      <td style="font-size:12.5px;opacity:0.75;max-width:280px;">${t.quote||''}</td>
+      <td class="row-actions"><button class="icon-btn danger" onclick="deleteTestimonial('${t.id}')">Delete</button></td>
+    </tr>
+  `).join('');
+}
+async function addTestimonial(){
+  const name = document.getElementById('tsName').value.trim();
+  const loc = document.getElementById('tsLoc').value.trim();
+  const rating = parseInt(document.getElementById('tsRating').value, 10);
+  const quote = document.getElementById('tsQuote').value.trim();
+  if(!name || !quote){ showToast("Name and quote are required"); return; }
+  testimonials.push({ id: uid('ts'), name, loc, rating, quote });
+  await saveTestimonials();
+  renderTestimonialsTable();
+  ['tsName','tsLoc','tsQuote'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('tsRating').value = '5';
+  showToast("Testimonial added");
+}
+async function deleteTestimonial(id){
+  testimonials = testimonials.filter(t=>t.id!==id);
+  await saveTestimonials();
+  renderTestimonialsTable();
+  showToast("Testimonial removed");
 }
 
 async function changePassword(){

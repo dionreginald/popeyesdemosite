@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Popeyes Sri Lanka — Louisiana Kitchen</title>
+<meta name="description" content="Louisiana-style fried chicken in Sri Lanka. Order online for pickup or delivery, browse the full menu, combo offers, and find your nearest Popeyes branch.">
+<meta property="og:title" content="Popeyes Sri Lanka — Louisiana Kitchen">
+<meta property="og:description" content="Louisiana-style fried chicken, biscuits, and sides. Order online, find a branch, or arrange catering.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23D6301C' stroke='%23F2A93B' stroke-width='6'/%3E%3Ctext x='50' y='68' font-size='58' font-family='Georgia,serif' font-weight='bold' text-anchor='middle' fill='%23FFF6E9'%3EP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300..900;1,300..900&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -187,6 +192,33 @@
   .comment-form button{background:var(--ink);color:var(--cream);border:none;padding:8px;border-radius:6px;font-weight:700;font-size:12px;}
   .comment-form button:hover{background:var(--red);}
 
+  /* ============ STORY SECTION ============ */
+  .story-wrap{background:var(--ink);color:var(--cream);}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  .story-art{aspect-ratio:1/1;border-radius:20px;background:radial-gradient(circle at 30% 25%, rgba(242,169,59,0.35), transparent 55%),radial-gradient(circle at 75% 75%, rgba(214,48,28,0.4), transparent 55%),var(--ink-soft);border:1px solid var(--line);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .story-art .story-mark{font-family:'Fraunces',serif;font-weight:800;font-size:120px;color:rgba(255,246,233,0.08);letter-spacing:-0.04em;}
+  .story-art .story-badge{position:absolute;bottom:24px;left:24px;background:rgba(255,246,233,0.08);border:1px solid var(--line);border-radius:14px;padding:14px 18px;backdrop-filter:blur(6px);}
+  .story-badge .num{font-family:'Fraunces',serif;font-weight:800;font-size:28px;color:var(--marigold);}
+  .story-badge .lbl{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;opacity:0.7;}
+  .story-copy .eyebrow{margin-bottom:18px;}
+  .story-copy h2{color:var(--cream);font-size:clamp(28px,4vw,38px);margin-bottom:18px;}
+  .story-copy p{font-size:15px;line-height:1.7;color:var(--cream-2);opacity:0.82;margin-bottom:14px;max-width:480px;}
+  .story-stats{display:flex;gap:32px;margin-top:28px;flex-wrap:wrap;}
+  .story-stat b{display:block;font-family:'Fraunces',serif;font-weight:800;font-size:24px;color:var(--marigold);}
+  .story-stat span{font-family:'Space Mono',monospace;font-size:11px;text-transform:uppercase;letter-spacing:0.06em;opacity:0.6;}
+  @media (max-width:820px){ .story-grid{grid-template-columns:1fr;gap:32px;} .story-art{aspect-ratio:16/10;} }
+
+  /* ============ TESTIMONIALS ============ */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .testi-card{background:#fff;border:1px solid var(--line-dark);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px;}
+  .testi-stars{color:var(--marigold);font-size:14px;letter-spacing:2px;}
+  .testi-quote{font-size:14.5px;line-height:1.65;color:var(--brown);opacity:0.85;flex:1;}
+  .testi-who{display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed var(--line-dark);}
+  .testi-avatar{width:38px;height:38px;border-radius:50%;background:var(--cream-2);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:800;color:var(--red);font-size:15px;flex-shrink:0;}
+  .testi-name{font-weight:700;font-size:13.5px;color:var(--ink);}
+  .testi-loc{font-size:11.5px;opacity:0.55;}
+  @media (max-width:820px){ .testi-grid{grid-template-columns:1fr;} }
+
   footer{background:var(--ink-soft);color:var(--cream-2);padding:40px 24px 26px;text-align:center;font-size:13px;opacity:0.7;}
   footer a{opacity:0.6;text-decoration:none;border-bottom:1px dotted var(--line);font-size:11px;}
   footer a:hover{opacity:1;color:var(--marigold);}
@@ -232,72 +264,98 @@
   .order-id{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:var(--ink);}
   .order-date{font-size:11.5px;opacity:0.55;margin-bottom:10px;}
   .order-status{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;background:#E7F3E8;color:#256B2E;padding:3px 8px;border-radius:10px;}
+  .order-status.st-cancelled{background:#FBE4E1;color:var(--red-dark);}
+  .order-status.st-active{background:#FDF1DC;color:#8A5A0E;}
+  .order-cancel-reason{font-size:11.5px;opacity:0.6;margin-top:-6px;margin-bottom:10px;font-style:italic;}
   .order-items{font-size:12.5px;opacity:0.75;margin-bottom:12px;line-height:1.7;}
   .order-foot{display:flex;justify-content:space-between;align-items:center;}
   .order-total{font-family:'Space Mono',monospace;font-weight:700;font-size:14px;color:var(--ink);}
   .reorder-btn{background:var(--ink);color:var(--cream);border:none;padding:7px 14px;border-radius:8px;font-weight:700;font-size:12px;}
   .reorder-btn:hover{background:var(--red);}
+
+  /* ============ LIVE ORDER TRACKER ============ */
+  .tracker-card{background:linear-gradient(160deg,var(--ink),#2A1D17);color:var(--cream);border-radius:14px;padding:20px 20px 18px;margin-bottom:22px;border:1px solid rgba(242,169,59,0.25);}
+  .tracker-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+  .tracker-top .t-id{font-family:'Space Mono',monospace;font-size:11.5px;opacity:0.65;}
+  .tracker-top .t-label{font-family:'Fraunces',serif;font-weight:800;font-size:16.5px;color:var(--marigold);margin-top:2px;}
+  .tracker-eta{font-family:'Space Mono',monospace;font-size:11.5px;background:rgba(242,169,59,0.14);border:1px solid rgba(242,169,59,0.3);padding:5px 10px;border-radius:20px;color:var(--marigold);white-space:nowrap;}
+
+  .stepper{display:flex;align-items:flex-start;margin:6px 0 4px;}
+  .step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;text-align:center;}
+  .step .dot{width:26px;height:26px;border-radius:50%;background:rgba(255,246,233,0.12);border:2px solid rgba(255,246,233,0.25);display:flex;align-items:center;justify-content:center;font-size:12px;z-index:2;transition:all .3s;}
+  .step .lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;opacity:0.55;margin-top:7px;max-width:70px;}
+  .step .bar{position:absolute;top:13px;left:50%;width:100%;height:2px;background:rgba(255,246,233,0.18);z-index:1;}
+  .step:last-child .bar{display:none;}
+  .step.done .dot{background:var(--marigold);border-color:var(--marigold);color:var(--ink);}
+  .step.done .lbl{opacity:0.85;}
+  .step.done .bar{background:var(--marigold);}
+  .step.current .dot{background:var(--red);border-color:var(--marigold);color:#fff;box-shadow:0 0 0 4px rgba(214,48,28,0.25);animation:pulseDot 1.6s ease-in-out infinite;}
+  .step.current .lbl{opacity:1;color:var(--cream);}
+  @keyframes pulseDot{0%,100%{box-shadow:0 0 0 4px rgba(214,48,28,0.25);}50%{box-shadow:0 0 0 8px rgba(214,48,28,0.1);}}
+
+  .progress-track{height:6px;background:rgba(255,246,233,0.12);border-radius:6px;margin:16px 0 6px;overflow:hidden;}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--marigold),var(--red));border-radius:6px;transition:width .6s ease;}
+  .tracker-note{font-size:12px;opacity:0.65;margin-top:2px;}
+
+  /* cooking animation — sizzling pan */
+  .cook-scene{display:flex;align-items:center;justify-content:center;gap:16px;margin:14px 0 4px;padding:14px 0;}
+  .cook-pan{position:relative;width:74px;height:74px;}
+  .cook-pan svg{width:100%;height:100%;}
+  .cook-pan .sizzle-dot{transform-origin:center;animation:sizzleUp 1.1s ease-in-out infinite;}
+  .cook-pan .sizzle-dot:nth-child(2){animation-delay:.15s;}
+  .cook-pan .sizzle-dot:nth-child(3){animation-delay:.3s;}
+  .cook-pan .sizzle-dot:nth-child(4){animation-delay:.45s;}
+  @keyframes sizzleUp{0%{opacity:0;transform:translateY(0) scale(0.6);}30%{opacity:1;}100%{opacity:0;transform:translateY(-16px) scale(1);}}
+  .cook-pan .pan-shake{animation:panShake 0.5s ease-in-out infinite;transform-origin:60% 90%;}
+  @keyframes panShake{0%,100%{transform:rotate(0deg);}25%{transform:rotate(-1.2deg);}75%{transform:rotate(1.2deg);}}
+  .cook-msg{font-family:'Fraunces',serif;font-style:italic;font-weight:700;font-size:14px;color:var(--marigold);}
+
+  .delivery-scene{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px 0 4px;padding:10px 0;font-size:34px;}
+  .delivery-scene .moto{animation:driveBy 2.2s ease-in-out infinite;}
+  @keyframes driveBy{0%,100%{transform:translateX(-6px);}50%{transform:translateX(6px);}}
+
+  .rating-widget{background:#fff;border:1px solid var(--line-dark);border-radius:12px;padding:16px 18px;margin-bottom:16px;}
+  .rating-widget .rw-title{font-family:'Fraunces',serif;font-weight:800;font-size:15px;margin-bottom:10px;}
+  .rw-stars{display:flex;gap:6px;margin-bottom:10px;}
+  .rw-star{font-size:24px;cursor:pointer;color:rgba(74,42,27,0.25);transition:color .12s;background:none;border:none;padding:0;}
+  .rw-star.filled{color:var(--marigold);}
+  .rating-widget textarea{width:100%;border:1px solid var(--line-dark);border-radius:8px;padding:9px 10px;font-family:inherit;font-size:13px;resize:vertical;margin-bottom:10px;box-sizing:border-box;}
+  .rw-submit{background:var(--ink);color:var(--cream);border:none;padding:9px 16px;border-radius:8px;font-weight:700;font-size:12.5px;}
+  .rw-submit:hover{background:var(--red);}
+  .rw-done{font-size:13px;opacity:0.7;}
+  .rw-done .stars-out{color:var(--marigold);letter-spacing:1px;}
   .orders-empty{opacity:0.5;font-size:13.5px;text-align:center;padding:30px 10px;}
 
-  /* ============ ADMIN VIEW ============ */
-  #adminView{display:none;}
-  .gate{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink);}
-  .gate-card{background:var(--cream);padding:40px 36px;border-radius:14px;width:340px;border-top:5px solid var(--marigold);}
-  .gate-card h1{font-size:24px;margin-bottom:6px;}
-  .gate-card p{font-size:13px;opacity:0.6;margin-bottom:22px;}
-  .gate-card input{width:100%;padding:11px 12px;border:1px solid var(--line-dark);border-radius:8px;font-size:14px;margin-bottom:12px;}
-  .gate-card button{width:100%;background:var(--red);color:#fff;border:none;padding:12px;border-radius:8px;font-weight:700;font-size:14px;}
-  .gate-card button:hover{background:var(--red-dark);}
-  .gate-error{color:var(--red-dark);font-size:12.5px;margin-bottom:10px;min-height:16px;}
-  .gate-back{display:block;text-align:center;margin-top:14px;font-size:12px;opacity:0.5;text-decoration:none;color:var(--cream);}
+  /* ============ ORDER TRACKER ============ */
+  .tracker-card{background:var(--ink);color:var(--cream);border-radius:14px;padding:20px 18px;margin-bottom:22px;position:relative;overflow:hidden;}
+  .tracker-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 90% 0%, rgba(242,169,59,0.25), transparent 55%);pointer-events:none;}
+  .tracker-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;position:relative;margin-bottom:16px;}
+  .tracker-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--marigold);opacity:0.9;}
+  .tracker-id{font-family:'Fraunces',serif;font-weight:800;font-size:16px;margin-top:2px;}
+  .tracker-eta{font-family:'Space Mono',monospace;font-size:12px;color:var(--cream-2);opacity:0.75;text-align:right;}
+  .tracker-eta b{color:var(--marigold);font-size:14px;}
+  .tracker-bar-track{height:5px;border-radius:4px;background:rgba(255,246,233,0.14);overflow:hidden;margin-bottom:18px;position:relative;}
+  .tracker-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--marigold),var(--red));transition:width .5s ease;}
+  .tracker-stages{display:flex;justify-content:space-between;position:relative;}
+  .tracker-stage{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;position:relative;z-index:1;}
+  .tracker-stage-icon{width:38px;height:38px;border-radius:50%;background:rgba(255,246,233,0.08);border:1.5px solid rgba(255,246,233,0.2);display:flex;align-items:center;justify-content:center;font-size:17px;transition:all .3s;}
+  .tracker-stage.done .tracker-stage-icon{background:var(--marigold);border-color:var(--marigold);color:var(--ink);}
+  .tracker-stage.active .tracker-stage-icon{background:var(--red);border-color:var(--red);animation:trackerPulse 1.4s ease-in-out infinite;}
+  .tracker-stage-lbl{font-size:10px;font-weight:700;text-align:center;opacity:0.6;letter-spacing:0.02em;}
+  .tracker-stage.done .tracker-stage-lbl, .tracker-stage.active .tracker-stage-lbl{opacity:1;}
+  @keyframes trackerPulse{0%,100%{box-shadow:0 0 0 0 rgba(214,48,28,0.5);}50%{box-shadow:0 0 0 7px rgba(214,48,28,0);}}
+  .tracker-cook-icon{display:inline-block;animation:trackerCook 1.2s ease-in-out infinite;}
+  @keyframes trackerCook{0%,100%{transform:rotate(-8deg) scale(1);}50%{transform:rotate(8deg) scale(1.12);}}
+  .tracker-cancelled{background:rgba(140,26,14,0.08);border:1px dashed var(--red-dark);border-radius:12px;padding:14px 16px;color:var(--red-dark);font-size:13px;margin-bottom:22px;}
+  .rate-widget{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-dark);}
+  .rate-stars{display:flex;gap:4px;margin-bottom:8px;}
+  .rate-star{font-size:19px;cursor:pointer;opacity:0.3;transition:opacity .15s;user-select:none;}
+  .rate-star.on{opacity:1;}
+  .rate-widget textarea{width:100%;padding:8px 10px;border:1px solid var(--line-dark);border-radius:8px;font-size:12.5px;font-family:inherit;resize:none;margin-bottom:8px;}
+  .rate-widget button{background:var(--ink);color:var(--cream);border:none;padding:8px 14px;border-radius:8px;font-weight:700;font-size:12px;}
+  .rate-widget button:hover{background:var(--red);}
+  .rate-done{font-size:12.5px;color:var(--teal);font-weight:700;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-dark);}
 
-  .shell{display:none;min-height:100vh;}
-  .shell.active{display:flex;}
-  .sidebar{width:220px;background:var(--ink);color:var(--cream-2);padding:24px 16px;flex-shrink:0;}
-  .brand{font-family:'Fraunces',serif;font-weight:800;color:var(--cream);font-size:19px;margin-bottom:6px;}
-  .brand span{color:var(--marigold);}
-  .brand-sub{font-size:11px;opacity:0.5;margin-bottom:30px;font-family:'Space Mono',monospace;}
-  .nav-item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--cream-2);padding:11px 12px;border-radius:8px;font-size:14px;font-weight:600;margin-bottom:4px;opacity:0.75;}
-  .nav-item:hover{opacity:1;background:rgba(255,255,255,0.05);}
-  .nav-item.active{background:var(--red);color:#fff;opacity:1;}
-  .nav-sep{border:none;border-top:1px solid rgba(255,255,255,0.1);margin:14px 0;}
-  .main{flex:1;padding:36px 40px;max-width:980px;}
-  .main-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
-  .main-head p{font-size:13px;opacity:0.6;margin-top:4px;}
-  .panel{display:none;}
-  .panel.active{display:block;}
-
-  .card{background:#fff;border:1px solid var(--line-dark);border-radius:12px;padding:20px 22px;margin-bottom:18px;}
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
-  .field label{font-size:12px;font-weight:600;opacity:0.65;}
-  .field input, .field select, .field textarea{padding:9px 11px;border:1px solid var(--line-dark);border-radius:8px;font-size:13.5px;background:var(--cream);}
-  .field.full{grid-column:1/-1;}
-  .checkboxes{display:flex;gap:18px;grid-column:1/-1;font-size:13px;}
-  .checkboxes label{display:flex;align-items:center;gap:6px;font-weight:500;}
-  .save-btn{background:var(--ink);color:var(--cream);border:none;padding:10px 20px;border-radius:8px;font-weight:700;font-size:13.5px;margin-top:6px;}
-  .save-btn:hover{background:var(--red);}
-  .hint{font-size:11.5px;opacity:0.5;grid-column:1/-1;margin-top:-6px;margin-bottom:4px;}
-
-  table{width:100%;border-collapse:collapse;font-size:13.5px;}
-  th{text-align:left;padding:10px 8px;border-bottom:2px solid var(--line-dark);font-size:11.5px;text-transform:uppercase;letter-spacing:0.04em;opacity:0.55;}
-  td{padding:10px 8px;border-bottom:1px solid var(--line-dark);vertical-align:top;}
-  .row-actions{display:flex;gap:8px;}
-  .icon-btn{background:none;border:1px solid var(--line-dark);border-radius:6px;padding:5px 9px;font-size:12px;}
-  .icon-btn:hover{border-color:var(--red);color:var(--red);}
-  .icon-btn.danger:hover{background:var(--red);color:#fff;border-color:var(--red);}
-  .price-tag{font-family:'Space Mono',monospace;font-weight:700;color:var(--red);}
-  .empty{opacity:0.5;font-size:13px;padding:16px 0;}
-  .pill{font-family:'Space Mono',monospace;font-size:10px;padding:2px 8px;border-radius:10px;background:var(--cream-2);}
-
-  .cust-block{border-bottom:1px solid var(--line-dark);padding-bottom:18px;margin-bottom:18px;}
-  .cust-block:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-  .cust-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
-  .cust-head b{font-family:'Fraunces',serif;font-size:16px;color:var(--ink);}
-  .cust-order-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:10px 0;border-top:1px dashed var(--line-dark);}
-  .cust-order-id{font-family:'Space Mono',monospace;font-size:12px;font-weight:700;}
-  .cust-order-items{font-size:12.5px;opacity:0.75;margin-top:4px;}
-  .status-select{font-family:'Space Mono',monospace;font-size:11px;padding:4px 6px;border-radius:6px;border:1px solid var(--line-dark);background:var(--cream);}
 </style>
 </head>
 <body>
@@ -309,11 +367,12 @@
       <div class="nav-left">
         <button class="hamburger" aria-label="Open menu" onclick="openMobileNav()">☰</button>
         <nav>
-          <a href="#menu">Menu</a>
-          <a href="#restaurants">Restaurants</a>
-          <a href="#offers">Offers</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#catering">Catering</a>
+          <a href="#menu" onclick="return smoothNav(event,'menu')">Menu</a>
+          <a href="#story" onclick="return smoothNav(event,'story')">Our Story</a>
+          <a href="#restaurants" onclick="return smoothNav(event,'restaurants')">Restaurants</a>
+          <a href="#offers" onclick="return smoothNav(event,'offers')">Offers</a>
+          <a href="#gallery" onclick="return smoothNav(event,'gallery')">Gallery</a>
+          <a href="#catering" onclick="return smoothNav(event,'catering')">Catering</a>
         </nav>
       </div>
       <div class="logo">
@@ -324,7 +383,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <a href="#kitchen" class="rewards-link">Rewards</a>
+        <a href="#kitchen" class="rewards-link" onclick="return smoothNav(event,'kitchen')">Rewards</a>
         <button class="pill-btn" id="acctBtn" onclick="openAccount()">Sign In</button>
         <button class="cart-btn" onclick="openCart()">
           🛍️ Bag <span class="cart-count" id="cartCount">0</span>
@@ -343,6 +402,10 @@
   <div class="cat-rail-wrap">
     <div class="cat-rail" id="catRail"></div>
   </div>
+
+  <section class="section story-wrap" id="story">
+    <div class="story-grid" id="storyGrid"></div>
+  </section>
 
   <section class="section" id="menu">
     <div class="section-head">
@@ -373,6 +436,16 @@
       </div>
     </div>
     <div class="menu-grid" id="offersGrid"></div>
+  </section>
+
+  <section class="section" id="testimonials">
+    <div class="section-head">
+      <div>
+        <h2>What people are saying</h2>
+        <div class="section-sub">Real feedback from customers across our branches.</div>
+      </div>
+    </div>
+    <div class="testi-grid" id="testiGrid"></div>
   </section>
 
   <section class="section" id="restaurants" style="background:var(--cream-2);border-radius:20px;">
@@ -431,7 +504,7 @@
 
   <footer>
     Popeyes Sri Lanka — demo site. Not affiliated with Popeyes Louisiana Kitchen, Inc.
-    <br><br><a href="#admin">Staff login</a>
+    <br><br><a href="admin.html">Staff login</a>
   </footer>
 
   <div class="overlay" id="overlay" onclick="closeCart()"></div>
@@ -457,153 +530,6 @@
   </div>
 </div>
 
-<!-- ================= ADMIN VIEW ================= -->
-<div id="adminView">
-  <div class="gate" id="gate">
-    <div class="gate-card">
-      <h1>Kitchen control</h1>
-      <p>Popeyes admin panel — sign in to manage the site.</p>
-      <div class="gate-error" id="gateError"></div>
-      <input type="password" id="pwInput" placeholder="Admin password">
-      <button onclick="tryLogin()">Sign in</button>
-      <a class="gate-back" href="#" onclick="event.preventDefault();goHome();">← Back to customer site</a>
-    </div>
-  </div>
-
-  <div class="shell" id="shell">
-    <div class="sidebar">
-      <div class="brand">POPEYES<span>.</span></div>
-      <div class="brand-sub">KITCHEN CONTROL</div>
-      <button class="nav-item active" data-panel="menuPanel" onclick="switchPanel('menuPanel',this)">Menu items</button>
-      <button class="nav-item" data-panel="postsPanel" onclick="switchPanel('postsPanel',this)">Posts</button>
-      <button class="nav-item" data-panel="commentsPanel" onclick="switchPanel('commentsPanel',this)">Comments</button>
-      <button class="nav-item" data-panel="restaurantsPanel" onclick="switchPanel('restaurantsPanel',this)">Restaurants</button>
-      <button class="nav-item" data-panel="offersPanel" onclick="switchPanel('offersPanel',this)">Offers</button>
-      <button class="nav-item" data-panel="galleryPanel" onclick="switchPanel('galleryPanel',this)">Gallery</button>
-      <button class="nav-item" data-panel="customersPanel" onclick="switchPanel('customersPanel',this)">Customers</button>
-      <button class="nav-item" data-panel="settingsPanel" onclick="switchPanel('settingsPanel',this)">Settings</button>
-      <hr class="nav-sep">
-      <button class="nav-item" onclick="goHome()">← View customer site</button>
-    </div>
-
-    <div class="main">
-      <div class="panel active" id="menuPanel">
-        <div class="main-head"><div><h2>Menu items</h2><p>Changes appear on the customer site instantly — same page, same database.</p></div></div>
-        <div class="card">
-          <h3 style="font-size:15px;margin-bottom:14px;">Add item</h3>
-          <div class="form-grid">
-            <div class="field"><label>Name</label><input id="mName" placeholder="Classic Chicken"></div>
-            <div class="field"><label>Category</label><input id="mCategory" placeholder="Sandwiches"></div>
-            <div class="field"><label>Item type label</label><input id="mLabel" placeholder="Sandwich / Burger / Piece"></div>
-            <div class="field"><label>Emoji icon</label><input id="mEmoji" placeholder="🥪"></div>
-            <div class="field"><label>Single price (Rs.)</label><input id="mPrice" type="number" placeholder="1600"></div>
-            <div class="field"><label>Combo price (Rs.) — optional</label><input id="mCombo" type="number" placeholder="2500"></div>
-            <div class="field full"><label>Description</label><textarea id="mDesc" rows="2" placeholder="Short description shown on the card"></textarea></div>
-            <div class="hint">Leave combo price blank for items that don't offer a combo (sides, drinks, etc.)</div>
-            <div class="checkboxes">
-              <label><input type="checkbox" id="mSpicy"> Spicy</label>
-              <label><input type="checkbox" id="mPopular"> Popular</label>
-            </div>
-          </div>
-          <button class="save-btn" onclick="addMenuItem()">Add to menu</button>
-        </div>
-        <div class="card">
-          <table>
-            <thead><tr><th>Item</th><th>Category</th><th>Single</th><th>Combo</th><th>Tags</th><th></th></tr></thead>
-            <tbody id="menuTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="panel" id="postsPanel">
-        <div class="main-head"><div><h2>Posts</h2><p>Kitchen notes shown on the customer site's news rail.</p></div></div>
-        <div class="card">
-          <h3 style="font-size:15px;margin-bottom:14px;">New post</h3>
-          <div class="form-grid">
-            <div class="field"><label>Title</label><input id="pTitle" placeholder="Ghost Pepper Tenders are back"></div>
-            <div class="field"><label>Tag</label><input id="pTag" placeholder="New drop / Promo / Announcement"></div>
-            <div class="field full"><label>Image URL (optional)</label><input id="pImage" placeholder="https://example.com/photo.jpg"></div>
-            <div class="field full"><label>Body</label><textarea id="pBody" rows="3" placeholder="What's the news?"></textarea></div>
-          </div>
-          <button class="save-btn" onclick="addPost()">Publish post</button>
-        </div>
-        <div class="card">
-          <table>
-            <thead><tr><th>Title</th><th>Tag</th><th>Date</th><th></th></tr></thead>
-            <tbody id="postsTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="panel" id="commentsPanel">
-        <div class="main-head"><div><h2>Comments</h2><p>Moderate what customers leave on your posts.</p></div></div>
-        <div class="card" id="commentsCard"></div>
-      </div>
-
-      <div class="panel" id="restaurantsPanel">
-        <div class="main-head"><div><h2>Restaurants</h2><p>Branches shown on the customer site's Restaurants section.</p></div></div>
-        <div class="card">
-          <h3 style="font-size:15px;margin-bottom:14px;">Add branch</h3>
-          <div class="form-grid">
-            <div class="field"><label>Branch name</label><input id="rName" placeholder="Mount Lavinia"></div>
-            <div class="field"><label>Google Maps link</label><input id="rMap" placeholder="https://goo.gl/maps/..."></div>
-            <div class="field full"><label>Address</label><input id="rAddr" placeholder="No.282, Galle Rd, Mount Lavinia"></div>
-          </div>
-          <button class="save-btn" onclick="addRestaurant()">Add branch</button>
-        </div>
-        <div class="card">
-          <table>
-            <thead><tr><th>Branch</th><th>Address</th><th>Map link</th><th></th></tr></thead>
-            <tbody id="restaurantsTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="panel" id="offersPanel">
-        <div class="main-head"><div><h2>Offers</h2><p>Combo items derive from the menu automatically — pick which ones to feature on the Offers page and give them a custom blurb.</p></div></div>
-        <div id="offersAdminCard"></div>
-      </div>
-
-      <div class="panel" id="galleryPanel">
-        <div class="main-head"><div><h2>Gallery</h2><p>Photos shown on the customer site's Gallery section.</p></div></div>
-        <div class="card">
-          <h3 style="font-size:15px;margin-bottom:14px;">Add photo</h3>
-          <div class="form-grid">
-            <div class="field full"><label>Image URL</label><input id="gUrl" placeholder="https://example.com/photo.jpg"></div>
-            <div class="field"><label>Size</label>
-              <select id="gSize">
-                <option value="small">Small</option>
-                <option value="medium" selected>Medium</option>
-                <option value="large">Large</option>
-              </select>
-            </div>
-            <div class="field"><label>Caption (optional)</label><input id="gCaption" placeholder="Fresh out of the fryer"></div>
-          </div>
-          <button class="save-btn" onclick="addGalleryImage()">Add photo</button>
-        </div>
-        <div class="card">
-          <table>
-            <thead><tr><th>Photo</th><th>Size</th><th>Caption</th><th></th></tr></thead>
-            <tbody id="galleryTable"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="panel" id="customersPanel">
-        <div class="main-head"><div><h2>Customers</h2><p>Registered accounts and their order history. Update order status as it moves through the kitchen.</p></div></div>
-        <div class="card" id="customersCard"></div>
-      </div>
-
-      <div class="panel" id="settingsPanel">
-        <div class="main-head"><div><h2>Settings</h2><p>Manage admin access.</p></div></div>
-        <div class="card" style="max-width:360px;">
-          <div class="field"><label>New admin password</label><input id="newPw" type="password" placeholder="Enter a new password"></div>
-          <button class="save-btn" onclick="changePassword()">Update password</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div class="toast" id="toast"></div>
 
@@ -656,7 +582,25 @@ const DEFAULT_POSTS = [
   {id:"p2",title:"Biscuit Fridays",date:"Jul 18, 2026",body:"Every Friday, biscuits are half price with any combo. Dine-in and takeaway.",tag:"Promo",image:""},
   {id:"p3",title:"Now open till 11 PM",date:"Jul 10, 2026",body:"Colombo branch extended hours for the weekend crowd. Come hungry, stay late.",tag:"Announcement",image:""}
 ];
-const DEFAULT_SETTINGS = { adminPassword: "popeyes123" };
+const DEFAULT_SETTINGS = {
+  adminPassword: "popeyes123",
+  story: {
+    eyebrow: "Our story",
+    badgeNum: "1972",
+    badgeLabel: "New Orleans, LA",
+    heading: 'Louisiana heat, <em style="color:var(--red);">Sri Lankan</em> soul.',
+    para1: "It started with a simple idea: fried chicken worth queuing for. Bold Cajun spice, a hand-battered crunch, and biscuits baked fresh through the day — the same recipe that built a following in New Orleans, now cooked fresh in every branch across the island.",
+    para2: "Every order is made after you order it, not before. That's the whole philosophy — no shortcuts, no heat lamps, just hot food out of the fryer and into your hands.",
+    stat1Val: "50+", stat1Lbl: "Years of recipe",
+    stat2Val: "10+", stat2Lbl: "Branches islandwide",
+    stat3Val: "100%", stat3Lbl: "Cooked to order"
+  }
+};
+const DEFAULT_TESTIMONIALS = [
+  { id:"t1", name:"Nadeesha K.", loc:"Colombo 07", rating:5, quote:"The spicy tenders are ridiculous — proper crunch, actual heat, and it comes out fast even during the dinner rush." },
+  { id:"t2", name:"Ruwan D.", loc:"Rajagiriya", rating:5, quote:"Ordered a party bucket for an office lunch with barely a day's notice and they sorted it without any fuss." },
+  { id:"t3", name:"Shalini F.", loc:"Nugegoda", rating:4, quote:"Biscuits are the real MVP here — soft, buttery, and still warm by the time delivery reaches my door." }
+];
 const DEFAULT_RESTAURANTS = [
   { id:"r1", name:"Mount Lavinia", addr:"Softlogic GLOMARK, No.282, Galle Rd, Mount Lavinia", map:"https://goo.gl/maps/qLkefMocCnyaU2qK7" },
   { id:"r2", name:"Bambalapitiya", addr:"No.1, Laurie's Place, R. A. De Mel Mawatha, Colombo 4", map:"https://www.google.com/maps/place/Popeyes+Louisiana+Kitchen+-+Bambalapitiya/@6.8958193,79.8547004,17z" },
@@ -666,11 +610,17 @@ const DEFAULT_RESTAURANTS = [
 ];
 const ORDER_STATUSES = ["Placed","Preparing","Out for delivery","Delivered","Cancelled"];
 
-let menu = [], posts = [], comments = {}, cart = [], activeCategory = "All", settings = null, restaurants = [], gallery = [];
+let menu = [], posts = [], comments = {}, cart = [], activeCategory = "All", settings = null, restaurants = [], gallery = [], testimonials = [];
 let customers = {}, currentCustomer = null, acctMode = 'login';
 
 function money(n){ return "Rs. " + Number(n).toLocaleString("en-LK"); }
 function uid(prefix){ return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function smoothNav(e, id){
+  if(e) e.preventDefault();
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  return false;
+}
 function showToast(msg){
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -692,7 +642,14 @@ async function loadComments(){
 async function loadSettings(){
   try{ let r = await window.storage.get('settings', true); settings = r ? JSON.parse(r.value) : null; }catch(e){ settings = null; }
   if(!settings){ settings = DEFAULT_SETTINGS; try{ await window.storage.set('settings', JSON.stringify(settings), true); }catch(e){} }
+  if(!settings.story){ settings.story = DEFAULT_SETTINGS.story; try{ await window.storage.set('settings', JSON.stringify(settings), true); }catch(e){} }
 }
+async function saveSettings(){ try{ await window.storage.set('settings', JSON.stringify(settings), true); }catch(e){ showToast("Couldn't save — try again"); } }
+async function loadTestimonials(){
+  try{ let r = await window.storage.get('testimonials', true); testimonials = r ? JSON.parse(r.value) : null; }catch(e){ testimonials = null; }
+  if(!testimonials){ testimonials = DEFAULT_TESTIMONIALS; try{ await window.storage.set('testimonials', JSON.stringify(testimonials), true); }catch(e){} }
+}
+async function saveTestimonials(){ try{ await window.storage.set('testimonials', JSON.stringify(testimonials), true); }catch(e){ showToast("Couldn't save — try again"); } }
 async function saveMenu(){ try{ await window.storage.set('menu-items', JSON.stringify(menu), true); }catch(e){ showToast("Couldn't save — try again"); } }
 async function savePosts(){ try{ await window.storage.set('posts', JSON.stringify(posts), true); }catch(e){ showToast("Couldn't save — try again"); } }
 async function saveComments(){ try{ await window.storage.set('comments', JSON.stringify(comments), true); }catch(e){ showToast("Couldn't save — try again"); } }
@@ -727,8 +684,13 @@ function updateAcctButton(){
   btn.textContent = currentCustomer ? currentCustomer.name.split(' ')[0] : 'Sign In';
 }
 function openAccount(){ renderAccount(); document.getElementById('acctOverlay').classList.add('open'); document.getElementById('acctDrawer').classList.add('open'); }
-function closeAccount(){ document.getElementById('acctOverlay').classList.remove('open'); document.getElementById('acctDrawer').classList.remove('open'); }
+function closeAccount(){ document.getElementById('acctOverlay').classList.remove('open'); document.getElementById('acctDrawer').classList.remove('open'); stopTrackerAutoRefresh(); }
 function switchAcctMode(mode){ acctMode = mode; renderAccount(); }
+
+const CUSTOMER_STAGES = ["Placed","Preparing","Ready","Out for delivery","Delivered"];
+let trackerTickTimer = null;
+let orderPollTimer = null;
+let pendingRatingStars = 5;
 
 function renderAccount(){
   const body = document.getElementById('acctBody');
@@ -737,19 +699,24 @@ function renderAccount(){
     title.textContent = 'My account';
     const cust = customers[currentCustomer.email] || { name: currentCustomer.name, orders: [] };
     const orders = (cust.orders || []).slice().reverse();
+    const activeOrder = orders.find(o => !['Delivered','Cancelled'].includes(o.status||'Placed'));
+    const unratedDelivered = !activeOrder ? orders.find(o => o.status==='Delivered' && !o.rating) : null;
     body.innerHTML = `
       <div class="acct-hi">
         <div><b>${cust.name}</b><br><span style="font-size:12px;opacity:0.6;">${currentCustomer.email}</span></div>
         <button class="acct-logout" onclick="doLogout()">Log out</button>
       </div>
+      ${activeOrder ? renderTrackerCard(activeOrder) : ''}
+      ${unratedDelivered ? renderRatingWidget(unratedDelivered) : ''}
       <div class="orders-label">Past orders</div>
       ${orders.length ? orders.map(o => `
         <div class="order-card">
           <div class="order-head">
             <span class="order-id">#${o.id}</span>
-            <span class="order-status">${o.status||'Placed'}</span>
+            <span class="order-status ${o.status==='Cancelled'?'st-cancelled':(o.status&&o.status!=='Delivered'?'st-active':'')}">${o.status||'Placed'}</span>
           </div>
           <div class="order-date">${o.date}</div>
+          ${o.status==='Cancelled' && o.cancelReason ? `<div class="order-cancel-reason">Reason: ${o.cancelReason}</div>` : ''}
           <div class="order-items">${o.items.map(i=>`${i.qty}× ${i.name}`).join('<br>')}</div>
           <div class="order-foot">
             <span class="order-total">${money(o.total)}</span>
@@ -758,7 +725,9 @@ function renderAccount(){
         </div>
       `).join('') : '<div class="orders-empty">No orders yet. Everything you order will show up here.</div>'}
     `;
+    startTrackerAutoRefresh();
   } else {
+    stopTrackerAutoRefresh();
     title.textContent = acctMode === 'login' ? 'Sign in' : 'Create account';
     body.innerHTML = `
       <div class="acct-tabs">
@@ -772,6 +741,133 @@ function renderAccount(){
       <button class="acct-submit" onclick="${acctMode==='login' ? 'doLogin()' : 'doSignup()'}">${acctMode==='login' ? 'Sign in' : 'Create account'}</button>
     `;
   }
+}
+
+/* ============ LIVE ORDER TRACKER ============ */
+function renderTrackerCard(order){
+  const status = order.status || 'Placed';
+  const stageIdx = Math.max(0, CUSTOMER_STAGES.indexOf(status));
+  const steps = CUSTOMER_STAGES.map((s,i) => {
+    const cls = i < stageIdx ? 'done' : (i === stageIdx ? 'current' : '');
+    const icon = i < stageIdx ? '✓' : (i+1);
+    return `<div class="step ${cls}"><div class="bar"></div><div class="dot">${icon}</div><div class="lbl">${s}</div></div>`;
+  }).join('');
+
+  const pct = Math.round(((stageIdx+1) / CUSTOMER_STAGES.length) * 100);
+  const eta = order.etaMinutes ? computeEtaText(order) : '';
+
+  let scene = '';
+  if(status === 'Preparing'){
+    scene = `
+      <div class="cook-scene">
+        <div class="cook-pan">
+          <svg viewBox="0 0 80 80">
+            <circle class="sizzle-dot" cx="24" cy="26" r="2.4" fill="#F2A93B"/>
+            <circle class="sizzle-dot" cx="34" cy="20" r="2" fill="#F2A93B"/>
+            <circle class="sizzle-dot" cx="46" cy="24" r="2.6" fill="#D6301C"/>
+            <circle class="sizzle-dot" cx="54" cy="30" r="2" fill="#F2A93B"/>
+            <g class="pan-shake">
+              <ellipse cx="40" cy="52" rx="26" ry="9" fill="#2A1D17"/>
+              <ellipse cx="40" cy="48" rx="26" ry="9" fill="#4A2A1B"/>
+              <rect x="62" y="44" width="16" height="6" rx="3" fill="#4A2A1B"/>
+            </g>
+          </svg>
+        </div>
+        <div class="cook-msg">Sizzling in the kitchen…</div>
+      </div>`;
+  } else if(status === 'Out for delivery'){
+    scene = `<div class="delivery-scene"><span class="moto">🛵</span><span>💨</span></div>`;
+  } else if(status === 'Ready'){
+    scene = `<div class="delivery-scene">🔔</div>`;
+  } else if(status === 'Placed'){
+    scene = `<div class="delivery-scene">📋</div>`;
+  }
+
+  return `
+    <div class="tracker-card" id="trackerCard" data-order-id="${order.id}">
+      <div class="tracker-top">
+        <div><div class="t-id">#${order.id}</div><div class="t-label">${status}</div></div>
+        ${order.etaMinutes ? `<div class="tracker-eta" id="trackerEta">${eta}</div>` : ''}
+      </div>
+      <div class="stepper">${steps}</div>
+      ${scene}
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%;"></div></div>
+      <div class="tracker-note">${order.items.map(i=>`${i.qty}× ${i.name}`).join(', ')}</div>
+    </div>
+  `;
+}
+function computeEtaText(order){
+  if(!order.etaMinutes || !order.placedAt) return '';
+  const readyAt = order.placedAt + order.etaMinutes*60000;
+  const remainMs = readyAt - Date.now();
+  if(remainMs <= 0) return 'Any moment now';
+  const mins = Math.ceil(remainMs / 60000);
+  return `~${mins} min left`;
+}
+function startTrackerAutoRefresh(){
+  stopTrackerAutoRefresh();
+  trackerTickTimer = setInterval(()=>{
+    const el = document.getElementById('trackerEta');
+    const card = document.getElementById('trackerCard');
+    if(!el || !card) return;
+    const orderId = card.dataset.orderId;
+    const cust = customers[currentCustomer?.email];
+    const order = cust && (cust.orders||[]).find(o=>o.id===orderId);
+    if(order) el.textContent = computeEtaText(order);
+  }, 1000);
+  orderPollTimer = setInterval(refreshActiveOrder, 5000);
+}
+function stopTrackerAutoRefresh(){
+  if(trackerTickTimer){ clearInterval(trackerTickTimer); trackerTickTimer = null; }
+  if(orderPollTimer){ clearInterval(orderPollTimer); orderPollTimer = null; }
+}
+async function refreshActiveOrder(){
+  if(!currentCustomer) return;
+  const prevCust = customers[currentCustomer.email];
+  const prevOrder = prevCust ? (prevCust.orders||[]).find(o => !['Delivered','Cancelled'].includes(o.status||'Placed')) : null;
+  const prevStatus = prevOrder ? prevOrder.status : null;
+  await loadCustomers();
+  const newCust = customers[currentCustomer.email];
+  const newOrder = newCust ? (newCust.orders||[]).find(o => prevOrder && o.id===prevOrder.id) : null;
+  if(prevOrder && newOrder && newOrder.status !== prevStatus){
+    showToast(newOrder.status === 'Delivered' ? "Your order has arrived! Enjoy 🍗" : `Order update: ${newOrder.status}`);
+  }
+  renderAccount();
+}
+
+/* ============ RATING WIDGET ============ */
+function renderRatingWidget(order){
+  return `
+    <div class="rating-widget" id="ratingWidget" data-order-id="${order.id}">
+      <div class="rw-title">How was order #${order.id}?</div>
+      <div class="rw-stars" id="rwStars">
+        ${[1,2,3,4,5].map(n=>`<button type="button" class="rw-star ${n<=pendingRatingStars?'filled':''}" onclick="setRatingStars(${n})">★</button>`).join('')}
+      </div>
+      <textarea id="rwComment" rows="2" placeholder="Anything you'd like to add? (optional)"></textarea>
+      <button class="rw-submit" onclick="submitRating('${order.id}')">Submit rating</button>
+    </div>
+  `;
+}
+function setRatingStars(n){
+  pendingRatingStars = n;
+  document.querySelectorAll('#rwStars .rw-star').forEach((el,i)=>el.classList.toggle('filled', i < n));
+}
+async function submitRating(orderId){
+  const cust = customers[currentCustomer.email];
+  const order = cust && (cust.orders||[]).find(o=>o.id===orderId);
+  if(!order) return;
+  const comment = document.getElementById('rwComment').value.trim();
+  order.rating = pendingRatingStars;
+  order.ratingComment = comment || null;
+  await saveCustomersDB();
+  if(pendingRatingStars >= 4 && comment){
+    testimonials.push({ id: uid('t'), name: cust.name, loc: '', rating: pendingRatingStars, quote: comment });
+    await saveTestimonials();
+    renderTestimonials();
+  }
+  pendingRatingStars = 5;
+  showToast("Thanks for the feedback!");
+  renderAccount();
 }
 
 async function doSignup(){
@@ -829,12 +925,13 @@ function closeMobileNav(){ document.getElementById('mnavOverlay').classList.remo
 function renderMobileNav(){
   const body = document.getElementById('mnavBody');
   body.innerHTML = `
-    <a href="#menu" class="mnav-link" onclick="closeMobileNav()">Menu <span class="arrow">›</span></a>
-    <a href="#restaurants" class="mnav-link" onclick="closeMobileNav()">Restaurants <span class="arrow">›</span></a>
-    <a href="#offers" class="mnav-link" onclick="closeMobileNav()">Offers <span class="arrow">›</span></a>
-    <a href="#gallery" class="mnav-link" onclick="closeMobileNav()">Gallery <span class="arrow">›</span></a>
-    <a href="#catering" class="mnav-link" onclick="closeMobileNav()">Catering <span class="arrow">›</span></a>
-    <a href="#kitchen" class="mnav-link rewards" onclick="closeMobileNav()">Rewards <span class="arrow">›</span></a>
+    <a href="#menu" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'menu')">Menu <span class="arrow">›</span></a>
+    <a href="#story" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'story')">Our Story <span class="arrow">›</span></a>
+    <a href="#restaurants" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'restaurants')">Restaurants <span class="arrow">›</span></a>
+    <a href="#offers" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'offers')">Offers <span class="arrow">›</span></a>
+    <a href="#gallery" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'gallery')">Gallery <span class="arrow">›</span></a>
+    <a href="#catering" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'catering')">Catering <span class="arrow">›</span></a>
+    <a href="#kitchen" class="mnav-link rewards" onclick="closeMobileNav();smoothNav(event,'kitchen')">Rewards <span class="arrow">›</span></a>
     <div class="mnav-section">Account</div>
     ${currentCustomer ? `
       <div class="mnav-acct">
@@ -850,27 +947,17 @@ function renderMobileNav(){
   `;
 }
 
-/* ============ ROUTER ============ */
-function route(){
-  const isAdmin = location.hash.startsWith('#admin');
-  document.getElementById('customerView').style.display = isAdmin ? 'none' : 'block';
-  document.getElementById('adminView').style.display = isAdmin ? 'block' : 'none';
-  if(isAdmin){ initAdmin(); } else { initCustomer(); }
-}
-function goHome(){ location.hash = ''; }
-window.addEventListener('hashchange', route);
-
 /* ============ CUSTOMER VIEW ============ */
 let customerBooted = false;
 async function initCustomer(){
-  await Promise.all([loadMenu(), loadPosts(), loadComments(), loadCustomers(), loadRestaurants(), loadGallery()]);
+  await Promise.all([loadMenu(), loadPosts(), loadComments(), loadCustomers(), loadRestaurants(), loadGallery(), loadSettings(), loadTestimonials()]);
   if(!currentCustomer) await loadSession();
   updateAcctButton();
-  renderTabs(); renderMenu(); renderPosts(); updateCartUI(); renderOffers(); renderRestaurants(); renderGallery();
+  renderTabs(); renderMenu(); renderPosts(); updateCartUI(); renderOffers(); renderRestaurants(); renderGallery(); renderStory(); renderTestimonials();
   if(!customerBooted){
     customerBooted = true;
     renderCarousel(); renderCatTiles();
-    setInterval(async ()=>{ if(!location.hash.startsWith('#admin')){ await loadMenu(); await loadPosts(); await loadComments(); await loadRestaurants(); await loadGallery(); renderTabs(); renderMenu(); renderPosts(); renderOffers(); renderRestaurants(); renderGallery(); } }, 15000);
+    setInterval(async ()=>{ await loadMenu(); await loadPosts(); await loadComments(); await loadRestaurants(); await loadGallery(); await loadSettings(); await loadTestimonials(); renderTabs(); renderMenu(); renderPosts(); renderOffers(); renderRestaurants(); renderGallery(); renderStory(); renderTestimonials(); }, 15000);
   }
 }
 
@@ -921,8 +1008,8 @@ function renderCarousel(){
         <h1>${s.title}</h1>
         <p class="lead">${s.lead}</p>
         <div class="hero-cta">
-          <a href="${s.ctaHref}" class="btn btn-primary">${s.ctaLabel}</a>
-          ${s.ghostLabel ? `<a href="${s.ghostHref}" class="btn btn-ghost">${s.ghostLabel}</a>` : ''}
+          <a href="${s.ctaHref}" class="btn btn-primary" onclick="return smoothNav(event,'${s.ctaHref.replace('#','')}')">${s.ctaLabel}</a>
+          ${s.ghostLabel ? `<a href="${s.ghostHref}" class="btn btn-ghost" onclick="return smoothNav(event,'${s.ghostHref.replace('#','')}')">${s.ghostLabel}</a>` : ''}
         </div>
         ${i===0 ? `<div class="heat-strip">
           <div class="heat-item"><b>100%</b>Bone-in, hand-battered</div>
@@ -1040,6 +1127,46 @@ function renderGallery(){
   `).join('');
 }
 
+function renderStory(){
+  const el = document.getElementById('storyGrid');
+  if(!el || !settings) return;
+  const s = settings.story || DEFAULT_SETTINGS.story;
+  el.innerHTML = `
+    <div class="story-art">
+      <span class="story-mark">P.</span>
+      <div class="story-badge"><div class="num">${s.badgeNum||''}</div><div class="lbl">${s.badgeLabel||''}</div></div>
+    </div>
+    <div class="story-copy">
+      <div class="eyebrow">${s.eyebrow||''}</div>
+      <h2>${s.heading||''}</h2>
+      <p>${s.para1||''}</p>
+      <p>${s.para2||''}</p>
+      <div class="story-stats">
+        <div class="story-stat"><b>${s.stat1Val||''}</b><span>${s.stat1Lbl||''}</span></div>
+        <div class="story-stat"><b>${s.stat2Val||''}</b><span>${s.stat2Lbl||''}</span></div>
+        <div class="story-stat"><b>${s.stat3Val||''}</b><span>${s.stat3Lbl||''}</span></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderTestimonials(){
+  const el = document.getElementById('testiGrid');
+  if(!el) return;
+  if(!testimonials.length){ el.innerHTML = '<div class="empty-note">No testimonials yet.</div>'; return; }
+  el.innerHTML = testimonials.map(t => `
+    <div class="testi-card">
+      <div class="testi-stars">${'★'.repeat(t.rating||5)}${'☆'.repeat(5-(t.rating||5))}</div>
+      <div class="testi-quote">${t.quote||''}</div>
+      <div class="testi-who">
+        <div class="testi-avatar">${(t.name||'?').charAt(0)}</div>
+        <div><div class="testi-name">${t.name||''}</div><div class="testi-loc">${t.loc||''}</div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+
 function renderPosts(){
   const rail = document.getElementById('postsRail');
   if(!posts.length){ rail.innerHTML = '<div class="empty-note" style="color:#fff;">No kitchen notes yet.</div>'; return; }
@@ -1131,12 +1258,20 @@ async function checkout(){
   if(currentCustomer && customers[currentCustomer.email]){
     const cust = customers[currentCustomer.email];
     cust.orders = cust.orders || [];
+    const now = Date.now();
     cust.orders.push({
       id: uid('').toUpperCase(),
-      date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
+      date: new Date(now).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
+      placedAt: now,
       items: cart.map(c=>({...c})),
       total,
-      status: 'Placed'
+      status: 'Placed',
+      etaMinutes: null,
+      branchId: null,
+      cancelReason: null,
+      rating: null,
+      ratingComment: null,
+      history: [{ status:'Placed', at: now }]
     });
     await saveCustomersDB();
     showToast("Order placed — saved to your account");
@@ -1148,316 +1283,9 @@ async function checkout(){
   closeCart();
 }
 
-/* ============ ADMIN VIEW ============ */
-let adminBooted = false, adminUnlocked = false;
-async function initAdmin(){
-  if(!adminUnlocked){
-    document.getElementById('gate').style.display = 'flex';
-    document.getElementById('shell').classList.remove('active');
-  }
-  await loadSettings();
-}
-async function tryLogin(){
-  const pw = document.getElementById('pwInput').value;
-  await loadSettings();
-  if(pw === settings.adminPassword){
-    adminUnlocked = true;
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('shell').classList.add('active');
-    document.getElementById('gateError').textContent = '';
-    document.getElementById('pwInput').value = '';
-    await adminLoadAll();
-    if(!adminBooted){ adminBooted = true; setInterval(async ()=>{ if(location.hash.startsWith('#admin') && adminUnlocked){ await adminLoadAll(); } }, 15000); }
-  }else{
-    document.getElementById('gateError').textContent = "Incorrect password. Try again.";
-  }
-}
-document.getElementById('pwInput')?.addEventListener('keydown', e => { if(e.key === 'Enter') tryLogin(); });
-
-async function adminLoadAll(){
-  await Promise.all([loadMenu(), loadPosts(), loadComments(), loadRestaurants(), loadCustomers(), loadGallery()]);
-  renderMenuTable(); renderPostsTable(); renderComments(); renderRestaurantsTable(); renderCustomersPanel(); renderOffersAdminPanel(); renderGalleryTable();
-}
-
-function switchPanel(id, btn){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-
-function renderMenuTable(){
-  const tbody = document.getElementById('menuTable');
-  if(!menu.length){ tbody.innerHTML = '<tr><td colspan="6" class="empty">No menu items yet. Add one above.</td></tr>'; return; }
-  tbody.innerHTML = menu.map(item => `
-    <tr>
-      <td><b>${item.emoji||''} ${item.name}</b><br><span style="opacity:0.55;font-size:12px;">${item.desc||''}</span></td>
-      <td><span class="pill">${item.category}</span></td>
-      <td class="price-tag">${money(item.price)}</td>
-      <td class="price-tag">${item.comboPrice ? money(item.comboPrice) : '—'}</td>
-      <td>${item.spicy?'🌶️ ':''}${item.popular?'⭐':''}</td>
-      <td class="row-actions"><button class="icon-btn danger" onclick="deleteMenuItem('${item.id}')">Delete</button></td>
-    </tr>
-  `).join('');
-}
-async function addMenuItem(){
-  const name = document.getElementById('mName').value.trim();
-  const category = document.getElementById('mCategory').value.trim() || "Misc";
-  const label = document.getElementById('mLabel').value.trim();
-  const price = parseFloat(document.getElementById('mPrice').value);
-  const comboRaw = document.getElementById('mCombo').value.trim();
-  const comboPrice = comboRaw ? parseFloat(comboRaw) : null;
-  const emoji = document.getElementById('mEmoji').value.trim() || "🍗";
-  const desc = document.getElementById('mDesc').value.trim();
-  const spicy = document.getElementById('mSpicy').checked;
-  const popular = document.getElementById('mPopular').checked;
-  if(!name || isNaN(price)){ showToast("Name and single price are required"); return; }
-  menu.push({id:uid('m'), name, category, label, price, comboPrice: (comboPrice && !isNaN(comboPrice)) ? comboPrice : null, desc, emoji, spicy, popular});
-  await saveMenu();
-  renderMenuTable();
-  ['mName','mCategory','mLabel','mPrice','mCombo','mEmoji','mDesc'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('mSpicy').checked=false;
-  document.getElementById('mPopular').checked=false;
-  showToast("Menu item added");
-}
-async function deleteMenuItem(id){
-  menu = menu.filter(m=>m.id!==id);
-  await saveMenu();
-  renderMenuTable();
-  showToast("Item removed");
-}
-
-function renderPostsTable(){
-  const tbody = document.getElementById('postsTable');
-  if(!posts.length){ tbody.innerHTML = '<tr><td colspan="4" class="empty">No posts yet. Publish one above.</td></tr>'; return; }
-  tbody.innerHTML = posts.map(post => `
-    <tr>
-      <td>
-        ${post.image ? `<img src="${post.image}" alt="" style="width:40px;height:40px;object-fit:cover;border-radius:6px;vertical-align:middle;margin-right:8px;" onerror="this.style.display='none'">` : ''}
-        <b>${post.title}</b><br><span style="opacity:0.55;font-size:12px;">${post.body}</span>
-      </td>
-      <td><span class="pill">${post.tag||''}</span></td>
-      <td>${post.date||''}</td>
-      <td class="row-actions"><button class="icon-btn danger" onclick="deletePost('${post.id}')">Delete</button></td>
-    </tr>
-  `).join('');
-}
-async function addPost(){
-  const title = document.getElementById('pTitle').value.trim();
-  const tag = document.getElementById('pTag').value.trim() || "Note";
-  const image = document.getElementById('pImage').value.trim();
-  const body = document.getElementById('pBody').value.trim();
-  if(!title || !body){ showToast("Title and body are required"); return; }
-  const date = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-  posts.unshift({id:uid('p'), title, tag, body, date, image});
-  await savePosts();
-  renderPostsTable();
-  ['pTitle','pTag','pImage','pBody'].forEach(id=>document.getElementById(id).value='');
-  showToast("Post published");
-}
-async function deletePost(id){
-  posts = posts.filter(p=>p.id!==id);
-  delete comments[id];
-  await savePosts();
-  await saveComments();
-  renderPostsTable();
-  renderComments();
-  showToast("Post deleted");
-}
-
-function renderComments(){
-  const card = document.getElementById('commentsCard');
-  const entries = Object.entries(comments).filter(([pid, list]) => list && list.length);
-  if(!entries.length){ card.innerHTML = '<div class="empty">No comments yet.</div>'; return; }
-  card.innerHTML = entries.map(([pid, list]) => {
-    const post = posts.find(p=>p.id===pid);
-    const title = post ? post.title : "(deleted post)";
-    return `
-      <div style="margin-bottom:18px;">
-        <div style="font-weight:700;font-size:14px;margin-bottom:8px;">${title}</div>
-        ${list.map((c,i) => `
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line-dark);gap:10px;">
-            <div style="font-size:13px;"><b>${c.name}</b> — ${c.text} <span style="opacity:0.5;font-size:11px;">(${c.date||''})</span></div>
-            <button class="icon-btn danger" onclick="deleteComment('${pid}',${i})">Delete</button>
-          </div>
-        `).join('')}
-      </div>
-    `;
-  }).join('');
-}
-async function deleteComment(pid, idx){
-  comments[pid].splice(idx,1);
-  await saveComments();
-  renderComments();
-  showToast("Comment removed");
-}
-
-function renderRestaurantsTable(){
-  const tbody = document.getElementById('restaurantsTable');
-  if(!tbody) return;
-  if(!restaurants.length){ tbody.innerHTML = '<tr><td colspan="4" class="empty">No branches yet. Add one above.</td></tr>'; return; }
-  tbody.innerHTML = restaurants.map(loc => `
-    <tr>
-      <td><b>${loc.name}</b></td>
-      <td style="font-size:12.5px;opacity:0.75;">${loc.addr}</td>
-      <td><a href="${loc.map}" target="_blank" rel="noopener" style="font-size:12.5px;">${loc.map}</a></td>
-      <td class="row-actions"><button class="icon-btn danger" onclick="deleteRestaurant('${loc.id}')">Delete</button></td>
-    </tr>
-  `).join('');
-}
-async function addRestaurant(){
-  const name = document.getElementById('rName').value.trim();
-  const addr = document.getElementById('rAddr').value.trim();
-  const map = document.getElementById('rMap').value.trim();
-  if(!name || !addr){ showToast("Branch name and address are required"); return; }
-  restaurants.push({id:uid('r'), name, addr, map: map || '#'});
-  await saveRestaurants();
-  renderRestaurantsTable();
-  ['rName','rAddr','rMap'].forEach(id=>document.getElementById(id).value='');
-  showToast("Branch added");
-}
-async function deleteRestaurant(id){
-  restaurants = restaurants.filter(r=>r.id!==id);
-  await saveRestaurants();
-  renderRestaurantsTable();
-  showToast("Branch removed");
-}
-
-function renderCustomersPanel(){
-  const card = document.getElementById('customersCard');
-  if(!card) return;
-  const emails = Object.keys(customers);
-  if(!emails.length){ card.innerHTML = '<div class="empty">No customer accounts yet.</div>'; return; }
-  card.innerHTML = emails.map(email => {
-    const cust = customers[email];
-    const orders = (cust.orders || []).slice().reverse();
-    const spent = (cust.orders || []).reduce((s,o)=>s + (o.total||0), 0);
-    return `
-      <div class="cust-block">
-        <div class="cust-head">
-          <div>
-            <b>${cust.name}</b>
-            <div style="font-size:12.5px;opacity:0.6;">${email}</div>
-          </div>
-          <div style="display:flex;gap:16px;align-items:center;">
-            <span class="pill">${(cust.orders||[]).length} order${(cust.orders||[]).length===1?'':'s'}</span>
-            <span class="price-tag">${money(spent)} lifetime</span>
-          </div>
-        </div>
-        ${orders.length ? orders.map(o => `
-          <div class="cust-order-row">
-            <div style="flex:1;">
-              <div class="cust-order-id">#${o.id} <span style="opacity:0.5;font-weight:400;">${o.date||''}</span></div>
-              <div class="cust-order-items">${o.items.map(i=>`${i.qty}× ${i.name}`).join(', ')}</div>
-            </div>
-            <div style="text-align:right;flex-shrink:0;">
-              <div class="price-tag" style="margin-bottom:6px;">${money(o.total)}</div>
-              <select class="status-select" onchange="updateOrderStatus('${email}','${o.id}',this.value)">
-                ${ORDER_STATUSES.map(s=>`<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
-              </select>
-            </div>
-          </div>
-        `).join('') : '<div class="empty" style="padding:10px 0;">No orders yet.</div>'}
-      </div>
-    `;
-  }).join('');
-}
-async function updateOrderStatus(email, orderId, status){
-  const cust = customers[email];
-  if(!cust) return;
-  const order = (cust.orders||[]).find(o=>o.id===orderId);
-  if(!order) return;
-  order.status = status;
-  await saveCustomersDB();
-  showToast("Order #" + orderId + " marked " + status);
-}
-
-function renderOffersAdminPanel(){
-  const card = document.getElementById('offersAdminCard');
-  if(!card) return;
-  const deals = menu.filter(m=>m.comboPrice);
-  if(!deals.length){ card.innerHTML = '<div class="card"><div class="empty">No combo-priced items on the menu yet. Set a combo price on a menu item to feature it here.</div></div>'; return; }
-  card.innerHTML = deals.map(item => {
-    const featured = item.offerFeatured !== false;
-    const defaultBlurb = `${item.desc||''} Comes with a side and a drink.`;
-    return `
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px;">
-          <div><b>${item.emoji||''} ${item.name} Combo</b> <span class="pill">${money(item.comboPrice)}</span></div>
-          <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;">
-            <input type="checkbox" ${featured?'checked':''} onchange="toggleOfferFeatured('${item.id}', this.checked)"> Show on Offers page
-          </label>
-        </div>
-        <div class="field full" style="margin-bottom:8px;">
-          <label>Custom blurb (optional — overrides the default combo description)</label>
-          <textarea rows="2" id="offerBlurb-${item.id}" placeholder="${defaultBlurb}">${item.offerBlurb||''}</textarea>
-        </div>
-        <button class="save-btn" onclick="saveOfferBlurb('${item.id}')">Save blurb</button>
-      </div>
-    `;
-  }).join('');
-}
-async function toggleOfferFeatured(id, checked){
-  const item = menu.find(m=>m.id===id);
-  if(!item) return;
-  item.offerFeatured = checked;
-  await saveMenu();
-  showToast(checked ? "Combo featured on Offers page" : "Combo hidden from Offers page");
-}
-async function saveOfferBlurb(id){
-  const item = menu.find(m=>m.id===id);
-  if(!item) return;
-  const val = document.getElementById('offerBlurb-'+id).value.trim();
-  item.offerBlurb = val || null;
-  await saveMenu();
-  showToast("Offer blurb saved");
-}
-
-function renderGalleryTable(){
-  const tbody = document.getElementById('galleryTable');
-  if(!tbody) return;
-  if(!gallery.length){ tbody.innerHTML = '<tr><td colspan="4" class="empty">No photos yet. Add one above.</td></tr>'; return; }
-  tbody.innerHTML = gallery.map(g => `
-    <tr>
-      <td><img src="${g.url}" alt="" style="width:52px;height:52px;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'"></td>
-      <td><span class="pill">${g.size||'medium'}</span></td>
-      <td style="font-size:12.5px;opacity:0.75;">${g.caption||''}</td>
-      <td class="row-actions"><button class="icon-btn danger" onclick="deleteGalleryImage('${g.id}')">Delete</button></td>
-    </tr>
-  `).join('');
-}
-async function addGalleryImage(){
-  const url = document.getElementById('gUrl').value.trim();
-  const size = document.getElementById('gSize').value;
-  const caption = document.getElementById('gCaption').value.trim();
-  if(!url){ showToast("Image URL is required"); return; }
-  gallery.push({id:uid('g'), url, size, caption});
-  await saveGallery();
-  renderGalleryTable();
-  ['gUrl','gCaption'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('gSize').value = 'medium';
-  showToast("Photo added");
-}
-async function deleteGalleryImage(id){
-  gallery = gallery.filter(g=>g.id!==id);
-  await saveGallery();
-  renderGalleryTable();
-  showToast("Photo removed");
-}
-
-async function changePassword(){
-  const pw = document.getElementById('newPw').value.trim();
-  if(!pw){ showToast("Enter a new password"); return; }
-  settings.adminPassword = pw;
-  try{
-    await window.storage.set('settings', JSON.stringify(settings), true);
-    showToast("Password updated");
-    document.getElementById('newPw').value='';
-  }catch(e){ showToast("Couldn't save — try again"); }
-}
 
 /* boot */
-route();
+initCustomer();
 </script>
 
 </body>
