@@ -179,7 +179,7 @@
     <div class="panel active" id="menuPanel">
       <div class="main-head"><div><h2>Menu items</h2><p>Changes appear on the customer site within seconds.</p></div></div>
       <div class="card">
-        <h3 style="font-size:15px;margin-bottom:14px;">Add item</h3>
+        <h3 style="font-size:15px;margin-bottom:14px;" id="menuFormTitle">Add item</h3>
         <div class="form-grid">
           <div class="field"><label>Name</label><input id="mName" placeholder="Classic Chicken"></div>
           <div class="field"><label>Category</label><input id="mCategory" placeholder="Sandwiches"></div>
@@ -194,7 +194,8 @@
             <label><input type="checkbox" id="mPopular"> Popular</label>
           </div>
         </div>
-        <button class="save-btn" onclick="addMenuItem()">Add to menu</button>
+        <button class="save-btn" id="menuSaveBtn" onclick="saveMenuItem()">Add to menu</button>
+        <button class="icon-btn" id="menuCancelBtn" style="display:none;margin-top:6px;margin-left:8px;" onclick="cancelMenuEdit()">Cancel edit</button>
       </div>
       <div class="card">
         <table>
@@ -207,18 +208,28 @@
     <div class="panel" id="postsPanel">
       <div class="main-head"><div><h2>Posts</h2><p>Kitchen notes shown on the customer site's news rail.</p></div></div>
       <div class="card">
-        <h3 style="font-size:15px;margin-bottom:14px;">New post</h3>
+        <h3 style="font-size:15px;margin-bottom:14px;" id="postFormTitle">New post</h3>
         <div class="form-grid">
           <div class="field"><label>Title</label><input id="pTitle" placeholder="Ghost Pepper Tenders are back"></div>
           <div class="field"><label>Tag</label><input id="pTag" placeholder="New drop / Promo / Announcement"></div>
-          <div class="field full"><label>Image URL (optional)</label><input id="pImage" placeholder="https://example.com/photo.jpg"></div>
+          <div class="field full"><label>Image URL (optional — PNG with transparent background looks best, and also appears large on the homepage hero when this post is featured)</label><input id="pImage" placeholder="https://example.com/photo.png"></div>
+          <div class="field"><label>Flavour effect</label>
+            <select id="pEffect">
+              <option value="none">None</option>
+              <option value="smoke">💨 Smoke</option>
+              <option value="steam">♨️ Steam</option>
+              <option value="sizzle">🔥 Sizzle</option>
+              <option value="sparkle">✨ Sparkle</option>
+            </select>
+          </div>
           <div class="field full"><label>Body</label><textarea id="pBody" rows="3" placeholder="What's the news?"></textarea></div>
         </div>
-        <button class="save-btn" onclick="addPost()">Publish post</button>
+        <button class="save-btn" id="postSaveBtn" onclick="savePost()">Publish post</button>
+        <button class="icon-btn" id="postCancelBtn" style="display:none;margin-top:6px;margin-left:8px;" onclick="cancelPostEdit()">Cancel edit</button>
       </div>
       <div class="card">
         <table>
-          <thead><tr><th>Title</th><th>Tag</th><th>Date</th><th></th></tr></thead>
+          <thead><tr><th>Title</th><th>Tag</th><th>Effect</th><th>Date</th><th></th></tr></thead>
           <tbody id="postsTable"></tbody>
         </table>
       </div>
@@ -232,13 +243,14 @@
     <div class="panel" id="restaurantsPanel">
       <div class="main-head"><div><h2>Restaurants</h2><p>Branches shown on the customer site's Restaurants section.</p></div></div>
       <div class="card">
-        <h3 style="font-size:15px;margin-bottom:14px;">Add branch</h3>
+        <h3 style="font-size:15px;margin-bottom:14px;" id="restFormTitle">Add branch</h3>
         <div class="form-grid">
           <div class="field"><label>Branch name</label><input id="rName" placeholder="Mount Lavinia"></div>
           <div class="field"><label>Google Maps link</label><input id="rMap" placeholder="https://goo.gl/maps/..."></div>
           <div class="field full"><label>Address</label><input id="rAddr" placeholder="No.282, Galle Rd, Mount Lavinia"></div>
         </div>
-        <button class="save-btn" onclick="addRestaurant()">Add branch</button>
+        <button class="save-btn" id="restSaveBtn" onclick="saveRestaurantForm()">Add branch</button>
+        <button class="icon-btn" id="restCancelBtn" style="display:none;margin-top:6px;margin-left:8px;" onclick="cancelRestEdit()">Cancel edit</button>
       </div>
       <div class="card">
         <table>
@@ -256,7 +268,7 @@
     <div class="panel" id="galleryPanel">
       <div class="main-head"><div><h2>Gallery</h2><p>Photos shown on the customer site's Gallery section.</p></div></div>
       <div class="card">
-        <h3 style="font-size:15px;margin-bottom:14px;">Add photo</h3>
+        <h3 style="font-size:15px;margin-bottom:14px;" id="galFormTitle">Add photo</h3>
         <div class="form-grid">
           <div class="field full"><label>Image URL</label><input id="gUrl" placeholder="https://example.com/photo.jpg"></div>
           <div class="field"><label>Size</label>
@@ -268,7 +280,8 @@
           </div>
           <div class="field"><label>Caption (optional)</label><input id="gCaption" placeholder="Fresh out of the fryer"></div>
         </div>
-        <button class="save-btn" onclick="addGalleryImage()">Add photo</button>
+        <button class="save-btn" id="galSaveBtn" onclick="saveGalleryForm()">Add photo</button>
+        <button class="icon-btn" id="galCancelBtn" style="display:none;margin-top:6px;margin-left:8px;" onclick="cancelGalEdit()">Cancel edit</button>
       </div>
       <div class="card">
         <table>
@@ -322,7 +335,7 @@
       </div>
 
       <div class="card">
-        <h3 style="font-size:15px;margin-bottom:14px;">Add testimonial</h3>
+        <h3 style="font-size:15px;margin-bottom:14px;" id="tsFormTitle">Add testimonial</h3>
         <div class="form-grid">
           <div class="field"><label>Customer name</label><input id="tsName" placeholder="Nadeesha K."></div>
           <div class="field"><label>Location</label><input id="tsLoc" placeholder="Colombo 07"></div>
@@ -337,7 +350,8 @@
           </div>
           <div class="field full"><label>Quote</label><textarea id="tsQuote" rows="2" placeholder="What the customer said"></textarea></div>
         </div>
-        <button class="save-btn" onclick="addTestimonial()">Add testimonial</button>
+        <button class="save-btn" id="tsSaveBtn" onclick="saveTestimonialForm()">Add testimonial</button>
+        <button class="icon-btn" id="tsCancelBtn" style="display:none;margin-top:6px;margin-left:8px;" onclick="cancelTsEdit()">Cancel edit</button>
       </div>
       <div class="card">
         <table>
@@ -561,6 +575,7 @@ function switchPanel(id, btn){
   btn.classList.add('active');
 }
 
+let editingMenuId = null;
 function renderMenuTable(){
   const tbody = document.getElementById('menuTable');
   if(!menu.length){ tbody.innerHTML = '<tr><td colspan="6" class="empty">No menu items yet. Add one above.</td></tr>'; return; }
@@ -572,13 +587,40 @@ function renderMenuTable(){
       <td class="price-tag">${item.comboPrice ? money(item.comboPrice) : '—'}</td>
       <td>${item.spicy?'🌶️ ':''}${item.popular?'⭐':''}</td>
       <td class="row-actions">
+        <button class="icon-btn" onclick="editMenuItem('${item.id}')">Edit</button>
         <button class="icon-btn danger" onclick="deleteMenuItem('${item.id}')">Delete</button>
       </td>
     </tr>
   `).join('');
 }
-
-async function addMenuItem(){
+function editMenuItem(id){
+  const item = menu.find(m=>m.id===id);
+  if(!item) return;
+  editingMenuId = id;
+  document.getElementById('mName').value = item.name||'';
+  document.getElementById('mCategory').value = item.category||'';
+  document.getElementById('mLabel').value = item.label||'';
+  document.getElementById('mEmoji').value = item.emoji||'';
+  document.getElementById('mPrice').value = item.price ?? '';
+  document.getElementById('mCombo').value = item.comboPrice ?? '';
+  document.getElementById('mDesc').value = item.desc||'';
+  document.getElementById('mSpicy').checked = !!item.spicy;
+  document.getElementById('mPopular').checked = !!item.popular;
+  document.getElementById('menuFormTitle').textContent = 'Edit item';
+  document.getElementById('menuSaveBtn').textContent = 'Save changes';
+  document.getElementById('menuCancelBtn').style.display = 'inline-block';
+  document.getElementById('menuFormTitle').scrollIntoView({behavior:'smooth', block:'center'});
+}
+function cancelMenuEdit(){
+  editingMenuId = null;
+  ['mName','mCategory','mLabel','mEmoji','mPrice','mCombo','mDesc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('mSpicy').checked=false;
+  document.getElementById('mPopular').checked=false;
+  document.getElementById('menuFormTitle').textContent = 'Add item';
+  document.getElementById('menuSaveBtn').textContent = 'Add to menu';
+  document.getElementById('menuCancelBtn').style.display = 'none';
+}
+async function saveMenuItem(){
   const name = document.getElementById('mName').value.trim();
   const category = document.getElementById('mCategory').value.trim() || "Misc";
   const label = document.getElementById('mLabel').value.trim();
@@ -590,7 +632,17 @@ async function addMenuItem(){
   const spicy = document.getElementById('mSpicy').checked;
   const popular = document.getElementById('mPopular').checked;
   if(!name || isNaN(price)){ showToast("Name and single price are required"); return; }
-  menu.push({id:uid('m'), name, category, label, price, comboPrice: (comboPrice && !isNaN(comboPrice)) ? comboPrice : null, desc, emoji, spicy, popular});
+  const cleanCombo = (comboPrice && !isNaN(comboPrice)) ? comboPrice : null;
+  if(editingMenuId){
+    const item = menu.find(m=>m.id===editingMenuId);
+    if(item){ Object.assign(item, { name, category, label, price, comboPrice: cleanCombo, desc, emoji, spicy, popular }); }
+    await saveMenu();
+    renderMenuTable();
+    cancelMenuEdit();
+    showToast("Menu item updated");
+    return;
+  }
+  menu.push({id:uid('m'), name, category, label, price, comboPrice: cleanCombo, desc, emoji, spicy, popular});
   await saveMenu();
   renderMenuTable();
   ['mName','mCategory','mLabel','mPrice','mCombo','mEmoji','mDesc'].forEach(id=>document.getElementById(id).value='');
@@ -605,9 +657,11 @@ async function deleteMenuItem(id){
   showToast("Item removed");
 }
 
+let editingPostId = null;
 function renderPostsTable(){
   const tbody = document.getElementById('postsTable');
-  if(!posts.length){ tbody.innerHTML = '<tr><td colspan="4" class="empty">No posts yet. Publish one above.</td></tr>'; return; }
+  if(!posts.length){ tbody.innerHTML = '<tr><td colspan="5" class="empty">No posts yet. Publish one above.</td></tr>'; return; }
+  const effectLabels = {smoke:'💨 Smoke', steam:'♨️ Steam', sizzle:'🔥 Sizzle', sparkle:'✨ Sparkle'};
   tbody.innerHTML = posts.map(post => `
     <tr>
       <td>
@@ -615,22 +669,59 @@ function renderPostsTable(){
         <b>${post.title}</b><br><span style="opacity:0.55;font-size:12px;">${post.body}</span>
       </td>
       <td><span class="pill">${post.tag||''}</span></td>
+      <td>${post.effect && post.effect!=='none' ? `<span class="pill">${effectLabels[post.effect]||post.effect}</span>` : '—'}</td>
       <td>${post.date||''}</td>
-      <td class="row-actions"><button class="icon-btn danger" onclick="deletePost('${post.id}')">Delete</button></td>
+      <td class="row-actions">
+        <button class="icon-btn" onclick="editPost('${post.id}')">Edit</button>
+        <button class="icon-btn danger" onclick="deletePost('${post.id}')">Delete</button>
+      </td>
     </tr>
   `).join('');
 }
-async function addPost(){
+function editPost(id){
+  const post = posts.find(p=>p.id===id);
+  if(!post) return;
+  editingPostId = id;
+  document.getElementById('pTitle').value = post.title||'';
+  document.getElementById('pTag').value = post.tag||'';
+  document.getElementById('pImage').value = post.image||'';
+  document.getElementById('pEffect').value = post.effect||'none';
+  document.getElementById('pBody').value = post.body||'';
+  document.getElementById('postFormTitle').textContent = 'Edit post';
+  document.getElementById('postSaveBtn').textContent = 'Save changes';
+  document.getElementById('postCancelBtn').style.display = 'inline-block';
+  document.getElementById('postFormTitle').scrollIntoView({behavior:'smooth', block:'center'});
+}
+function cancelPostEdit(){
+  editingPostId = null;
+  ['pTitle','pTag','pImage','pBody'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pEffect').value = 'none';
+  document.getElementById('postFormTitle').textContent = 'New post';
+  document.getElementById('postSaveBtn').textContent = 'Publish post';
+  document.getElementById('postCancelBtn').style.display = 'none';
+}
+async function savePost(){
   const title = document.getElementById('pTitle').value.trim();
   const tag = document.getElementById('pTag').value.trim() || "Note";
   const image = document.getElementById('pImage').value.trim();
+  const effect = document.getElementById('pEffect').value;
   const body = document.getElementById('pBody').value.trim();
   if(!title || !body){ showToast("Title and body are required"); return; }
+  if(editingPostId){
+    const post = posts.find(p=>p.id===editingPostId);
+    if(post){ Object.assign(post, { title, tag, image, effect, body }); }
+    await savePosts();
+    renderPostsTable();
+    cancelPostEdit();
+    showToast("Post updated");
+    return;
+  }
   const date = new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-  posts.unshift({id:uid('p'), title, tag, body, date, image});
+  posts.unshift({id:uid('p'), title, tag, body, date, image, effect});
   await savePosts();
   renderPostsTable();
   ['pTitle','pTag','pImage','pBody'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pEffect').value = 'none';
   showToast("Post published");
 }
 async function deletePost(id){
@@ -678,15 +769,47 @@ function renderRestaurantsTable(){
       <td><b>${loc.name}</b></td>
       <td style="font-size:12.5px;opacity:0.75;">${loc.addr}</td>
       <td><a href="${loc.map}" target="_blank" rel="noopener" style="font-size:12.5px;">${loc.map}</a></td>
-      <td class="row-actions"><button class="icon-btn danger" onclick="deleteRestaurant('${loc.id}')">Delete</button></td>
+      <td class="row-actions">
+        <button class="icon-btn" onclick="editRestaurant('${loc.id}')">Edit</button>
+        <button class="icon-btn danger" onclick="deleteRestaurant('${loc.id}')">Delete</button>
+      </td>
     </tr>
   `).join('');
 }
-async function addRestaurant(){
+let editingRestId = null;
+function editRestaurant(id){
+  const loc = restaurants.find(r=>r.id===id);
+  if(!loc) return;
+  editingRestId = id;
+  document.getElementById('rName').value = loc.name||'';
+  document.getElementById('rMap').value = loc.map||'';
+  document.getElementById('rAddr').value = loc.addr||'';
+  document.getElementById('restFormTitle').textContent = 'Edit branch';
+  document.getElementById('restSaveBtn').textContent = 'Save changes';
+  document.getElementById('restCancelBtn').style.display = 'inline-block';
+  document.getElementById('restFormTitle').scrollIntoView({behavior:'smooth', block:'center'});
+}
+function cancelRestEdit(){
+  editingRestId = null;
+  ['rName','rAddr','rMap'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('restFormTitle').textContent = 'Add branch';
+  document.getElementById('restSaveBtn').textContent = 'Add branch';
+  document.getElementById('restCancelBtn').style.display = 'none';
+}
+async function saveRestaurantForm(){
   const name = document.getElementById('rName').value.trim();
   const addr = document.getElementById('rAddr').value.trim();
   const map = document.getElementById('rMap').value.trim();
   if(!name || !addr){ showToast("Branch name and address are required"); return; }
+  if(editingRestId){
+    const loc = restaurants.find(r=>r.id===editingRestId);
+    if(loc){ Object.assign(loc, { name, addr, map: map || '#' }); }
+    await saveRestaurants();
+    renderRestaurantsTable();
+    cancelRestEdit();
+    showToast("Branch updated");
+    return;
+  }
   restaurants.push({id:uid('r'), name, addr, map: map || '#'});
   await saveRestaurants();
   renderRestaurantsTable();
@@ -1002,15 +1125,48 @@ function renderGalleryTable(){
       <td><img src="${g.url}" alt="" style="width:52px;height:52px;object-fit:cover;border-radius:8px;" onerror="this.style.display='none'"></td>
       <td><span class="pill">${g.size||'medium'}</span></td>
       <td style="font-size:12.5px;opacity:0.75;">${g.caption||''}</td>
-      <td class="row-actions"><button class="icon-btn danger" onclick="deleteGalleryImage('${g.id}')">Delete</button></td>
+      <td class="row-actions">
+        <button class="icon-btn" onclick="editGalleryImage('${g.id}')">Edit</button>
+        <button class="icon-btn danger" onclick="deleteGalleryImage('${g.id}')">Delete</button>
+      </td>
     </tr>
   `).join('');
 }
-async function addGalleryImage(){
+let editingGalId = null;
+function editGalleryImage(id){
+  const g = gallery.find(x=>x.id===id);
+  if(!g) return;
+  editingGalId = id;
+  document.getElementById('gUrl').value = g.url||'';
+  document.getElementById('gSize').value = g.size||'medium';
+  document.getElementById('gCaption').value = g.caption||'';
+  document.getElementById('galFormTitle').textContent = 'Edit photo';
+  document.getElementById('galSaveBtn').textContent = 'Save changes';
+  document.getElementById('galCancelBtn').style.display = 'inline-block';
+  document.getElementById('galFormTitle').scrollIntoView({behavior:'smooth', block:'center'});
+}
+function cancelGalEdit(){
+  editingGalId = null;
+  ['gUrl','gCaption'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('gSize').value = 'medium';
+  document.getElementById('galFormTitle').textContent = 'Add photo';
+  document.getElementById('galSaveBtn').textContent = 'Add photo';
+  document.getElementById('galCancelBtn').style.display = 'none';
+}
+async function saveGalleryForm(){
   const url = document.getElementById('gUrl').value.trim();
   const size = document.getElementById('gSize').value;
   const caption = document.getElementById('gCaption').value.trim();
   if(!url){ showToast("Image URL is required"); return; }
+  if(editingGalId){
+    const g = gallery.find(x=>x.id===editingGalId);
+    if(g){ Object.assign(g, { url, size, caption }); }
+    await saveGallery();
+    renderGalleryTable();
+    cancelGalEdit();
+    showToast("Photo updated");
+    return;
+  }
   gallery.push({id:uid('g'), url, size, caption});
   await saveGallery();
   renderGalleryTable();
@@ -1067,16 +1223,50 @@ function renderTestimonialsTable(){
       <td>${t.loc||''}</td>
       <td><span class="pill">${'★'.repeat(t.rating||5)}</span></td>
       <td style="font-size:12.5px;opacity:0.75;max-width:280px;">${t.quote||''}</td>
-      <td class="row-actions"><button class="icon-btn danger" onclick="deleteTestimonial('${t.id}')">Delete</button></td>
+      <td class="row-actions">
+        <button class="icon-btn" onclick="editTestimonial('${t.id}')">Edit</button>
+        <button class="icon-btn danger" onclick="deleteTestimonial('${t.id}')">Delete</button>
+      </td>
     </tr>
   `).join('');
 }
-async function addTestimonial(){
+let editingTsId = null;
+function editTestimonial(id){
+  const t = testimonials.find(x=>x.id===id);
+  if(!t) return;
+  editingTsId = id;
+  document.getElementById('tsName').value = t.name||'';
+  document.getElementById('tsLoc').value = t.loc||'';
+  document.getElementById('tsRating').value = String(t.rating||5);
+  document.getElementById('tsQuote').value = t.quote||'';
+  document.getElementById('tsFormTitle').textContent = 'Edit testimonial';
+  document.getElementById('tsSaveBtn').textContent = 'Save changes';
+  document.getElementById('tsCancelBtn').style.display = 'inline-block';
+  document.getElementById('tsFormTitle').scrollIntoView({behavior:'smooth', block:'center'});
+}
+function cancelTsEdit(){
+  editingTsId = null;
+  ['tsName','tsLoc','tsQuote'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('tsRating').value = '5';
+  document.getElementById('tsFormTitle').textContent = 'Add testimonial';
+  document.getElementById('tsSaveBtn').textContent = 'Add testimonial';
+  document.getElementById('tsCancelBtn').style.display = 'none';
+}
+async function saveTestimonialForm(){
   const name = document.getElementById('tsName').value.trim();
   const loc = document.getElementById('tsLoc').value.trim();
   const rating = parseInt(document.getElementById('tsRating').value, 10);
   const quote = document.getElementById('tsQuote').value.trim();
   if(!name || !quote){ showToast("Name and quote are required"); return; }
+  if(editingTsId){
+    const t = testimonials.find(x=>x.id===editingTsId);
+    if(t){ Object.assign(t, { name, loc, rating, quote }); }
+    await saveTestimonials();
+    renderTestimonialsTable();
+    cancelTsEdit();
+    showToast("Testimonial updated");
+    return;
+  }
   testimonials.push({ id: uid('ts'), name, loc, rating, quote });
   await saveTestimonials();
   renderTestimonialsTable();
