@@ -124,19 +124,84 @@
   .tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);}
   .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
 
-  /* ============ GALLERY (admin-managed photos) ============ */
-  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:130px;gap:14px;}
-  .gallery-item{position:relative;border-radius:18px;overflow:hidden;background:var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(21,12,9,0.06);}
-  .gallery-item img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+  /* ============ GALLERY (admin-managed photos) — natural sizes, masonry ============ */
+  .gallery-grid{column-count:4;column-gap:14px;}
+  .gallery-item{position:relative;border-radius:18px;overflow:hidden;background:var(--ink);display:block;box-shadow:0 2px 8px rgba(21,12,9,0.06);break-inside:avoid;margin:0 0 14px;cursor:zoom-in;transition:transform .18s ease, box-shadow .18s ease;}
+  .gallery-item:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(21,12,9,0.16);}
+  .gallery-item img{width:100%;height:auto;object-fit:contain;display:block;}
   .gallery-item .g-caption{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;background:linear-gradient(to top, rgba(27,19,16,0.75), transparent);color:#fff;font-size:12.5px;font-weight:600;}
-  .gallery-item.size-small{grid-column:span 1;grid-row:span 1;}
-  .gallery-item.size-medium{grid-column:span 2;grid-row:span 1;}
-  .gallery-item.size-large{grid-column:span 2;grid-row:span 2;}
-  @media (max-width:700px){
-    .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:120px;}
-    .gallery-item.size-medium{grid-column:span 2;}
-    .gallery-item.size-large{grid-column:span 2;grid-row:span 2;}
+  @media (max-width:900px){ .gallery-grid{column-count:3;} }
+  @media (max-width:700px){ .gallery-grid{column-count:2;column-gap:10px;} .gallery-item{margin-bottom:10px;} }
+  @media (max-width:460px){ .gallery-grid{column-count:1;} }
+
+  /* ============ LIGHTBOX (gallery pop-up) ============ */
+  .lightbox-overlay{position:fixed;inset:0;background:rgba(10,6,4,0.85);z-index:210;display:flex;align-items:center;justify-content:center;padding:40px 24px;opacity:0;visibility:hidden;transition:opacity .2s;}
+  .lightbox-overlay.open{opacity:1;visibility:visible;}
+  .lightbox-overlay img{max-width:100%;max-height:86vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:block;}
+  .lightbox-caption{color:var(--cream-2);text-align:center;margin-top:14px;font-size:13.5px;}
+  .lightbox-close{position:absolute;top:22px;right:26px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;}
+  .lightbox-close:hover{background:rgba(255,255,255,0.22);}
+
+  /* ============ PRODUCT MODAL (pop-out on select, like popeyes.com) ============ */
+  .pmodal-overlay{position:fixed;inset:0;background:rgba(21,12,9,0.55);z-index:200;opacity:0;visibility:hidden;transition:opacity .2s;}
+  .pmodal-overlay.open{opacity:1;visibility:visible;}
+  .pmodal{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%);width:560px;max-width:92vw;max-height:88vh;overflow-y:auto;background:#fff;border-radius:22px;z-index:201;opacity:0;visibility:hidden;transition:opacity .22s ease, transform .22s ease;box-shadow:0 30px 70px rgba(21,12,9,0.4);}
+  .pmodal.open{opacity:1;visibility:visible;transform:translate(-50%,-50%);}
+  .pmodal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:10px;background:var(--cream-2);border:none;font-size:16px;color:var(--ink);display:flex;align-items:center;justify-content:center;z-index:2;}
+  .pmodal-close:hover{background:var(--marigold);}
+  .pmodal-media{background:radial-gradient(circle at 50% 30%, var(--cream-2), #fff 72%);display:flex;align-items:center;justify-content:center;padding:44px 24px 30px;min-height:200px;}
+  .pmodal-media img{max-height:230px;width:auto;border-radius:14px;object-fit:cover;}
+  .pmodal-media .pmodal-emoji{font-size:118px;line-height:1;filter:drop-shadow(0 14px 18px rgba(21,12,9,0.18));}
+  .pmodal-body{padding:26px 30px 30px;}
+  .pmodal-title{font-size:25px;margin-bottom:10px;text-align:center;}
+  .pmodal-badges{display:flex;gap:6px;justify-content:center;margin-bottom:8px;}
+  .pmodal-desc{font-size:14px;opacity:.72;line-height:1.65;border-bottom:1px solid var(--line-dark);padding-bottom:16px;margin-bottom:16px;}
+  .pmodal-price-block{display:flex;gap:10px;margin-bottom:18px;}
+  .pmodal-price-opt{flex:1;border:1.5px solid var(--line-dark);border-radius:12px;padding:10px 14px;text-align:center;}
+  .pmodal-price-opt span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;opacity:.55;}
+  .pmodal-price-opt b{display:block;font-family:'Space Mono',monospace;font-size:16.5px;margin-top:4px;color:var(--brown);}
+  .pmodal-info{border-top:1px dashed var(--line-dark);padding-top:14px;margin-bottom:20px;}
+  .pmodal-info h4{font-size:12px;text-transform:uppercase;letter-spacing:.05em;opacity:.6;margin:0 0 8px;}
+  .pmodal-info p{font-size:12px;opacity:.55;margin:0 0 6px;line-height:1.5;}
+  .pmodal-actions{display:flex;flex-direction:column;gap:10px;}
+  .pmodal-actions .btn{width:100%;justify-content:center;}
+
+  /* ============ PAGE ROUTER (Menu / Account as dedicated pages) ============ */
+  .page-view{display:none;}
+  .page-view.active{display:block;}
+  .page-banner{background:var(--ink);color:var(--cream);padding:44px 24px 32px;position:relative;overflow:hidden;}
+  .page-banner::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 0%, rgba(214,48,28,0.3), transparent 50%);}
+  .page-banner-inner{max-width:1120px;margin:0 auto;position:relative;z-index:1;}
+  .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--marigold);text-decoration:none;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px;}
+  .back-link:hover{color:#fff;}
+  .page-banner h1{font-size:clamp(28px,5vw,42px);color:var(--cream);}
+  .account-shell{max-width:640px;}
+
+  /* ============ CART = BROWN PAPER BAG (texture appears once it opens) ============ */
+  .drawer#drawer{transition:transform .3s ease, background-color .3s ease;}
+  .drawer#drawer.open{
+    background-color:#B67840;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"),
+      linear-gradient(155deg,#CE9257 0%,#B67840 45%,#8F5A30 100%);
+    background-blend-mode:overlay, normal;
+    background-size:140px 140px, cover;
+    animation:bagUnfold .32s ease;
+    position:fixed;
   }
+  .drawer#drawer.open::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:16px;
+    background:linear-gradient(180deg, rgba(0,0,0,0.22), transparent);
+    pointer-events:none;
+  }
+  @keyframes bagUnfold{0%{transform:translateX(100%) scaleY(0.96);} 60%{transform:translateX(0) scaleY(1.01);} 100%{transform:translateX(0) scaleY(1);}}
+  .drawer#drawer.open .drawer-head{background:rgba(255,250,240,0.94);border-bottom:2px dashed rgba(70,40,20,0.28);}
+  .drawer#drawer.open .drawer-head h3{color:#5A3418;}
+  .drawer#drawer.open .drawer-head h3::before{content:"🛍️ ";}
+  .drawer#drawer.open .drawer-foot{background:rgba(255,250,240,0.96);border-top:2px dashed rgba(70,40,20,0.28);}
+  .drawer#drawer.open .drawer-body{padding-top:18px;}
+  .drawer#drawer.open .cart-row{background:rgba(255,250,240,0.94);border-radius:10px;padding:12px 12px;margin-bottom:10px;border-bottom:none;box-shadow:0 3px 8px rgba(60,30,10,0.18);}
+  .drawer#drawer.open .cart-empty{background:rgba(255,250,240,0.9);border-radius:10px;color:#5A3418;}
   .item-card{background:#fff;border-radius:18px;border:1px solid var(--line-dark);padding:18px;display:flex;flex-direction:column;gap:10px;position:relative;transition:transform .18s ease, box-shadow .18s ease;box-shadow:0 2px 8px rgba(21,12,9,0.05);}
   .item-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);}
   .item-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(74,42,27,0.10);}
@@ -409,12 +474,11 @@
       <div class="nav-left">
         <button class="hamburger" aria-label="Open menu" onclick="openMobileNav()">☰</button>
         <nav>
-          <a href="#menu" onclick="return smoothNav(event,'menu')">Menu</a>
+          <a href="#/menu" onclick="return goPage(event,'menu')">Menu</a>
           <a href="#story" onclick="return smoothNav(event,'story')">Our Story</a>
           <a href="#restaurants" onclick="return smoothNav(event,'restaurants')">Restaurants</a>
           <a href="#offers" onclick="return smoothNav(event,'offers')">Offers</a>
           <a href="#gallery" onclick="return smoothNav(event,'gallery')">Gallery</a>
-          <a href="#catering" onclick="return smoothNav(event,'catering')">Catering</a>
         </nav>
       </div>
       <div class="logo">
@@ -425,7 +489,6 @@
         </div>
       </div>
       <div class="header-actions">
-        <a href="#kitchen" class="rewards-link" onclick="return smoothNav(event,'kitchen')">Rewards</a>
         <button class="pill-btn" id="acctBtn" onclick="openAccount()">Sign In</button>
         <button class="cart-btn" onclick="openCart()">
           🛍️ Bag <span class="cart-count" id="cartCount">0</span>
@@ -434,6 +497,7 @@
     </div>
   </header>
 
+  <div id="page-home" class="page-view active" data-page="home">
   <section class="hero-carousel" id="heroCarousel" onmouseenter="pauseCarousel()" onmouseleave="resumeCarousel()">
     <div class="hero-carousel-inner">
       <button class="carousel-arrow prev" onclick="stepCarousel(-1)" aria-label="Previous slide">‹</button>
@@ -454,16 +518,23 @@
     <div class="story-grid" id="storyGrid"></div>
   </section>
 
-  <section class="section" id="menu">
-    <div class="section-head">
-      <div>
-        <h2>The menu</h2>
-        <div class="section-sub">Every item, single or combo. Prices update live from the kitchen.</div>
+  </div><!-- /page-home part 1 -->
+
+  <div id="page-menu" class="page-view" data-page="menu">
+    <div class="page-banner">
+      <div class="page-banner-inner">
+        <a href="#/" class="back-link" onclick="return goPage(event,'home')">‹ Back to home</a>
+        <h1>The full menu</h1>
+        <div class="section-sub" style="color:var(--cream-2);opacity:0.75;">Every item, single or combo. Prices update live from the kitchen.</div>
       </div>
     </div>
-    <div class="tabs" id="tabs"></div>
-    <div class="menu-grid" id="menuGrid"></div>
-  </section>
+    <section class="section" id="menu" style="padding-top:36px;">
+      <div class="tabs" id="tabs"></div>
+      <div class="menu-grid" id="menuGrid"></div>
+    </section>
+  </div>
+
+  <div id="page-home-2" class="page-view active" data-page="home">
 
   <section class="section ticket-rail" id="kitchen">
     <div class="section-head">
@@ -518,36 +589,20 @@
     </div>
     <div class="gallery-grid" id="galleryGrid"></div>
   </section>
+  </div><!-- /page-home part 2 -->
 
-  <section class="section" id="catering">
-    <div class="section-head">
-      <div>
-        <h2>Catering</h2>
-        <div class="section-sub">Feeding a crowd? Party trays and group boxes, ready for pickup or delivery.</div>
+  <div id="page-account" class="page-view" data-page="account">
+    <div class="page-banner">
+      <div class="page-banner-inner">
+        <a href="#/" class="back-link" onclick="return goPage(event,'home')">‹ Back to home</a>
+        <h1 id="acctTitle">Sign in</h1>
+        <div class="section-sub" style="color:var(--cream-2);opacity:0.75;">Your profile, your order history, and live order tracking.</div>
       </div>
     </div>
-    <div class="menu-grid">
-      <div class="item-card">
-        <div class="item-emoji">🍗</div>
-        <div class="item-name">Party buckets</div>
-        <div class="item-desc">Bulk bone-in chicken and tenders, portioned for groups — ask your branch for current bucket sizes and pricing.</div>
-      </div>
-      <div class="item-card">
-        <div class="item-emoji">🥪</div>
-        <div class="item-name">Sandwich boxes</div>
-        <div class="item-desc">Individually boxed sandwiches with a side, good for office lunches and corporate orders.</div>
-      </div>
-      <div class="item-card">
-        <div class="item-emoji">🍚</div>
-        <div class="item-name">Sides &amp; biscuits, by the tray</div>
-        <div class="item-desc">Red beans and rice, Cajun fries, and fresh-baked biscuits, ordered in bulk to round out any spread.</div>
-      </div>
-    </div>
-    <div style="margin-top:24px;text-align:center;">
-      <div class="section-sub" style="max-width:520px;margin:0 auto 14px;">Catering availability and minimum order sizes vary by branch — call ahead to confirm and place large orders a day or two before your event.</div>
-      <a href="tel:0112123123" class="btn btn-primary" style="display:inline-flex;background:var(--red);color:#fff;">Call to arrange catering</a>
-    </div>
-  </section>
+    <section class="section account-shell">
+      <div id="acctBody"></div>
+    </section>
+  </div>
 
   <footer>
     Popeyes Sri Lanka — demo site. Not affiliated with Popeyes Louisiana Kitchen, Inc.
@@ -566,16 +621,23 @@
     </div>
   </div>
 
-  <div class="overlay" id="acctOverlay" onclick="closeAccount()"></div>
-  <div class="drawer" id="acctDrawer">
-    <div class="drawer-head"><h3 id="acctTitle">Sign in</h3><button onclick="closeAccount()">✕</button></div>
-    <div class="drawer-body" id="acctBody"></div>
-  </div>
-
   <div class="overlay" id="mnavOverlay" onclick="closeMobileNav()"></div>
   <div class="drawer" id="mnavDrawer">
     <div class="drawer-head"><h3>Menu</h3><button onclick="closeMobileNav()">✕</button></div>
     <div class="drawer-body" id="mnavBody"></div>
+  </div>
+
+  <div class="pmodal-overlay" id="pmodalOverlay" onclick="closeProductModal()"></div>
+  <div class="pmodal" id="pmodal">
+    <div id="pmodalBody"></div>
+  </div>
+
+  <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="event.stopPropagation();closeLightbox()">✕</button>
+    <div onclick="event.stopPropagation()">
+      <img id="lightboxImg" src="" alt="">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
   </div>
 </div>
 
@@ -672,10 +734,44 @@ let customers = {}, currentCustomer = null, acctMode = 'login';
 
 function money(n){ return "Rs. " + Number(n).toLocaleString("en-LK"); }
 function uid(prefix){ return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+/* ============ PAGE ROUTER (Menu / Account as dedicated pages) ============ */
+const VALID_PAGES = ['home','menu','account'];
+function currentPage(){
+  const h = location.hash.replace(/^#\/?/, '').split('/')[0];
+  return VALID_PAGES.includes(h) ? h : 'home';
+}
+function goPage(e, page){
+  if(e) e.preventDefault();
+  location.hash = page === 'home' ? '/' : '/' + page;
+  return false;
+}
+function showPage(page){
+  if(!VALID_PAGES.includes(page)) page = 'home';
+  document.querySelectorAll('.page-view').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('[data-page="'+page+'"]').forEach(el=>el.classList.add('active'));
+  window.scrollTo(0,0);
+  closeMobileNav();
+  if(page === 'account'){ renderAccount(); }
+}
+function routeFromHash(){ showPage(currentPage()); }
+window.addEventListener('hashchange', routeFromHash);
+document.addEventListener('keydown', e=>{
+  if(e.key === 'Escape'){ closeProductModal(); closeLightbox(); }
+});
+
 function smoothNav(e, id){
   if(e) e.preventDefault();
-  const el = document.getElementById(id);
-  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  if(id === 'menu'){ goPage(null, 'menu'); return false; }
+  const scrollToIt = () => {
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  };
+  if(currentPage() !== 'home'){
+    location.hash = '/';
+    setTimeout(scrollToIt, 60);
+  } else {
+    scrollToIt();
+  }
   return false;
 }
 function showToast(msg){
@@ -742,8 +838,8 @@ function updateAcctButton(){
   if(!btn) return;
   btn.textContent = currentCustomer ? currentCustomer.name.split(' ')[0] : 'Sign In';
 }
-function openAccount(){ renderAccount(); document.getElementById('acctOverlay').classList.add('open'); document.getElementById('acctDrawer').classList.add('open'); }
-function closeAccount(){ document.getElementById('acctOverlay').classList.remove('open'); document.getElementById('acctDrawer').classList.remove('open'); stopTrackerAutoRefresh(); }
+function openAccount(){ goPage(null, 'account'); renderAccount(); }
+function closeAccount(){ stopTrackerAutoRefresh(); goPage(null, 'home'); }
 function switchAcctMode(mode){ acctMode = mode; renderAccount(); }
 
 const CUSTOMER_STAGES = ["Placed","Preparing","Ready","Out for delivery","Delivered"];
@@ -984,13 +1080,11 @@ function closeMobileNav(){ document.getElementById('mnavOverlay').classList.remo
 function renderMobileNav(){
   const body = document.getElementById('mnavBody');
   body.innerHTML = `
-    <a href="#menu" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'menu')">Menu <span class="arrow">›</span></a>
+    <a href="#/menu" class="mnav-link" onclick="closeMobileNav();goPage(event,'menu')">Menu <span class="arrow">›</span></a>
     <a href="#story" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'story')">Our Story <span class="arrow">›</span></a>
     <a href="#restaurants" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'restaurants')">Restaurants <span class="arrow">›</span></a>
     <a href="#offers" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'offers')">Offers <span class="arrow">›</span></a>
     <a href="#gallery" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'gallery')">Gallery <span class="arrow">›</span></a>
-    <a href="#catering" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'catering')">Catering <span class="arrow">›</span></a>
-    <a href="#kitchen" class="mnav-link rewards" onclick="closeMobileNav();smoothNav(event,'kitchen')">Rewards <span class="arrow">›</span></a>
     <div class="mnav-section">Account</div>
     ${currentCustomer ? `
       <div class="mnav-acct">
@@ -1031,15 +1125,47 @@ function showProduct(id){
   if(!item){ showToast("That item isn't on the menu right now"); return; }
   activeCategory = "All";
   renderTabs(); renderMenu();
-  smoothNav(null, 'menu');
-  setTimeout(()=>{
-    const el = document.querySelector(`.item-card[data-item-id="${item.id}"]`);
-    if(el){
-      el.scrollIntoView({behavior:'smooth', block:'center'});
-      el.classList.add('flash-highlight');
-      setTimeout(()=>el.classList.remove('flash-highlight'), 2200);
-    }
-  }, 400);
+  goPage(null, 'menu');
+  setTimeout(()=> openProductModal(id), 120);
+}
+
+/* ============ PRODUCT MODAL (pop-out on select, like popeyes.com) ============ */
+function openProductModal(id){
+  const item = menu.find(m=>m.id===id);
+  if(!item) return;
+  document.getElementById('pmodalBody').innerHTML = `
+    <button class="pmodal-close" onclick="closeProductModal()">✕</button>
+    <div class="pmodal-media">
+      ${item.img ? `<img src="${item.img}" alt="${item.name}">` : `<div class="pmodal-emoji">${item.emoji||'🍗'}</div>`}
+    </div>
+    <div class="pmodal-body">
+      <div class="pmodal-badges">
+        ${item.spicy?'<span class="badge badge-spicy">Spicy</span>':''}
+        ${item.popular?'<span class="badge badge-popular">Popular</span>':''}
+      </div>
+      <h2 class="pmodal-title">${item.name}</h2>
+      <div class="pmodal-desc">${item.desc || 'A Popeyes classic, marinated in Louisiana herbs and seasonings, made fresh to order.'}</div>
+      <div class="pmodal-price-block">
+        <div class="pmodal-price-opt"><span>${item.label||'Item'}</span><b>${money(item.price)}</b></div>
+        ${item.comboPrice ? `<div class="pmodal-price-opt" style="border-color:var(--teal);"><span>Combo</span><b style="color:var(--red);">${money(item.comboPrice)}</b></div>` : ''}
+      </div>
+      <div class="pmodal-info">
+        <h4>Additional information</h4>
+        <p>Product availability, prices, offers, and discounts may vary from in-restaurant. Printed coupons are not valid on online orders.</p>
+        <p>2,000 calories a day is used for general nutrition advice, but calorie needs vary.</p>
+      </div>
+      <div class="pmodal-actions">
+        <button class="btn btn-primary" onclick="addToCart('${item.id}',false); closeProductModal();">Add ${item.label||'item'} — ${money(item.price)}</button>
+        ${item.comboPrice ? `<button class="btn" style="background:var(--teal);color:#fff;" onclick="addToCart('${item.id}',true); closeProductModal();">Add combo — ${money(item.comboPrice)}</button>` : ''}
+      </div>
+    </div>
+  `;
+  document.getElementById('pmodalOverlay').classList.add('open');
+  document.getElementById('pmodal').classList.add('open');
+}
+function closeProductModal(){
+  document.getElementById('pmodalOverlay').classList.remove('open');
+  document.getElementById('pmodal').classList.remove('open');
 }
 
 /* ============ HERO CAROUSEL ============ */
@@ -1114,7 +1240,7 @@ function renderCatTiles(){
   rail.innerHTML = cats.map(c => {
     const items = menu.filter(m=>m.category===c);
     const icon = (items.find(m=>m.emoji)||{}).emoji || '🍗';
-    return `<button class="cat-tile" onclick="setCategory('${c.replace(/'/g,"\\'")}'); document.getElementById('menu').scrollIntoView({behavior:'smooth'});">
+    return `<button class="cat-tile" onclick="setCategory('${c.replace(/'/g,"\\'")}'); goPage(null,'menu');">
       <span class="cat-icon">${icon}</span> ${c} <span class="cat-count">${items.length}</span>
     </button>`;
   }).join('');
@@ -1125,7 +1251,7 @@ function renderMenu(){
   const items = activeCategory==="All" ? menu : menu.filter(m=>m.category===activeCategory);
   if(!items.length){ grid.innerHTML = '<div class="empty-note">No items in this category yet.</div>'; return; }
   grid.innerHTML = items.map(item => `
-    <div class="item-card" data-item-id="${item.id}">
+    <div class="item-card" data-item-id="${item.id}" onclick="openProductModal('${item.id}')" style="cursor:pointer;">
       <div class="badges">
         ${item.spicy?'<span class="badge badge-spicy">Spicy</span>':''}
         ${item.popular?'<span class="badge badge-popular">Popular</span>':''}
@@ -1138,8 +1264,8 @@ function renderMenu(){
         ${item.comboPrice ? `<div class="price-row combo"><span class="plabel">Combo</span><span class="pval">${money(item.comboPrice)}</span></div>` : ''}
       </div>
       <div class="add-row">
-        <button class="add-btn" onclick="addToCart('${item.id}',false)">Add ${item.label||'item'}</button>
-        ${item.comboPrice ? `<button class="add-btn combo" onclick="addToCart('${item.id}',true)">Add combo</button>` : ''}
+        <button class="add-btn" onclick="event.stopPropagation();addToCart('${item.id}',false)">Add ${item.label||'item'}</button>
+        ${item.comboPrice ? `<button class="add-btn combo" onclick="event.stopPropagation();addToCart('${item.id}',true)">Add combo</button>` : ''}
       </div>
     </div>
   `).join('');
@@ -1154,7 +1280,7 @@ function renderOffers(){
   grid.innerHTML = deals.map(item => {
     const blurb = (item.offerBlurb && item.offerBlurb.trim()) ? item.offerBlurb : `${item.desc||''} Comes with a side and a drink.`;
     return `
-    <div class="item-card">
+    <div class="item-card" onclick="openProductModal('${item.id}')" style="cursor:pointer;">
       <div class="badges">
         ${item.spicy?'<span class="badge badge-spicy">Spicy</span>':''}
       </div>
@@ -1163,7 +1289,7 @@ function renderOffers(){
       <div class="item-desc">${blurb}</div>
       <div class="offer-save">Combo from ${money(item.comboPrice)}</div>
       <div class="add-row">
-        <button class="add-btn combo" onclick="addToCart('${item.id}',true)">Add combo</button>
+        <button class="add-btn combo" onclick="event.stopPropagation();addToCart('${item.id}',true)">Add combo</button>
       </div>
     </div>
   `;
@@ -1189,13 +1315,22 @@ function renderGallery(){
   const grid = document.getElementById('galleryGrid');
   if(!grid) return;
   if(!gallery.length){ grid.innerHTML = '<div class="empty-note">No photos yet — check back soon.</div>'; return; }
-  grid.innerHTML = gallery.map(g => `
-    <div class="gallery-item size-${g.size||'medium'}">
+  grid.innerHTML = gallery.map((g,i) => `
+    <div class="gallery-item" onclick="openLightbox(${i})">
       <img src="${g.url}" alt="${g.caption||''}" loading="lazy" onerror="this.parentElement.style.display='none'">
       ${g.caption ? `<div class="g-caption">${g.caption}</div>` : ''}
     </div>
   `).join('');
 }
+function openLightbox(i){
+  const g = gallery[i];
+  if(!g) return;
+  document.getElementById('lightboxImg').src = g.url;
+  document.getElementById('lightboxCaption').textContent = g.caption || '';
+  document.getElementById('lightboxCaption').style.display = g.caption ? 'block' : 'none';
+  document.getElementById('lightboxOverlay').classList.add('open');
+}
+function closeLightbox(){ document.getElementById('lightboxOverlay').classList.remove('open'); }
 
 function renderStory(){
   const el = document.getElementById('storyGrid');
@@ -1382,7 +1517,7 @@ async function checkout(){
 
 
 /* boot */
-initCustomer();
+initCustomer().then(routeFromHash);
 </script>
 
 </body>
