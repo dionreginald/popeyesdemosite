@@ -46,6 +46,13 @@
   .nav-section-label{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;opacity:0.38;margin:20px 10px 8px;color:var(--cream-2);}
   .nav-section-label:first-of-type{margin-top:4px;}
   .nav-item.active{background:var(--red);color:#fff;opacity:1;box-shadow:0 4px 14px rgba(225,44,27,0.4);}
+  .nav-group-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;background:none;border:none;color:var(--cream);padding:10px 10px;margin:18px 0 6px;font-family:'Space Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.1em;opacity:0.65;font-weight:700;}
+  .nav-group-toggle:first-of-type{margin-top:2px;}
+  .nav-group-toggle:hover{opacity:1;}
+  .nav-group-arrow{transition:transform .2s ease;font-size:9px;opacity:0.8;}
+  .nav-group-toggle.collapsed .nav-group-arrow{transform:rotate(-90deg);}
+  .nav-group{display:flex;flex-direction:column;overflow:hidden;max-height:600px;transition:max-height .28s ease;}
+  .nav-group.collapsed{max-height:0;}
   .main{flex:1;padding:36px 40px;max-width:980px;}
   .main-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
   .main-head p{font-size:13px;opacity:0.6;margin-top:4px;}
@@ -125,6 +132,45 @@
   .nav-item{position:relative;}
   .nav-badge{position:absolute;right:10px;top:9px;background:var(--marigold);color:var(--ink);font-size:10px;font-weight:800;border-radius:10px;padding:1px 7px;font-family:'Space Mono',monospace;}
 
+  /* ============ IMAGE FIELD (upload / url toggle) ============ */
+  .img-mode-toggle{display:flex;gap:6px;margin-bottom:8px;}
+  .img-mode-btn{background:var(--cream);border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;opacity:0.6;}
+  .img-mode-btn.active{background:var(--ink);color:var(--cream);border-color:var(--ink);opacity:1;}
+  .img-preview-row{display:flex;align-items:center;gap:12px;margin-top:8px;}
+  .img-preview{width:64px;height:64px;border-radius:10px;background:var(--cream);border:1.5px dashed var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+  .img-preview img{width:100%;height:100%;object-fit:cover;}
+  .img-preview-empty{font-size:10px;opacity:0.45;text-align:center;padding:2px;}
+  .thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;background:var(--cream-2);}
+  .thumb-emoji{width:44px;height:44px;border-radius:8px;background:var(--cream-2);display:flex;align-items:center;justify-content:center;font-size:20px;}
+
+  /* ============ ONGOING ORDERS STRIP ============ */
+  .ongoing-wrap{margin-bottom:22px;}
+  .ongoing-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;opacity:0.55;margin-bottom:10px;}
+  .ongoing-strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;}
+  .ongoing-card{background:#fff;border:1px solid var(--line);border-left:4px solid var(--marigold);border-radius:10px;padding:12px 14px;min-width:190px;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,0.04);}
+  .ongoing-card:hover{border-left-color:var(--red);}
+  .ongoing-card .oc-id{font-family:'Space Mono',monospace;font-weight:700;font-size:12px;}
+  .ongoing-card .oc-cust{font-size:12.5px;font-weight:600;color:var(--ink);margin-top:2px;}
+  .ongoing-card .oc-status-pill{display:inline-block;margin-top:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.03em;background:var(--cream-2);padding:2px 9px;border-radius:10px;}
+  .ongoing-card .oc-age{font-size:10.5px;font-family:'Space Mono',monospace;opacity:0.55;margin-top:6px;}
+  .ongoing-card .oc-age.urgent{color:var(--red-dark);font-weight:700;opacity:1;}
+  .ongoing-empty{font-size:12.5px;opacity:0.5;padding:8px 2px;}
+
+  /* ============ ORDER STEPPER ============ */
+  .stepper{display:flex;align-items:flex-start;margin:8px 0 4px;}
+  .stepper-step{flex:1;text-align:center;position:relative;cursor:pointer;}
+  .stepper-dot{width:26px;height:26px;border-radius:50%;background:var(--cream-2);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:11px;font-weight:800;color:var(--brown);position:relative;z-index:2;transition:all .15s;}
+  .stepper-step.done .stepper-dot{background:var(--marigold);border-color:var(--marigold);color:var(--ink);}
+  .stepper-step.current .stepper-dot{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 0 4px rgba(225,44,27,0.18);}
+  .stepper-line{position:absolute;top:13px;left:-50%;width:100%;height:2px;background:var(--line);z-index:1;}
+  .stepper-step:first-child .stepper-line{display:none;}
+  .stepper-step.done .stepper-line, .stepper-step.current .stepper-line{background:var(--marigold);}
+  .stepper-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;opacity:0.6;}
+  .stepper-step.current .stepper-label{opacity:1;color:var(--red-dark);}
+  .stepper-step.done .stepper-label{opacity:0.85;}
+  .stepper-next{margin-top:14px;}
+  .order-age-badge{font-family:'Space Mono',monospace;font-size:11px;background:var(--cream-2);padding:3px 10px;border-radius:10px;margin-left:8px;}
+
   /* ============ ORDER DETAIL MODAL ============ */
   .modal-overlay{position:fixed;inset:0;background:rgba(27,19,16,0.55);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;}
   .modal-overlay.open{display:flex;}
@@ -166,24 +212,28 @@
   <div class="sidebar">
     <div class="brand">POPEYES<span>.</span></div>
     <div class="brand-sub">KITCHEN CONTROL</div>
-    <div class="nav-section-label">Catalog</div>
-    <button class="nav-item active" data-panel="menuPanel" onclick="switchPanel('menuPanel',this)">Menu items</button>
-    <button class="nav-item" data-panel="offersPanel" onclick="switchPanel('offersPanel',this)">Offers</button>
-    <button class="nav-item" data-panel="galleryPanel" onclick="switchPanel('galleryPanel',this)">Gallery</button>
+    <button class="nav-group-toggle" onclick="toggleNavGroup(this)">
+      <span>Website Settings</span><span class="nav-group-arrow">▾</span>
+    </button>
+    <div class="nav-group">
+      <button class="nav-item active" data-panel="menuPanel" onclick="switchPanel('menuPanel',this)">Menu items</button>
+      <button class="nav-item" data-panel="offersPanel" onclick="switchPanel('offersPanel',this)">Offers</button>
+      <button class="nav-item" data-panel="galleryPanel" onclick="switchPanel('galleryPanel',this)">Gallery</button>
+      <button class="nav-item" data-panel="postsPanel" onclick="switchPanel('postsPanel',this)">Posts</button>
+      <button class="nav-item" data-panel="commentsPanel" onclick="switchPanel('commentsPanel',this)">Comments</button>
+      <button class="nav-item" data-panel="contentPanel" onclick="switchPanel('contentPanel',this)">Content</button>
+      <button class="nav-item" data-panel="restaurantsPanel" onclick="switchPanel('restaurantsPanel',this)">Restaurants</button>
+      <button class="nav-item" data-panel="bannersPanel" onclick="switchPanel('bannersPanel',this)">Add banner</button>
+    </div>
 
-    <div class="nav-section-label">Content</div>
-    <button class="nav-item" data-panel="postsPanel" onclick="switchPanel('postsPanel',this)">Posts</button>
-    <button class="nav-item" data-panel="commentsPanel" onclick="switchPanel('commentsPanel',this)">Comments</button>
-    <button class="nav-item" data-panel="contentPanel" onclick="switchPanel('contentPanel',this)">Story & reviews</button>
-
-    <div class="nav-section-label">Operations</div>
-    <button class="nav-item" data-panel="ordersPanel" onclick="switchPanel('ordersPanel',this)">Orders<span class="nav-badge" id="ordersBadge" style="display:none;"></span></button>
-    <button class="nav-item" data-panel="customersPanel" onclick="switchPanel('customersPanel',this)">Customers</button>
-    <button class="nav-item" data-panel="restaurantsPanel" onclick="switchPanel('restaurantsPanel',this)">Restaurants</button>
-
-    <div class="nav-section-label">Configuration</div>
-    <button class="nav-item" data-panel="websiteSettingsPanel" onclick="switchPanel('websiteSettingsPanel',this)">Website Settings</button>
-    <button class="nav-item" data-panel="orderSettingsPanel" onclick="switchPanel('orderSettingsPanel',this)">Order Settings</button>
+    <button class="nav-group-toggle" onclick="toggleNavGroup(this)">
+      <span>Order Settings</span><span class="nav-group-arrow">▾</span>
+    </button>
+    <div class="nav-group">
+      <button class="nav-item" data-panel="ordersPanel" onclick="switchPanel('ordersPanel',this)">Orders<span class="nav-badge" id="ordersBadge" style="display:none;"></span></button>
+      <button class="nav-item" data-panel="customersPanel" onclick="switchPanel('customersPanel',this)">Customers</button>
+      <button class="nav-item" data-panel="orderSettingsPanel" onclick="switchPanel('orderSettingsPanel',this)">Order Settings</button>
+    </div>
   </div>
 
   <div class="main">
@@ -196,10 +246,24 @@
           <div class="field"><label>Name</label><input id="mName" placeholder="Classic Chicken"></div>
           <div class="field"><label>Category</label><input id="mCategory" placeholder="Sandwiches"></div>
           <div class="field"><label>Item type label</label><input id="mLabel" placeholder="Sandwich / Burger / Piece"></div>
-          <div class="field"><label>Emoji icon</label><input id="mEmoji" placeholder="🥪"></div>
           <div class="field"><label>Single price (Rs.)</label><input id="mPrice" type="number" placeholder="1600"></div>
           <div class="field"><label>Combo price (Rs.) — optional</label><input id="mCombo" type="number" placeholder="2500"></div>
           <div class="field full"><label>Description</label><textarea id="mDesc" rows="2" placeholder="Short description shown on the card"></textarea></div>
+          <div class="field full">
+            <label>Item image</label>
+            <div class="img-mode-toggle">
+              <button type="button" class="img-mode-btn active" id="mImgModeUploadBtn" onclick="setMenuImageMode('upload')">Upload image</button>
+              <button type="button" class="img-mode-btn" id="mImgModeUrlBtn" onclick="setMenuImageMode('url')">Image URL</button>
+            </div>
+            <div id="mImgUploadWrap"><input type="file" id="mImageFile" accept="image/*" onchange="handleMenuImageUpload(event)"></div>
+            <div id="mImgUrlWrap" style="display:none;"><input id="mImageUrl" placeholder="https://example.com/photo.png" oninput="handleMenuImageUrlInput(this.value)"></div>
+            <input type="hidden" id="mImage">
+            <div class="img-preview-row">
+              <div class="img-preview" id="mImagePreview"><span class="img-preview-empty">No image</span></div>
+              <button type="button" class="icon-btn" id="mImageClearBtn" style="display:none;" onclick="clearMenuImage()">Remove image</button>
+            </div>
+            <div class="hint" style="margin-top:6px;">No image? The item falls back to a plain emoji icon on the customer site.</div>
+          </div>
           <div class="hint">Leave combo price blank for items that don't offer a combo (sides, drinks, etc.)</div>
           <div class="checkboxes">
             <label><input type="checkbox" id="mSpicy"> Spicy</label>
@@ -211,7 +275,7 @@
       </div>
       <div class="card">
         <table>
-          <thead><tr><th>Item</th><th>Category</th><th>Single</th><th>Combo</th><th>Tags</th><th></th></tr></thead>
+          <thead><tr><th></th><th>Item</th><th>Category</th><th>Single</th><th>Combo</th><th>Tags</th><th></th></tr></thead>
           <tbody id="menuTable"></tbody>
         </table>
       </div>
@@ -306,6 +370,10 @@
     <div class="panel" id="ordersPanel">
       <div class="main-head"><div><h2>Orders</h2><p>Live order queue — drag cards between columns, or click one for full detail.</p></div></div>
       <div class="stats-strip" id="statsStrip"></div>
+      <div class="ongoing-wrap">
+        <div class="ongoing-title">Ongoing orders — needs attention, oldest first</div>
+        <div class="ongoing-strip" id="ongoingStrip"></div>
+      </div>
       <div class="order-filters">
         <input type="text" id="orderSearch" placeholder="Search by order ID or customer..." oninput="renderKanban()">
         <select id="orderStatusFilter" onchange="renderKanban()">
@@ -373,8 +441,8 @@
       </div>
     </div>
 
-    <div class="panel" id="websiteSettingsPanel">
-      <div class="main-head"><div><h2>Website Settings</h2><p>Control the homepage banner carousel and admin access.</p></div></div>
+    <div class="panel" id="bannersPanel">
+      <div class="main-head"><div><h2>Add banner</h2><p>Control the homepage banner carousel and admin access.</p></div></div>
       <div class="card">
         <h3 style="font-size:15px;margin-bottom:4px;" id="bnFormTitle">Add banner</h3>
         <p class="hint" style="margin:0 0 14px;">Image-only banners — no text is overlaid. Leave this list empty and the homepage falls back to photos from your posts.</p>
@@ -638,14 +706,20 @@ function switchPanel(id, btn){
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
 }
+function toggleNavGroup(toggleBtn){
+  toggleBtn.classList.toggle('collapsed');
+  const group = toggleBtn.nextElementSibling;
+  if(group && group.classList.contains('nav-group')) group.classList.toggle('collapsed');
+}
 
 let editingMenuId = null;
 function renderMenuTable(){
   const tbody = document.getElementById('menuTable');
-  if(!menu.length){ tbody.innerHTML = '<tr><td colspan="6" class="empty">No menu items yet. Add one above.</td></tr>'; return; }
+  if(!menu.length){ tbody.innerHTML = '<tr><td colspan="7" class="empty">No menu items yet. Add one above.</td></tr>'; return; }
   tbody.innerHTML = menu.map(item => `
     <tr>
-      <td><b>${item.emoji||''} ${item.name}</b><br><span style="opacity:0.55;font-size:12px;">${item.desc||''}</span></td>
+      <td>${item.image ? `<img class="thumb" src="${item.image}" alt="${item.name}" onerror="this.outerHTML='<div class=&quot;thumb-emoji&quot;>${item.emoji||'🍗'}</div>'">` : `<div class="thumb-emoji">${item.emoji||'🍗'}</div>`}</td>
+      <td><b>${item.name}</b><br><span style="opacity:0.55;font-size:12px;">${item.desc||''}</span></td>
       <td><span class="pill">${item.category}</span></td>
       <td class="price-tag">${money(item.price)}</td>
       <td class="price-tag">${item.comboPrice ? money(item.comboPrice) : '—'}</td>
@@ -658,6 +732,49 @@ function renderMenuTable(){
   `).join('');
   populateBannerItemSelect();
 }
+function setMenuImageMode(mode){
+  const upBtn = document.getElementById('mImgModeUploadBtn'), urlBtn = document.getElementById('mImgModeUrlBtn');
+  const upWrap = document.getElementById('mImgUploadWrap'), urlWrap = document.getElementById('mImgUrlWrap');
+  if(mode === 'url'){
+    upBtn.classList.remove('active'); urlBtn.classList.add('active');
+    upWrap.style.display = 'none'; urlWrap.style.display = 'block';
+  } else {
+    urlBtn.classList.remove('active'); upBtn.classList.add('active');
+    urlWrap.style.display = 'none'; upWrap.style.display = 'block';
+  }
+}
+function updateMenuImagePreview(){
+  const val = document.getElementById('mImage').value.trim();
+  const preview = document.getElementById('mImagePreview');
+  const clearBtn = document.getElementById('mImageClearBtn');
+  if(val){
+    preview.innerHTML = `<img src="${val}" onerror="this.parentElement.innerHTML='<span class=&quot;img-preview-empty&quot;>Couldn\\'t load image</span>'">`;
+    clearBtn.style.display = 'inline-block';
+  }else{
+    preview.innerHTML = '<span class="img-preview-empty">No image</span>';
+    clearBtn.style.display = 'none';
+  }
+}
+function handleMenuImageUrlInput(val){
+  document.getElementById('mImage').value = val.trim();
+  updateMenuImagePreview();
+}
+function handleMenuImageUpload(event){
+  const file = event.target.files && event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    document.getElementById('mImage').value = reader.result;
+    updateMenuImagePreview();
+  };
+  reader.readAsDataURL(file);
+}
+function clearMenuImage(){
+  document.getElementById('mImage').value = '';
+  document.getElementById('mImageUrl').value = '';
+  document.getElementById('mImageFile').value = '';
+  updateMenuImagePreview();
+}
 function editMenuItem(id){
   const item = menu.find(m=>m.id===id);
   if(!item) return;
@@ -665,12 +782,15 @@ function editMenuItem(id){
   document.getElementById('mName').value = item.name||'';
   document.getElementById('mCategory').value = item.category||'';
   document.getElementById('mLabel').value = item.label||'';
-  document.getElementById('mEmoji').value = item.emoji||'';
   document.getElementById('mPrice').value = item.price ?? '';
   document.getElementById('mCombo').value = item.comboPrice ?? '';
   document.getElementById('mDesc').value = item.desc||'';
   document.getElementById('mSpicy').checked = !!item.spicy;
   document.getElementById('mPopular').checked = !!item.popular;
+  document.getElementById('mImage').value = item.image||'';
+  document.getElementById('mImageUrl').value = (item.image && item.image.indexOf('data:')!==0) ? item.image : '';
+  setMenuImageMode((item.image && item.image.indexOf('data:')!==0) ? 'url' : 'upload');
+  updateMenuImagePreview();
   document.getElementById('menuFormTitle').textContent = 'Edit item';
   document.getElementById('menuSaveBtn').textContent = 'Save changes';
   document.getElementById('menuCancelBtn').style.display = 'inline-block';
@@ -678,9 +798,11 @@ function editMenuItem(id){
 }
 function cancelMenuEdit(){
   editingMenuId = null;
-  ['mName','mCategory','mLabel','mEmoji','mPrice','mCombo','mDesc'].forEach(id=>document.getElementById(id).value='');
+  ['mName','mCategory','mLabel','mPrice','mCombo','mDesc'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('mSpicy').checked=false;
   document.getElementById('mPopular').checked=false;
+  clearMenuImage();
+  setMenuImageMode('upload');
   document.getElementById('menuFormTitle').textContent = 'Add item';
   document.getElementById('menuSaveBtn').textContent = 'Add to menu';
   document.getElementById('menuCancelBtn').style.display = 'none';
@@ -692,7 +814,7 @@ async function saveMenuItem(){
   const price = parseFloat(document.getElementById('mPrice').value);
   const comboRaw = document.getElementById('mCombo').value.trim();
   const comboPrice = comboRaw ? parseFloat(comboRaw) : null;
-  const emoji = document.getElementById('mEmoji').value.trim() || "🍗";
+  const image = document.getElementById('mImage').value.trim();
   const desc = document.getElementById('mDesc').value.trim();
   const spicy = document.getElementById('mSpicy').checked;
   const popular = document.getElementById('mPopular').checked;
@@ -700,19 +822,21 @@ async function saveMenuItem(){
   const cleanCombo = (comboPrice && !isNaN(comboPrice)) ? comboPrice : null;
   if(editingMenuId){
     const item = menu.find(m=>m.id===editingMenuId);
-    if(item){ Object.assign(item, { name, category, label, price, comboPrice: cleanCombo, desc, emoji, spicy, popular }); }
+    if(item){ Object.assign(item, { name, category, label, price, comboPrice: cleanCombo, desc, image, emoji: item.emoji||"🍗", spicy, popular }); }
     await saveMenu();
     renderMenuTable();
     cancelMenuEdit();
     showToast("Menu item updated");
     return;
   }
-  menu.push({id:uid('m'), name, category, label, price, comboPrice: cleanCombo, desc, emoji, spicy, popular});
+  menu.push({id:uid('m'), name, category, label, price, comboPrice: cleanCombo, desc, image, emoji:"🍗", spicy, popular});
   await saveMenu();
   renderMenuTable();
-  ['mName','mCategory','mLabel','mPrice','mCombo','mEmoji','mDesc'].forEach(id=>document.getElementById(id).value='');
+  ['mName','mCategory','mLabel','mPrice','mCombo','mDesc'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('mSpicy').checked=false;
   document.getElementById('mPopular').checked=false;
+  clearMenuImage();
+  setMenuImageMode('upload');
   showToast("Menu item added");
 }
 async function deleteMenuItem(id){
@@ -944,15 +1068,24 @@ async function updateOrderStatus(email, orderId, status, opts){
   if(activeModalOrder && activeModalOrder.id === orderId) renderOrderModal(email, orderId);
 }
 
-/* ============ ORDERS — STATS + KANBAN ============ */
+/* ============ ORDERS — STATS + ONGOING + KANBAN ============ */
+const MAIN_FLOW_STATUSES = ["Placed","Preparing","Ready","Out for delivery","Delivered"];
 function renderOrdersPanel(){
   renderStatsStrip();
+  renderOngoingStrip();
   renderKanban();
 }
 function isToday(ts){
   if(!ts) return false;
   const d = new Date(ts), n = new Date();
   return d.toDateString() === n.toDateString();
+}
+function ageMinutes(ts){ return ts ? Math.max(0, Math.round((Date.now()-ts)/60000)) : 0; }
+function ageLabel(ts){
+  const m = ageMinutes(ts);
+  if(m < 1) return 'just now';
+  if(m < 60) return m + 'm ago';
+  return Math.floor(m/60) + 'h ' + (m%60) + 'm ago';
 }
 function renderStatsStrip(){
   const strip = document.getElementById('statsStrip');
@@ -965,11 +1098,32 @@ function renderStatsStrip(){
   let best = '—';
   const bestEntry = Object.entries(itemCount).sort((a,b)=>b[1]-a[1])[0];
   if(bestEntry) best = `${bestEntry[0]} (${bestEntry[1]})`;
+  const active = all.filter(o=>!['Delivered','Cancelled'].includes(o.status||'Placed')).length;
   strip.innerHTML = `
     <div class="stat-box"><div class="num">${todays.length}</div><div class="lbl">Orders today</div></div>
+    <div class="stat-box"><div class="num">${active}</div><div class="lbl">Active orders</div></div>
     <div class="stat-box"><div class="num">${money(revenue)}</div><div class="lbl">Revenue today</div></div>
     <div class="stat-box best"><div class="num">${best}</div><div class="lbl">Best seller today</div></div>
   `;
+}
+function renderOngoingStrip(){
+  const strip = document.getElementById('ongoingStrip');
+  if(!strip) return;
+  const ongoing = getAllOrders()
+    .filter(o=>!['Delivered','Cancelled'].includes(o.status||'Placed'))
+    .sort((a,b)=>(a.placedAt||0)-(b.placedAt||0));
+  if(!ongoing.length){ strip.innerHTML = '<div class="ongoing-empty">Nothing in progress right now — new orders will appear here first.</div>'; return; }
+  strip.innerHTML = ongoing.map(o => {
+    const mins = ageMinutes(o.placedAt);
+    const urgent = mins >= (o.etaMinutes || 20);
+    return `
+    <div class="ongoing-card" onclick="openOrderModal('${o.email}','${o.id}')">
+      <div class="oc-id">#${o.id}</div>
+      <div class="oc-cust">${o.custName}</div>
+      <span class="oc-status-pill">${o.status||'Placed'}</span>
+      <div class="oc-age ${urgent?'urgent':''}">${ageLabel(o.placedAt)}${urgent?' ⚠':''}</div>
+    </div>`;
+  }).join('');
 }
 function renderKanban(){
   const board = document.getElementById('kanbanBoard');
@@ -1077,23 +1231,49 @@ function renderOrderModal(email, id, focusCancel){
   if(!order){ box.innerHTML = '<div class="empty">Order not found.</div>'; return; }
   const cust = customers[email] || {};
   const history = (order.history && order.history.length) ? order.history : [{status: order.status||'Placed', at: order.placedAt}];
+  const cancelled = order.status === 'Cancelled';
+  const currentIdx = MAIN_FLOW_STATUSES.indexOf(order.status);
+  const stepperHTML = cancelled
+    ? `<div class="empty" style="padding:8px 0;">This order was cancelled${order.cancelReason?': '+order.cancelReason:''}.</div>
+       <button class="icon-btn" onclick="updateOrderStatus('${email}','${id}','Placed')">Reopen as Placed</button>`
+    : `<div class="stepper">
+        ${MAIN_FLOW_STATUSES.map((s,i)=>`
+          <div class="stepper-step ${i<currentIdx?'done':''} ${i===currentIdx?'current':''}" onclick="updateOrderStatus('${email}','${id}','${s}')">
+            <span class="stepper-line"></span>
+            <div class="stepper-dot">${i<currentIdx?'✓':(i+1)}</div>
+            <div class="stepper-label">${s}</div>
+          </div>
+        `).join('')}
+      </div>
+      ${currentIdx>=0 && currentIdx<MAIN_FLOW_STATUSES.length-1 ? `<button class="save-btn stepper-next" onclick="updateOrderStatus('${email}','${id}','${MAIN_FLOW_STATUSES[currentIdx+1]}')">Advance to "${MAIN_FLOW_STATUSES[currentIdx+1]}" →</button>` : ''}`;
   box.innerHTML = `
     <div class="modal-head">
-      <div><h3>Order #${order.id}</h3><div class="modal-sub">${cust.name || ''} · ${email}</div></div>
+      <div><h3>Order #${order.id} <span class="order-age-badge">${ageLabel(order.placedAt)}</span></h3><div class="modal-sub">${cust.name || ''} · ${email}</div></div>
       <button class="modal-close" onclick="closeOrderModal()">✕</button>
+    </div>
+
+    ${order.orderType || order.phone || order.paymentMethod ? `
+    <div class="modal-section">
+      <div class="modal-section-label">Delivery &amp; payment</div>
+      <div style="font-size:13px;line-height:1.8;">
+        ${order.orderType==='pickup'
+          ? `🏬 Pickup${order.branchId ? ' — ' + (restaurants.find(r=>r.id===order.branchId)?.name || 'Branch removed') : ''}`
+          : (order.orderType==='delivery' ? `🛵 Delivery — ${order.address||'No address given'}` : '')}
+        ${order.phone ? `<br>📞 ${order.phone}` : ''}
+        ${order.paymentMethod ? `<br>💳 ${order.paymentMethod==='card' ? 'Card' + (order.cardLast4 ? ' ending ' + order.cardLast4 : '') : 'Cash on ' + (order.orderType==='pickup'?'pickup':'delivery')}` : ''}
+        ${order.notes ? `<br>📝 ${order.notes}` : ''}
+      </div>
+    </div>` : ''}
+
+    <div class="modal-section">
+      <div class="modal-section-label">Order stage</div>
+      ${stepperHTML}
     </div>
 
     <div class="modal-section">
       <div class="modal-section-label">Items</div>
       <div class="modal-items">${(order.items||[]).map(i=>`${i.qty}× ${i.name} — ${money(i.price*i.qty)}`).join('<br>')}</div>
       <div style="margin-top:8px;font-weight:700;">Total: <span class="price-tag">${money(order.total)}</span></div>
-    </div>
-
-    <div class="modal-section">
-      <div class="modal-section-label">Update status</div>
-      <div class="status-btn-row">
-        ${ORDER_STATUSES.map(s=>`<button class="status-btn ${order.status===s?'active':''}" onclick="updateOrderStatus('${email}','${id}','${s}')">${s}</button>`).join('')}
-      </div>
     </div>
 
     <div class="modal-section modal-field-row">
@@ -1109,7 +1289,14 @@ function renderOrderModal(email, id, focusCancel){
         </select>
       </div>
     </div>
-    <button class="save-btn" onclick="saveOrderMeta('${email}','${id}')">Save ETA & branch</button>
+    <div class="modal-section">
+      <div class="modal-section-label">Internal notes (staff only)</div>
+      <textarea id="modalNotes" rows="2" placeholder="e.g. Ring the bell twice, allergy note, gate code...">${order.adminNotes||''}</textarea>
+    </div>
+    <div class="row-actions">
+      <button class="save-btn" onclick="saveOrderMeta('${email}','${id}')">Save details</button>
+      <button class="icon-btn" onclick="printOrderTicket('${email}','${id}')">🖨 Print kitchen ticket</button>
+    </div>
 
     <div class="modal-section" style="margin-top:18px;">
       <div class="modal-section-label">Stage history</div>
@@ -1118,11 +1305,12 @@ function renderOrderModal(email, id, focusCancel){
       </div>
     </div>
 
+    ${!cancelled ? `
     <div class="modal-section cancel-box">
       <div class="modal-section-label">Cancel / refund</div>
       <textarea id="modalCancelReason" rows="2" placeholder="Reason for cancellation or refund">${order.cancelReason||''}</textarea>
       <button class="save-btn" style="background:var(--red);margin-top:8px;" onclick="cancelOrderWithReason('${email}','${id}')">Cancel this order</button>
-    </div>
+    </div>` : ''}
   `;
   if(focusCancel){ setTimeout(()=>document.getElementById('modalCancelReason')?.focus(), 50); }
 }
@@ -1132,6 +1320,7 @@ async function saveOrderMeta(email, id){
   const etaRaw = document.getElementById('modalEta').value.trim();
   order.etaMinutes = etaRaw ? parseInt(etaRaw,10) : null;
   order.branchId = document.getElementById('modalBranch').value || null;
+  order.adminNotes = document.getElementById('modalNotes').value.trim();
   await saveCustomersDB();
   showToast("Order details saved");
   renderOrdersPanel();
@@ -1141,6 +1330,36 @@ async function cancelOrderWithReason(email, id){
   if(!reason){ showToast("Add a reason before cancelling"); return; }
   await updateOrderStatus(email, id, 'Cancelled', { cancelReason: reason });
   closeOrderModal();
+}
+function printOrderTicket(email, id){
+  const order = findOrder(email, id);
+  if(!order) return;
+  const cust = customers[email] || {};
+  const branch = restaurants.find(r=>r.id===order.branchId);
+  const w = window.open('', '_blank', 'width=380,height=600');
+  if(!w) return;
+  w.document.write(`
+    <html><head><title>Order #${order.id}</title>
+    <style>
+      body{font-family:'Courier New',monospace;padding:16px;color:#111;}
+      h2{margin:0 0 4px;} .line{border-top:1px dashed #999;margin:10px 0;}
+      .row{display:flex;justify-content:space-between;font-size:14px;margin:2px 0;}
+      .tot{font-weight:bold;font-size:16px;}
+    </style></head><body>
+      <h2>Popeyes — Order #${order.id}</h2>
+      <div>${new Date(order.placedAt||Date.now()).toLocaleString()}</div>
+      <div>${cust.name||''} · ${email}</div>
+      ${branch ? `<div>Branch: ${branch.name}</div>` : ''}
+      <div class="line"></div>
+      ${(order.items||[]).map(i=>`<div class="row"><span>${i.qty}× ${i.name}</span><span>${money(i.price*i.qty)}</span></div>`).join('')}
+      <div class="line"></div>
+      <div class="row tot"><span>Total</span><span>${money(order.total)}</span></div>
+      ${order.etaMinutes ? `<div class="row"><span>ETA</span><span>${order.etaMinutes} min</span></div>` : ''}
+      ${order.adminNotes ? `<div class="line"></div><div><b>Notes:</b> ${order.adminNotes}</div>` : ''}
+    <script>window.print();<\/script>
+    </body></html>
+  `);
+  w.document.close();
 }
 
 function renderOffersAdminPanel(){

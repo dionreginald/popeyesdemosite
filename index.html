@@ -166,6 +166,57 @@
   .pmodal-actions{display:flex;flex-direction:column;gap:10px;}
   .pmodal-actions .btn{width:100%;justify-content:center;}
 
+  /* ============ CHECKOUT MODAL ============ */
+  .checkout-overlay{position:fixed;inset:0;background:rgba(21,12,9,0.6);z-index:210;opacity:0;visibility:hidden;transition:opacity .2s;}
+  .checkout-overlay.open{opacity:1;visibility:visible;}
+  .checkout-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%);width:640px;max-width:94vw;max-height:90vh;overflow-y:auto;background:#fff;border-radius:22px;z-index:211;opacity:0;visibility:hidden;transition:opacity .22s ease, transform .22s ease;box-shadow:0 30px 70px rgba(21,12,9,0.45);}
+  .checkout-modal.open{opacity:1;visibility:visible;transform:translate(-50%,-50%);}
+  .co-head{padding:24px 28px 0;}
+  .co-head-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .co-head-top h3{font-size:20px;}
+  .co-close{width:34px;height:34px;border-radius:10px;background:var(--cream-2);border:none;font-size:15px;color:var(--ink);flex-shrink:0;}
+  .co-close:hover{background:var(--marigold);}
+  .co-steps{display:flex;gap:6px;margin-bottom:6px;}
+  .co-step-bar{flex:1;height:4px;border-radius:4px;background:var(--cream-2);}
+  .co-step-bar.active,.co-step-bar.done{background:var(--red);}
+  .co-step-labels{display:flex;justify-content:space-between;padding-bottom:16px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.5;}
+  .co-step-labels span.active{opacity:1;color:var(--red-dark);}
+  .co-body{padding:0 28px 8px;}
+  .co-type-toggle{display:flex;gap:10px;margin-bottom:16px;}
+  .co-type-btn{flex:1;padding:12px;border-radius:10px;border:1.5px solid var(--line-dark);background:var(--cream);font-weight:700;font-size:13.5px;color:var(--brown);}
+  .co-type-btn.active{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+  .co-field{margin-bottom:12px;}
+  .co-field label{display:block;font-size:12px;font-weight:600;opacity:.65;margin-bottom:5px;}
+  .co-field input,.co-field select,.co-field textarea{width:100%;padding:11px 12px;border:1px solid var(--line-dark);border-radius:8px;font-size:13.5px;font-family:inherit;background:#fff;}
+  .co-row{display:flex;gap:10px;}
+  .co-row .co-field{flex:1;}
+  .co-summary{background:var(--cream);border-radius:12px;padding:14px 16px;margin:14px 0 18px;}
+  .co-summary-items{font-size:12px;opacity:.7;margin-bottom:10px;line-height:1.6;padding-bottom:10px;border-bottom:1px dashed var(--line-dark);}
+  .co-summary-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;}
+  .co-summary-row.total{font-weight:800;font-size:15.5px;border-top:1px dashed var(--line-dark);padding-top:8px;margin-top:8px;color:var(--ink);}
+  .co-pay-tabs{display:flex;gap:8px;margin-bottom:16px;}
+  .co-pay-tab{flex:1;padding:11px;border-radius:10px;border:1.5px solid var(--line-dark);background:var(--cream);font-weight:700;font-size:13px;color:var(--brown);}
+  .co-pay-tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+  .co-secure-badge{display:flex;align-items:center;gap:6px;font-size:11.5px;opacity:.55;margin:14px 0 6px;}
+  .co-foot{position:sticky;bottom:0;background:#fff;padding:16px 28px 26px;border-top:1px solid var(--line-dark);display:flex;gap:10px;}
+  .co-foot button{flex:1;}
+  .co-btn-back{background:none;border:1.5px solid var(--line-dark);border-radius:8px;padding:13px;font-weight:700;font-size:13.5px;color:var(--brown);}
+  .co-btn-back:hover{border-color:var(--red);color:var(--red);}
+  .co-btn-next{background:var(--red);color:#fff;border:none;border-radius:8px;padding:13px;font-weight:800;font-size:13.5px;text-transform:uppercase;letter-spacing:.02em;}
+  .co-btn-next:hover{background:var(--red-dark);}
+  .co-error{color:var(--red-dark);font-size:12px;margin:-4px 0 10px;min-height:14px;}
+  .co-processing{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px 40px;text-align:center;}
+  .co-spinner{width:46px;height:46px;border-radius:50%;border:4px solid var(--cream-2);border-top-color:var(--red);animation:coSpin .8s linear infinite;margin-bottom:18px;}
+  @keyframes coSpin{to{transform:rotate(360deg);}}
+  .co-processing p{font-size:13.5px;opacity:.65;}
+  .co-success{text-align:center;padding:16px 10px 6px;}
+  .co-success-check{width:70px;height:70px;border-radius:50%;background:#E7F3E8;color:#256B2E;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 18px;}
+  .co-success h3{font-size:22px;margin-bottom:6px;}
+  .co-success .co-order-id{font-family:'Space Mono',monospace;font-size:13px;opacity:.6;margin-bottom:14px;}
+  .co-success p.note{font-size:13.5px;opacity:.7;max-width:400px;margin:0 auto;}
+  .co-success-actions{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+  @media (max-width:600px){ .co-row{flex-direction:column;} }
+
   /* ============ PAGE ROUTER (Menu / Account as dedicated pages) ============ */
   .page-view{display:none;}
   .page-view.active{display:block;}
@@ -207,7 +258,9 @@
   .item-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(74,42,27,0.10);}
   .item-card.flash-highlight{animation:itemFlash 1.1s ease 2;}
   @keyframes itemFlash{0%,100%{box-shadow:0 2px 8px rgba(21,12,9,0.05);border-color:var(--line-dark);}50%{box-shadow:0 0 0 5px rgba(225,44,27,0.35);border-color:var(--red);}}
-  .item-emoji{width:56px;height:56px;border-radius:12px;background:var(--cream-2);display:flex;align-items:center;justify-content:center;font-size:28px;}
+  .item-emoji{width:56px;height:56px;border-radius:12px;background:var(--cream-2);display:flex;align-items:center;justify-content:center;font-size:28px;overflow:hidden;}
+  .item-emoji.has-img{padding:0;}
+  .item-emoji.has-img img{width:100%;height:100%;object-fit:cover;border-radius:12px;}
   .badges{position:absolute;top:16px;right:16px;display:flex;gap:6px;}
   .badge{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:0.04em;}
   .badge-spicy{background:#FCE3DE;color:var(--red-dark);}
@@ -617,7 +670,7 @@
       <div class="cart-total-row" style="font-size:13px;font-weight:500;opacity:0.7;"><span>Subtotal</span><span id="cartSubtotal">Rs. 0</span></div>
       <div class="cart-total-row" id="cartFeeRow" style="font-size:13px;font-weight:500;opacity:0.7;display:none;"><span>Delivery fee</span><span id="cartFeeAmount">Rs. 0</span></div>
       <div class="cart-total-row"><span>Total</span><span id="cartTotal">Rs. 0</span></div>
-      <button class="checkout-btn" onclick="checkout()">Checkout</button>
+      <button class="checkout-btn" onclick="openCheckout()">Checkout</button>
     </div>
   </div>
 
@@ -630,6 +683,11 @@
   <div class="pmodal-overlay" id="pmodalOverlay" onclick="closeProductModal()"></div>
   <div class="pmodal" id="pmodal">
     <div id="pmodalBody"></div>
+  </div>
+
+  <div class="checkout-overlay" id="checkoutOverlay" onclick="if(event.target===this) closeCheckout()"></div>
+  <div class="checkout-modal" id="checkoutModal">
+    <div id="checkoutBody"></div>
   </div>
 
   <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
@@ -733,6 +791,12 @@ let menu = [], posts = [], comments = {}, cart = [], activeCategory = "All", set
 let customers = {}, currentCustomer = null, acctMode = 'login';
 
 function money(n){ return "Rs. " + Number(n).toLocaleString("en-LK"); }
+function itemThumbHTML(item){
+  if(item.image){
+    return `<div class="item-emoji has-img"><img src="${item.image}" alt="${item.name}" onerror="this.parentElement.classList.remove('has-img');this.parentElement.innerHTML='${(item.emoji||'🍗')}'"></div>`;
+  }
+  return `<div class="item-emoji">${item.emoji||'🍗'}</div>`;
+}
 function uid(prefix){ return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 /* ============ PAGE ROUTER (Menu / Account as dedicated pages) ============ */
 const VALID_PAGES = ['home','menu','account'];
@@ -1136,7 +1200,7 @@ function openProductModal(id){
   document.getElementById('pmodalBody').innerHTML = `
     <button class="pmodal-close" onclick="closeProductModal()">✕</button>
     <div class="pmodal-media">
-      ${item.img ? `<img src="${item.img}" alt="${item.name}">` : `<div class="pmodal-emoji">${item.emoji||'🍗'}</div>`}
+      ${item.image ? `<img src="${item.image}" alt="${item.name}" onerror="this.outerHTML='<div class=&quot;pmodal-emoji&quot;>${item.emoji||'🍗'}</div>'">` : `<div class="pmodal-emoji">${item.emoji||'🍗'}</div>`}
     </div>
     <div class="pmodal-body">
       <div class="pmodal-badges">
@@ -1256,7 +1320,7 @@ function renderMenu(){
         ${item.spicy?'<span class="badge badge-spicy">Spicy</span>':''}
         ${item.popular?'<span class="badge badge-popular">Popular</span>':''}
       </div>
-      <div class="item-emoji">${item.emoji||'🍗'}</div>
+      ${itemThumbHTML(item)}
       <div class="item-name">${item.name}</div>
       <div class="item-desc">${item.desc||''}</div>
       <div class="price-block">
@@ -1284,7 +1348,7 @@ function renderOffers(){
       <div class="badges">
         ${item.spicy?'<span class="badge badge-spicy">Spicy</span>':''}
       </div>
-      <div class="item-emoji">${item.emoji||'🍗'}</div>
+      ${itemThumbHTML(item)}
       <div class="item-name">${item.name} Combo</div>
       <div class="item-desc">${blurb}</div>
       <div class="offer-save">Combo from ${money(item.comboPrice)}</div>
@@ -1472,7 +1536,29 @@ function updateCartUI(){
 }
 function openCart(){ document.getElementById('overlay').classList.add('open'); document.getElementById('drawer').classList.add('open'); }
 function closeCart(){ document.getElementById('overlay').classList.remove('open'); document.getElementById('drawer').classList.remove('open'); }
-async function checkout(){
+/* ============ CHECKOUT FLOW (delivery/pickup → payment → confirmation) ============ */
+let checkoutStep = 1; // 1 = details, 2 = payment, 'processing', 'success'
+let checkoutData = { orderType:'delivery', address:'', phone:'', branchId:'', notes:'', payMethod:'card' };
+let lastPlacedOrder = null;
+
+function coComputeTotals(){
+  const oc = (settings && settings.orderConfig) || DEFAULT_SETTINGS.orderConfig;
+  const subtotal = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const deliveryFee = checkoutData.orderType === 'delivery' ? (oc.deliveryFee || 0) : 0;
+  return { oc, subtotal, deliveryFee, total: subtotal + deliveryFee };
+}
+function coSummaryHTML(){
+  const { subtotal, deliveryFee, total } = coComputeTotals();
+  return `
+    <div class="co-summary">
+      <div class="co-summary-items">${cart.map(c=>`${c.qty}× ${c.name}`).join('<br>')}</div>
+      <div class="co-summary-row"><span>Subtotal</span><span>${money(subtotal)}</span></div>
+      ${deliveryFee ? `<div class="co-summary-row"><span>Delivery fee</span><span>${money(deliveryFee)}</span></div>` : ''}
+      <div class="co-summary-row total"><span>Total</span><span>${money(total)}</span></div>
+    </div>
+  `;
+}
+function openCheckout(){
   if(!cart.length){ showToast("Cart is empty"); return; }
   const oc = (settings && settings.orderConfig) || DEFAULT_SETTINGS.orderConfig;
   if(oc.acceptingOrders === false){
@@ -1484,35 +1570,234 @@ async function checkout(){
     showToast(`Minimum order is ${money(oc.minOrder)}`);
     return;
   }
-  const deliveryFee = oc.deliveryFee || 0;
-  const total = subtotal + deliveryFee;
+  checkoutStep = 1;
+  checkoutData = { orderType:'delivery', address:'', phone:'', branchId:'', notes:'', payMethod:'card' };
+  closeCart();
+  renderCheckout();
+  document.getElementById('checkoutOverlay').classList.add('open');
+  document.getElementById('checkoutModal').classList.add('open');
+}
+function closeCheckout(){
+  document.getElementById('checkoutOverlay').classList.remove('open');
+  document.getElementById('checkoutModal').classList.remove('open');
+}
+function coStepBarHTML(){
+  const labels = ['Delivery', 'Payment', 'Done'];
+  const idx = checkoutStep === 1 ? 0 : (checkoutStep === 2 ? 1 : 2);
+  return `
+    <div class="co-steps">
+      ${labels.map((l,i)=>`<div class="co-step-bar ${i<idx?'done':''} ${i===idx?'active':''}"></div>`).join('')}
+    </div>
+    <div class="co-step-labels">
+      ${labels.map((l,i)=>`<span class="${i===idx?'active':''}">${l}</span>`).join('')}
+    </div>
+  `;
+}
+function renderCheckout(){
+  const box = document.getElementById('checkoutBody');
+  if(checkoutStep === 1){ box.innerHTML = coRenderStep1(); return; }
+  if(checkoutStep === 2){ box.innerHTML = coRenderStep2(); coSetPayMethod(checkoutData.payMethod); return; }
+  if(checkoutStep === 'processing'){ box.innerHTML = coRenderProcessing(); return; }
+  if(checkoutStep === 'success'){ box.innerHTML = coRenderSuccess(); return; }
+}
+function coRenderStep1(){
+  const d = checkoutData;
+  return `
+    <div class="co-head">
+      <div class="co-head-top"><h3>Checkout</h3><button class="co-close" onclick="closeCheckout()">✕</button></div>
+      ${coStepBarHTML()}
+    </div>
+    <div class="co-body">
+      <div class="co-type-toggle">
+        <button type="button" class="co-type-btn ${d.orderType==='delivery'?'active':''}" onclick="coSetOrderType('delivery')">🛵 Delivery</button>
+        <button type="button" class="co-type-btn ${d.orderType==='pickup'?'active':''}" onclick="coSetOrderType('pickup')">🏬 Pickup</button>
+      </div>
+      ${d.orderType==='delivery' ? `
+        <div class="co-field"><label>Delivery address</label><textarea id="coAddress" rows="2" placeholder="House / street, city">${d.address}</textarea></div>
+      ` : `
+        <div class="co-field"><label>Pickup branch</label>
+          <select id="coBranch">
+            <option value="">Choose a branch</option>
+            ${restaurants.map(r=>`<option value="${r.id}" ${d.branchId===r.id?'selected':''}>${r.name}</option>`).join('')}
+          </select>
+        </div>
+      `}
+      <div class="co-field"><label>Phone number</label><input id="coPhone" type="tel" placeholder="07X XXX XXXX" value="${d.phone}"></div>
+      <div class="co-field"><label>Order notes (optional)</label><textarea id="coNotes" rows="2" placeholder="Allergies, gate code, extra sauce...">${d.notes}</textarea></div>
+      ${coSummaryHTML()}
+      <div class="co-error" id="coStep1Error"></div>
+    </div>
+    <div class="co-foot">
+      <button class="co-btn-back" onclick="closeCheckout()">Cancel</button>
+      <button class="co-btn-next" onclick="coGoStep2()">Continue to payment →</button>
+    </div>
+  `;
+}
+function coSetOrderType(type){
+  checkoutData.orderType = type;
+  // preserve whatever the person already typed before switching
+  const addrEl = document.getElementById('coAddress'), phoneEl = document.getElementById('coPhone'), notesEl = document.getElementById('coNotes'), branchEl = document.getElementById('coBranch');
+  if(addrEl) checkoutData.address = addrEl.value;
+  if(phoneEl) checkoutData.phone = phoneEl.value;
+  if(notesEl) checkoutData.notes = notesEl.value;
+  if(branchEl) checkoutData.branchId = branchEl.value;
+  renderCheckout();
+}
+function coGoStep2(){
+  const err = document.getElementById('coStep1Error');
+  checkoutData.phone = document.getElementById('coPhone').value.trim();
+  checkoutData.notes = document.getElementById('coNotes').value.trim();
+  if(checkoutData.orderType === 'delivery'){
+    checkoutData.address = document.getElementById('coAddress').value.trim();
+    if(!checkoutData.address){ err.textContent = "Add a delivery address"; return; }
+  } else {
+    checkoutData.branchId = document.getElementById('coBranch').value;
+    if(!checkoutData.branchId){ err.textContent = "Choose a pickup branch"; return; }
+  }
+  if(!checkoutData.phone){ err.textContent = "Add a phone number so we can reach you"; return; }
+  checkoutStep = 2;
+  renderCheckout();
+}
+function coRenderStep2(){
+  const { total } = coComputeTotals();
+  return `
+    <div class="co-head">
+      <div class="co-head-top"><h3>Payment</h3><button class="co-close" onclick="closeCheckout()">✕</button></div>
+      ${coStepBarHTML()}
+    </div>
+    <div class="co-body">
+      <div class="co-pay-tabs">
+        <button type="button" class="co-pay-tab" id="coPayTabCard" onclick="coSetPayMethod('card')">💳 Card</button>
+        <button type="button" class="co-pay-tab" id="coPayTabCash" onclick="coSetPayMethod('cash')">💵 Cash ${checkoutData.orderType==='pickup'?'on pickup':'on delivery'}</button>
+      </div>
+      <div id="coCardFields">
+        <div class="co-field"><label>Name on card</label><input id="coCardName" placeholder="Name as shown on card"></div>
+        <div class="co-field"><label>Card number</label><input id="coCardNumber" placeholder="4242 4242 4242 4242" maxlength="19" inputmode="numeric" oninput="coFormatCardNumber(this)"></div>
+        <div class="co-row">
+          <div class="co-field"><label>Expiry</label><input id="coCardExpiry" placeholder="MM/YY" maxlength="5" inputmode="numeric" oninput="coFormatExpiry(this)"></div>
+          <div class="co-field"><label>CVV</label><input id="coCardCvv" placeholder="123" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/\\D/g,'')"></div>
+        </div>
+      </div>
+      <div id="coCashNote" style="display:none;font-size:13.5px;opacity:.7;padding:6px 0 12px;">Have ${money(total)} ready in cash when your order ${checkoutData.orderType==='pickup'?'is picked up':'arrives'}.</div>
+      <div class="co-error" id="coPayError"></div>
+      ${coSummaryHTML()}
+      <div class="co-secure-badge">🔒 Secure demo checkout — no real payment is processed on this site.</div>
+    </div>
+    <div class="co-foot">
+      <button class="co-btn-back" onclick="checkoutStep=1;renderCheckout();">← Back</button>
+      <button class="co-btn-next" onclick="coPlaceOrder()">Pay ${money(total)}</button>
+    </div>
+  `;
+}
+function coSetPayMethod(method){
+  checkoutData.payMethod = method;
+  const cardTab = document.getElementById('coPayTabCard'), cashTab = document.getElementById('coPayTabCash');
+  const cardFields = document.getElementById('coCardFields'), cashNote = document.getElementById('coCashNote');
+  if(!cardTab || !cashTab) return;
+  cardTab.classList.toggle('active', method==='card');
+  cashTab.classList.toggle('active', method==='cash');
+  cardFields.style.display = method==='card' ? 'block' : 'none';
+  cashNote.style.display = method==='cash' ? 'block' : 'none';
+}
+function coFormatCardNumber(el){
+  el.value = el.value.replace(/\D/g,'').slice(0,19).replace(/(\d{4})(?=\d)/g,'$1 ');
+}
+function coFormatExpiry(el){
+  let v = el.value.replace(/\D/g,'').slice(0,4);
+  if(v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+  el.value = v;
+}
+function coRenderProcessing(){
+  return `
+    <div class="co-head"><div class="co-head-top"><h3>&nbsp;</h3><button class="co-close" onclick="closeCheckout()">✕</button></div></div>
+    <div class="co-processing">
+      <div class="co-spinner"></div>
+      <p>${checkoutData.payMethod==='card' ? 'Processing your payment…' : 'Placing your order…'}</p>
+    </div>
+  `;
+}
+async function coPlaceOrder(){
+  const err = document.getElementById('coPayError');
+  if(checkoutData.payMethod === 'card'){
+    const name = document.getElementById('coCardName').value.trim();
+    const number = document.getElementById('coCardNumber').value.replace(/\s/g,'');
+    const expiry = document.getElementById('coCardExpiry').value.trim();
+    const cvv = document.getElementById('coCardCvv').value.trim();
+    if(!name){ err.textContent = "Enter the name on the card"; return; }
+    if(number.length < 13 || number.length > 19){ err.textContent = "Enter a valid card number"; return; }
+    const m = expiry.match(/^(\d{2})\/(\d{2})$/);
+    if(!m){ err.textContent = "Enter expiry as MM/YY"; return; }
+    const mm = parseInt(m[1],10), yy = parseInt(m[2],10);
+    if(mm < 1 || mm > 12){ err.textContent = "Enter a valid expiry month"; return; }
+    const now = new Date(); const curYY = now.getFullYear() % 100, curMM = now.getMonth()+1;
+    if(yy < curYY || (yy === curYY && mm < curMM)){ err.textContent = "That card has expired"; return; }
+    if(cvv.length < 3){ err.textContent = "Enter a valid CVV"; return; }
+    checkoutData.cardLast4 = number.slice(-4);
+  } else {
+    checkoutData.cardLast4 = null;
+  }
+
+  checkoutStep = 'processing';
+  renderCheckout();
+  await new Promise(r=>setTimeout(r, 1100));
+
+  const { subtotal, deliveryFee, total } = coComputeTotals();
+  const now = Date.now();
+  const order = {
+    id: uid('').toUpperCase(),
+    date: new Date(now).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
+    placedAt: now,
+    items: cart.map(c=>({...c})),
+    subtotal, total, deliveryFee,
+    orderType: checkoutData.orderType,
+    address: checkoutData.orderType==='delivery' ? checkoutData.address : '',
+    branchId: checkoutData.orderType==='pickup' ? checkoutData.branchId : null,
+    phone: checkoutData.phone,
+    notes: checkoutData.notes || '',
+    paymentMethod: checkoutData.payMethod,
+    cardLast4: checkoutData.cardLast4 || null,
+    status: 'Placed',
+    etaMinutes: null,
+    cancelReason: null,
+    rating: null,
+    ratingComment: null,
+    history: [{ status:'Placed', at: now }]
+  };
+  let savedToAccount = false;
   if(currentCustomer && customers[currentCustomer.email]){
     const cust = customers[currentCustomer.email];
     cust.orders = cust.orders || [];
-    const now = Date.now();
-    cust.orders.push({
-      id: uid('').toUpperCase(),
-      date: new Date(now).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
-      placedAt: now,
-      items: cart.map(c=>({...c})),
-      total,
-      deliveryFee,
-      status: 'Placed',
-      etaMinutes: null,
-      branchId: null,
-      cancelReason: null,
-      rating: null,
-      ratingComment: null,
-      history: [{ status:'Placed', at: now }]
-    });
+    cust.orders.push(order);
     await saveCustomersDB();
-    showToast("Order placed — saved to your account");
-  } else {
-    showToast("Order placed — sign in next time to save your order history");
+    savedToAccount = true;
   }
+  lastPlacedOrder = order;
   cart = [];
   updateCartUI();
-  closeCart();
+  checkoutStep = 'success';
+  checkoutData._savedToAccount = savedToAccount;
+  renderCheckout();
+}
+function coRenderSuccess(){
+  const o = lastPlacedOrder;
+  if(!o) return '<div class="empty">Something went wrong.</div>';
+  const oc = (settings && settings.orderConfig) || DEFAULT_SETTINGS.orderConfig;
+  const branch = o.branchId ? restaurants.find(r=>r.id===o.branchId) : null;
+  return `
+    <div class="co-head"><div class="co-head-top"><h3>&nbsp;</h3><button class="co-close" onclick="closeCheckout()">✕</button></div></div>
+    <div class="co-success">
+      <div class="co-success-check">✓</div>
+      <h3>Order placed!</h3>
+      <div class="co-order-id">Order #${o.id} · ${money(o.total)}</div>
+      <p class="note">${o.orderType==='pickup' ? ('We\'ll have it ready at ' + (branch ? branch.name : 'your chosen branch')) : 'It\'s on its way to your address'} — estimated ${oc.prepTimeMins||25} minutes.</p>
+      <div class="co-success-actions">
+        ${checkoutData._savedToAccount
+          ? '<button class="co-btn-next" onclick="closeCheckout();openAccount();">Track my order</button>'
+          : '<button class="co-btn-next" onclick="closeCheckout();openAccount();">Sign in to track this order</button>'}
+        <button class="co-btn-back" onclick="closeCheckout()">Continue browsing</button>
+      </div>
+    </div>
+  `;
 }
 
 
