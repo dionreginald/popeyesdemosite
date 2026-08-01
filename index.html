@@ -14,9 +14,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700;1,800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#150C09; --ink-soft:#271511; --cream:#FFF9F2; --cream-2:#F7E2C6;
-    --red:#E12C1B; --red-dark:#9E1B0E; --marigold:#FFAE2E; --brown:#3E2116;
-    --teal:#146067;
+    --ink:#1E0E08; --ink-soft:#2B1610; --cream:#FFF7EA; --cream-2:#F5E6C8;
+    --red:#F2701D; --red-dark:#7A1D1D; --marigold:#FDB515; --brown:#3E2116;
+    --teal:#1D7D82;
     --line: rgba(255,249,242,0.14); --line-dark: rgba(62,33,22,0.15);
     --shadow: 0 10px 28px rgba(21,12,9,0.14);
   }
@@ -534,13 +534,6 @@
     <div class="header-inner">
       <div class="nav-left">
         <button class="hamburger" aria-label="Open menu" onclick="openMobileNav()">☰</button>
-        <nav>
-          <a href="#/menu" onclick="return goPage(event,'menu')">Menu</a>
-          <a href="#story" onclick="return smoothNav(event,'story')">Our Story</a>
-          <a href="#restaurants" onclick="return smoothNav(event,'restaurants')">Restaurants</a>
-          <a href="#offers" onclick="return smoothNav(event,'offers')">Offers</a>
-          <a href="#gallery" onclick="return smoothNav(event,'gallery')">Gallery</a>
-        </nav>
       </div>
       <div class="logo">
         <a href="#/" onclick="return goPage(event,'home')" style="display:flex;align-items:center;">
@@ -1154,11 +1147,6 @@ function closeMobileNav(){ document.getElementById('mnavOverlay').classList.remo
 function renderMobileNav(){
   const body = document.getElementById('mnavBody');
   body.innerHTML = `
-    <a href="#/menu" class="mnav-link" onclick="closeMobileNav();goPage(event,'menu')">Menu <span class="arrow">›</span></a>
-    <a href="#story" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'story')">Our Story <span class="arrow">›</span></a>
-    <a href="#restaurants" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'restaurants')">Restaurants <span class="arrow">›</span></a>
-    <a href="#offers" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'offers')">Offers <span class="arrow">›</span></a>
-    <a href="#gallery" class="mnav-link" onclick="closeMobileNav();smoothNav(event,'gallery')">Gallery <span class="arrow">›</span></a>
     <div class="mnav-section">Account</div>
     ${currentCustomer ? `
       <div class="mnav-acct">
@@ -1168,7 +1156,10 @@ function renderMobileNav(){
     ` : `
       <div class="mnav-acct">
         <div style="font-size:13px;opacity:0.7;">Not signed in</div>
-        <button onclick="closeMobileNav();openAccount();">Sign in</button>
+        <div style="display:flex;gap:8px;">
+          <button onclick="closeMobileNav();acctMode='login';openAccount();">Sign in</button>
+          <button onclick="closeMobileNav();acctMode='signup';openAccount();">Register</button>
+        </div>
       </div>
     `}
   `;
