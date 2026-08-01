@@ -87,10 +87,10 @@
 
   /* ============ HERO CAROUSEL ============ */
   .hero-carousel{position:relative;background:var(--ink);color:var(--cream);overflow:hidden;border-bottom:1px solid var(--line);}
-  .carousel-track{position:relative;height:clamp(500px,58vh,600px);overflow:hidden;}
-  .carousel-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease;padding:24px;display:flex;align-items:center;}
-  .carousel-slide.active{opacity:1;visibility:visible;z-index:1;}
-  .carousel-slide .hero-inner{max-width:1120px;width:100%;margin:0 auto;position:relative;z-index:2;}
+  .carousel-track{position:relative;min-height:420px;}
+  .carousel-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease;padding:76px 24px 64px;}
+  .carousel-slide.active{opacity:1;visibility:visible;position:relative;}
+  .carousel-slide .hero-inner{max-width:1120px;margin:0 auto;position:relative;z-index:2;}
   .carousel-slide::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%, rgba(214,48,28,0.35), transparent 45%);}
   .carousel-slide.tone-marigold::before{background:radial-gradient(circle at 85% 20%, rgba(242,169,59,0.28), transparent 45%);}
   .carousel-slide.tone-teal::before{background:radial-gradient(circle at 85% 20%, rgba(31,111,114,0.32), transparent 45%);}
@@ -100,13 +100,7 @@
   .carousel-media img{width:100%;height:100%;object-fit:contain;}
   .carousel-media .emoji-hero{font-size:min(30vw,340px);line-height:1;display:block;text-align:center;}
   @keyframes heroFloat{0%,100%{transform:translateY(-50%);}50%{transform:translateY(calc(-50% - 12px));}}
-  .carousel-media .fx-layer{overflow:visible;}
-  .hero-fx-only{position:absolute;right:6%;top:50%;transform:translateY(-50%);width:min(26vw,300px);height:min(26vw,300px);border-radius:50%;background:radial-gradient(circle,rgba(255,246,233,0.08),transparent 70%);z-index:1;pointer-events:none;}
-  .hero-fx-only .fx-layer{overflow:visible;}
-  .hero-fx-only .fx-layer span{transform-origin:center;}
-  @media (max-width:900px){ .hero-fx-only{display:none;} }
   @media (max-width:900px){ .carousel-media{display:none;} }
-  @media (max-width:640px){ .carousel-track{height:clamp(560px,78vh,680px);} }
   .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--marigold);background:rgba(242,169,59,0.12);padding:6px 12px;border-radius:20px;border:1px solid rgba(242,169,59,0.3);margin-bottom:22px;}
   .carousel-slide h1 em{font-style:italic;color:var(--red);}
   .carousel-slide p.lead{max-width:520px;font-size:16.5px;color:var(--cream-2);opacity:0.85;margin-top:18px;}
@@ -200,7 +194,7 @@
   /* ============ POST FLAVOUR EFFECTS ============ */
   .ticket-media{position:relative;border-radius:10px;overflow:hidden;margin:8px 0 4px;}
   .ticket-media img{width:100%;display:block;object-fit:cover;max-height:180px;}
-  .ticket-media.no-image{height:110px;background:linear-gradient(135deg,var(--cream-2),#f1dcc0);}
+  .ticket-media.no-image{height:56px;background:linear-gradient(135deg,var(--cream-2),#f1dcc0);}
   .fx-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
   .fx-layer span{position:absolute;bottom:6px;border-radius:50%;opacity:0;}
   /* smoke */
@@ -1032,8 +1026,7 @@ function buildCarouselSlides(){
       title:post.title,
       lead:post.body,
       ctaLabel:"Read kitchen notes", ctaHref:"#kitchen",
-      image: post.image || null,
-      effect: post.effect && post.effect !== 'none' ? post.effect : null
+      image: post.image || null
     });
   });
   menu.filter(m=>m.popular).slice(0,2).forEach(item=>{
@@ -1053,7 +1046,7 @@ function renderCarousel(){
   carouselIndex = 0;
   const track = document.getElementById('carouselTrack');
   track.innerHTML = carouselSlides.map((s,i) => `
-    <div class="carousel-slide ${s.tone} ${(s.image||s.emoji||s.effect)?'has-media':''} ${i===0?'active':''}" data-i="${i}">
+    <div class="carousel-slide ${s.tone} ${(s.image||s.emoji)?'has-media':''} ${i===0?'active':''}" data-i="${i}">
       <div class="hero-inner">
         <div class="hero-copy">
           <div class="eyebrow">${s.eyebrow}</div>
@@ -1069,9 +1062,8 @@ function renderCarousel(){
             <div class="heat-item"><b>Daily</b>Fresh biscuits, baked in-house</div>
           </div>` : ''}
         </div>
-        ${s.image ? `<div class="carousel-media"><img src="${s.image}" alt="${s.title}" onerror="this.parentElement.style.display='none'">${s.effect ? `<div class="fx-layer fx-${s.effect}"><span></span><span></span><span></span><span></span></div>` : ''}</div>`
-          : (s.emoji ? `<div class="carousel-media"><span class="emoji-hero">${s.emoji}</span>${s.effect ? `<div class="fx-layer fx-${s.effect}"><span></span><span></span><span></span><span></span></div>` : ''}</div>`
-          : (s.effect ? `<div class="hero-fx-only"><div class="fx-layer fx-${s.effect}"><span></span><span></span><span></span><span></span></div></div>` : ''))}
+        ${s.image ? `<div class="carousel-media"><img src="${s.image}" alt="${s.title}" onerror="this.parentElement.style.display='none'"></div>`
+          : (s.emoji ? `<div class="carousel-media"><span class="emoji-hero">${s.emoji}</span></div>` : '')}
       </div>
     </div>
   `).join('');

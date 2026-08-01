@@ -652,6 +652,7 @@ async function saveMenuItem(){
 }
 async function deleteMenuItem(id){
   menu = menu.filter(m=>m.id!==id);
+  if(editingMenuId===id) cancelMenuEdit();
   await saveMenu();
   renderMenuTable();
   showToast("Item removed");
@@ -725,6 +726,7 @@ async function savePost(){
   showToast("Post published");
 }
 async function deletePost(id){
+  if(editingPostId===id) cancelPostEdit();
   posts = posts.filter(p=>p.id!==id);
   delete comments[id];
   await savePosts();
@@ -818,6 +820,7 @@ async function saveRestaurantForm(){
 }
 async function deleteRestaurant(id){
   restaurants = restaurants.filter(r=>r.id!==id);
+  if(editingRestId===id) cancelRestEdit();
   await saveRestaurants();
   renderRestaurantsTable();
   showToast("Branch removed");
@@ -1176,6 +1179,7 @@ async function saveGalleryForm(){
 }
 async function deleteGalleryImage(id){
   gallery = gallery.filter(g=>g.id!==id);
+  if(editingGalId===id) cancelGalEdit();
   await saveGallery();
   renderGalleryTable();
   showToast("Photo removed");
@@ -1276,6 +1280,7 @@ async function saveTestimonialForm(){
 }
 async function deleteTestimonial(id){
   testimonials = testimonials.filter(t=>t.id!==id);
+  if(editingTsId===id) cancelTsEdit();
   await saveTestimonials();
   renderTestimonialsTable();
   showToast("Testimonial removed");
