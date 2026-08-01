@@ -96,9 +96,9 @@
   .carousel-slide.tone-teal::before{background:radial-gradient(circle at 85% 20%, rgba(31,111,114,0.32), transparent 45%);}
   .carousel-slide.has-media .hero-inner{max-width:1120px;}
   .carousel-slide .hero-copy{position:relative;z-index:2;max-width:600px;}
-  .carousel-media{position:absolute;right:2%;top:50%;transform:translateY(-50%);width:min(38vw,460px);height:min(38vw,460px);z-index:1;pointer-events:none;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.45));animation:heroFloat 4.5s ease-in-out infinite;}
+  .carousel-media{position:absolute;right:2%;top:50%;transform:translateY(-50%);width:min(34vw,420px);height:min(34vw,420px);z-index:1;pointer-events:none;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.45));animation:heroFloat 4.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;overflow:hidden;}
   .carousel-media img{width:100%;height:100%;object-fit:contain;}
-  .carousel-media .emoji-hero{font-size:min(30vw,340px);line-height:1;display:block;text-align:center;}
+  .carousel-media .emoji-hero{font-size:min(16vw,190px);line-height:1;display:block;text-align:center;}
   @keyframes heroFloat{0%,100%{transform:translateY(-50%);}50%{transform:translateY(calc(-50% - 12px));}}
   @media (max-width:900px){ .carousel-media{display:none;} }
   .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--marigold);background:rgba(242,169,59,0.12);padding:6px 12px;border-radius:20px;border:1px solid rgba(242,169,59,0.3);margin-bottom:22px;}
@@ -193,37 +193,47 @@
 
   /* ============ POST FLAVOUR EFFECTS ============ */
   .ticket-media{position:relative;border-radius:10px;overflow:hidden;margin:8px 0 4px;}
-  .ticket-media img{width:100%;display:block;object-fit:cover;max-height:180px;}
-  .ticket-media.no-image{height:56px;background:linear-gradient(135deg,var(--cream-2),#f1dcc0);}
-  .fx-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+  .ticket-media img{width:100%;height:180px;display:block;object-fit:cover;}
+  .ticket-media.no-image{height:92px;background:linear-gradient(135deg,#3a2416,#5a3420);}
+  .ticket-media.has-effect::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(20,12,8,0.45), rgba(20,12,8,0.05) 55%);z-index:1;}
+  .fx-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2;}
   .fx-layer span{position:absolute;bottom:6px;border-radius:50%;opacity:0;}
   /* smoke */
-  .fx-smoke span{width:22px;height:22px;background:radial-gradient(circle,rgba(255,255,255,0.55),rgba(255,255,255,0));filter:blur(2px);animation:fxSmoke 3.2s ease-in infinite;}
-  .fx-smoke span:nth-child(1){left:12%;animation-delay:0s;}
-  .fx-smoke span:nth-child(2){left:35%;width:28px;height:28px;animation-delay:.8s;}
-  .fx-smoke span:nth-child(3){left:58%;animation-delay:1.6s;}
-  .fx-smoke span:nth-child(4){left:78%;width:18px;height:18px;animation-delay:.4s;}
-  @keyframes fxSmoke{0%{opacity:0;transform:translateY(0) scale(0.6);}20%{opacity:0.6;}100%{opacity:0;transform:translateY(-70px) scale(1.6);}}
+  .fx-smoke span{width:34px;height:34px;background:radial-gradient(circle,rgba(255,255,255,0.85),rgba(255,255,255,0));filter:blur(1.5px);animation:fxSmoke 3s ease-in infinite;}
+  .fx-smoke span:nth-child(1){left:8%;animation-delay:0s;}
+  .fx-smoke span:nth-child(2){left:26%;width:40px;height:40px;animation-delay:.7s;}
+  .fx-smoke span:nth-child(3){left:46%;animation-delay:1.4s;}
+  .fx-smoke span:nth-child(4){left:64%;width:30px;height:30px;animation-delay:.35s;}
+  .fx-smoke span:nth-child(5){left:82%;animation-delay:1.05s;}
+  .fx-smoke span:nth-child(6){left:92%;width:26px;height:26px;animation-delay:1.75s;}
+  @keyframes fxSmoke{0%{opacity:0;transform:translateY(0) scale(0.5);}25%{opacity:0.85;}100%{opacity:0;transform:translateY(-90px) scale(2);}}
   /* steam */
-  .fx-steam span{width:8px;height:34px;background:linear-gradient(to top,rgba(255,255,255,0.6),rgba(255,255,255,0));border-radius:8px;filter:blur(1.5px);animation:fxSteam 2.2s ease-in-out infinite;}
-  .fx-steam span:nth-child(1){left:20%;animation-delay:0s;}
-  .fx-steam span:nth-child(2){left:42%;animation-delay:.5s;}
-  .fx-steam span:nth-child(3){left:64%;animation-delay:1s;}
-  .fx-steam span:nth-child(4){left:82%;animation-delay:.3s;}
-  @keyframes fxSteam{0%{opacity:0;transform:translateY(0) rotate(0deg);}30%{opacity:0.7;}100%{opacity:0;transform:translateY(-50px) rotate(6deg);}}
+  .fx-steam span{width:12px;height:48px;background:linear-gradient(to top,rgba(255,255,255,0.9),rgba(255,255,255,0));border-radius:10px;filter:blur(1px);animation:fxSteam 2s ease-in-out infinite;}
+  .fx-steam span:nth-child(1){left:12%;animation-delay:0s;}
+  .fx-steam span:nth-child(2){left:29%;animation-delay:.4s;}
+  .fx-steam span:nth-child(3){left:46%;animation-delay:.8s;}
+  .fx-steam span:nth-child(4){left:63%;animation-delay:.2s;}
+  .fx-steam span:nth-child(5){left:78%;animation-delay:.6s;}
+  .fx-steam span:nth-child(6){left:90%;animation-delay:1s;}
+  @keyframes fxSteam{0%{opacity:0;transform:translateY(0) rotate(0deg);}30%{opacity:0.9;}100%{opacity:0;transform:translateY(-65px) rotate(8deg);}}
   /* sparkle */
-  .fx-sparkle span{width:6px;height:6px;background:var(--marigold);box-shadow:0 0 6px 2px rgba(242,169,59,0.6);animation:fxSparkle 1.8s ease-in-out infinite;}
-  .fx-sparkle span:nth-child(1){left:15%;bottom:auto;top:20%;animation-delay:0s;}
-  .fx-sparkle span:nth-child(2){left:40%;bottom:auto;top:55%;animation-delay:.5s;}
-  .fx-sparkle span:nth-child(3){left:65%;bottom:auto;top:30%;animation-delay:1s;}
-  .fx-sparkle span:nth-child(4){left:85%;bottom:auto;top:60%;animation-delay:.3s;}
-  @keyframes fxSparkle{0%,100%{opacity:0;transform:scale(0.4);}50%{opacity:1;transform:scale(1.2);}}
+  .fx-sparkle span{width:9px;height:9px;background:var(--marigold);box-shadow:0 0 10px 3px rgba(242,169,59,0.85);animation:fxSparkle 1.6s ease-in-out infinite;}
+  .fx-sparkle span:nth-child(1){left:10%;bottom:auto;top:22%;animation-delay:0s;}
+  .fx-sparkle span:nth-child(2){left:28%;bottom:auto;top:65%;animation-delay:.4s;}
+  .fx-sparkle span:nth-child(3){left:48%;bottom:auto;top:35%;animation-delay:.8s;}
+  .fx-sparkle span:nth-child(4){left:65%;bottom:auto;top:70%;animation-delay:.2s;}
+  .fx-sparkle span:nth-child(5){left:80%;bottom:auto;top:25%;animation-delay:.6s;}
+  .fx-sparkle span:nth-child(6){left:92%;bottom:auto;top:55%;animation-delay:1.1s;}
+  @keyframes fxSparkle{0%,100%{opacity:0;transform:scale(0.3);}50%{opacity:1;transform:scale(1.4);}}
   /* sizzle */
-  .fx-sizzle span{width:6px;height:6px;background:var(--red);animation:fxSizzle 0.9s ease-in-out infinite;}
-  .fx-sizzle span:nth-child(1){left:18%;background:var(--marigold);animation-delay:0s;}
-  .fx-sizzle span:nth-child(2){left:38%;animation-delay:.15s;}
-  .fx-sizzle span:nth-child(3){left:60%;background:var(--marigold);animation-delay:.3s;}
-  .fx-sizzle span:nth-child(4){left:80%;animation-delay:.45s;}
+  .fx-sizzle span{width:10px;height:10px;background:var(--red);box-shadow:0 0 8px 2px rgba(214,48,28,0.6);animation:fxSizzle 0.8s ease-in-out infinite;}
+  .fx-sizzle span:nth-child(1){left:10%;background:var(--marigold);animation-delay:0s;}
+  .fx-sizzle span:nth-child(2){left:26%;animation-delay:.13s;}
+  .fx-sizzle span:nth-child(3){left:44%;background:var(--marigold);animation-delay:.26s;}
+  .fx-sizzle span:nth-child(4){left:60%;animation-delay:.39s;}
+  .fx-sizzle span:nth-child(5){left:76%;background:var(--marigold);animation-delay:.52s;}
+  .fx-sizzle span:nth-child(6){left:90%;animation-delay:.65s;}
+  @keyframes fxSizzle{0%{opacity:0;transform:translateY(0) scale(0.5);}35%{opacity:1;}100%{opacity:0;transform:translateY(-32px) scale(1.3);}}
   @keyframes fxSizzle{0%{opacity:0;transform:translateY(0) scale(0.6);}30%{opacity:1;}100%{opacity:0;transform:translateY(-20px) scale(1);}}
   .comment{font-size:12.5px;margin-bottom:8px;opacity:0.85;}
   .comment b{color:var(--red-dark);}
@@ -619,9 +629,9 @@ const DEFAULT_MENU = [
   {id:"m10",category:"Beverages",label:"",name:"Peach Iced Tea",price:390,comboPrice:null,desc:"House-brewed, lightly sweet.",emoji:"🧊",spicy:false,popular:false}
 ];
 const DEFAULT_POSTS = [
-  {id:"p1",title:"Ghost Pepper Tenders are back",date:"Jul 24, 2026",body:"Limited batch, back by popular demand. Ask your server for the heat level before you regret it.",tag:"New drop",image:""},
-  {id:"p2",title:"Biscuit Fridays",date:"Jul 18, 2026",body:"Every Friday, biscuits are half price with any combo. Dine-in and takeaway.",tag:"Promo",image:""},
-  {id:"p3",title:"Now open till 11 PM",date:"Jul 10, 2026",body:"Colombo branch extended hours for the weekend crowd. Come hungry, stay late.",tag:"Announcement",image:""}
+  {id:"p1",title:"Ghost Pepper Tenders are back",date:"Jul 24, 2026",body:"Limited batch, back by popular demand. Ask your server for the heat level before you regret it.",tag:"New drop",image:"",effect:"sizzle"},
+  {id:"p2",title:"Biscuit Fridays",date:"Jul 18, 2026",body:"Every Friday, biscuits are half price with any combo. Dine-in and takeaway.",tag:"Promo",image:"",effect:"steam"},
+  {id:"p3",title:"Now open till 11 PM",date:"Jul 10, 2026",body:"Colombo branch extended hours for the weekend crowd. Come hungry, stay late.",tag:"Announcement",image:"",effect:"none"}
 ];
 const DEFAULT_SETTINGS = {
   adminPassword: "popeyes123",
@@ -1221,12 +1231,12 @@ function renderPosts(){
   rail.innerHTML = posts.map(post => {
     const postComments = comments[post.id] || [];
     const effect = post.effect && post.effect !== 'none' ? post.effect : null;
-    const fxSpans = '<span></span><span></span><span></span><span></span>';
+    const fxSpans = '<span></span>'.repeat(6);
     return `
     <div class="ticket">
       <div class="ticket-tag"><span>${post.tag||'Note'}</span><span>${post.date||''}</span></div>
       ${post.image || effect ? `
-        <div class="ticket-media ${post.image?'':'no-image'}">
+        <div class="ticket-media ${post.image?'':'no-image'} ${effect?'has-effect':''}">
           ${post.image ? `<img src="${post.image}" alt="${post.title}" onerror="this.style.display='none'">` : ''}
           ${effect ? `<div class="fx-layer fx-${effect}">${fxSpans}</div>` : ''}
         </div>` : ''}
