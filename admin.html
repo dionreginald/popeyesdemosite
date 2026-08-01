@@ -380,7 +380,15 @@
         <p class="hint" style="margin:0 0 14px;">Image-only banners — no text is overlaid. Leave this list empty and the homepage falls back to photos from your posts.</p>
         <div class="form-grid">
           <div class="field full"><label>Image URL</label><input id="bnImage" placeholder="https://example.com/banner.png"></div>
-          <div class="field full"><label>Link (optional — section id like #menu, or a full URL)</label><input id="bnLink" placeholder="#menu"></div>
+          <div class="field full"><label>On click</label>
+            <select id="bnLinkType" onchange="toggleBannerLinkFields()">
+              <option value="none">Do nothing — image only</option>
+              <option value="url">Go to a link (another site or a section like #menu)</option>
+              <option value="item">Show a menu item</option>
+            </select>
+          </div>
+          <div class="field full" id="bnLinkUrlWrap"><label>URL or section</label><input id="bnLinkUrl" placeholder="https://example.com or #menu"></div>
+          <div class="field full" id="bnLinkItemWrap" style="display:none;"><label>Menu item</label><select id="bnLinkItem"></select></div>
           <div class="checkboxes"><label><input type="checkbox" id="bnEnabled" checked> Enabled</label></div>
         </div>
         <button class="save-btn" id="bnSaveBtn" onclick="saveBannerForm()">Add banner</button>
@@ -648,6 +656,7 @@ function renderMenuTable(){
       </td>
     </tr>
   `).join('');
+  populateBannerItemSelect();
 }
 function editMenuItem(id){
   const item = menu.find(m=>m.id===id);
@@ -1344,6 +1353,27 @@ async function deleteTestimonial(id){
 
 /* ============ WEBSITE SETTINGS — HOMEPAGE BANNERS ============ */
 let editingBnId = null;
+function populateBannerItemSelect(){
+  const sel = document.getElementById('bnLinkItem');
+  if(!sel) return;
+  const current = sel.value;
+  sel.innerHTML = menu.map(m=>`<option value="${m.id}">${m.emoji||''} ${m.name}</option>`).join('');
+  if(current) sel.value = current;
+}
+function toggleBannerLinkFields(){
+  const t = document.getElementById('bnLinkType').value;
+  document.getElementById('bnLinkUrlWrap').style.display = t==='url' ? '' : 'none';
+  document.getElementById('bnLinkItemWrap').style.display = t==='item' ? '' : 'none';
+  if(t==='item') populateBannerItemSelect();
+}
+function bannerLinkLabel(link){
+  if(!link) return 'Image only';
+  if(link.indexOf('item:')===0){
+    const item = menu.find(m=>m.id===link.slice(5));
+    return item ? ('Product: ' + item.name) : 'Product (removed)';
+  }
+  return link;
+}
 function renderBannersTable(){
   const tbody = document.getElementById('bannersTable');
   if(!tbody || !settings) return;
@@ -1352,7 +1382,7 @@ function renderBannersTable(){
   tbody.innerHTML = banners.map(b => `
     <tr>
       <td>${b.image ? `<img src="${b.image}" style="width:56px;height:38px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">` : '—'}</td>
-      <td style="font-size:12.5px;opacity:0.75;max-width:220px;word-break:break-all;">${b.link||'—'}</td>
+      <td style="font-size:12.5px;opacity:0.75;max-width:220px;word-break:break-all;">${bannerLinkLabel(b.link)}</td>
       <td>${b.enabled!==false ? '<span class="pill">Live</span>' : '<span class="pill" style="opacity:0.5;">Hidden</span>'}</td>
       <td class="row-actions">
         <button class="icon-btn" onclick="editBanner('${b.id}')">Edit</button>
@@ -1366,8 +1396,20 @@ function editBanner(id){
   if(!b) return;
   editingBnId = id;
   document.getElementById('bnImage').value = b.image||'';
-  document.getElementById('bnLink').value = b.link||'';
   document.getElementById('bnEnabled').checked = b.enabled!==false;
+  const link = b.link || '';
+  if(link.indexOf('item:')===0){
+    document.getElementById('bnLinkType').value = 'item';
+    populateBannerItemSelect();
+    document.getElementById('bnLinkItem').value = link.slice(5);
+  }else if(link){
+    document.getElementById('bnLinkType').value = 'url';
+    document.getElementById('bnLinkUrl').value = link;
+  }else{
+    document.getElementById('bnLinkType').value = 'none';
+    document.getElementById('bnLinkUrl').value = '';
+  }
+  toggleBannerLinkFields();
   document.getElementById('bnFormTitle').textContent = 'Edit banner';
   document.getElementById('bnSaveBtn').textContent = 'Save changes';
   document.getElementById('bnCancelBtn').style.display = 'inline-block';
@@ -1376,8 +1418,10 @@ function editBanner(id){
 function cancelBannerEdit(){
   editingBnId = null;
   document.getElementById('bnImage').value = '';
-  document.getElementById('bnLink').value = '';
+  document.getElementById('bnLinkUrl').value = '';
+  document.getElementById('bnLinkType').value = 'none';
   document.getElementById('bnEnabled').checked = true;
+  toggleBannerLinkFields();
   document.getElementById('bnFormTitle').textContent = 'Add banner';
   document.getElementById('bnSaveBtn').textContent = 'Add banner';
   document.getElementById('bnCancelBtn').style.display = 'none';
@@ -1385,8 +1429,14 @@ function cancelBannerEdit(){
 async function saveBannerForm(){
   if(!settings.heroBanners) settings.heroBanners = [];
   const image = document.getElementById('bnImage').value.trim();
-  const link = document.getElementById('bnLink').value.trim();
   const enabled = document.getElementById('bnEnabled').checked;
+  const linkType = document.getElementById('bnLinkType').value;
+  let link = '';
+  if(linkType === 'url') link = document.getElementById('bnLinkUrl').value.trim();
+  else if(linkType === 'item'){
+    const itemId = document.getElementById('bnLinkItem').value;
+    if(itemId) link = 'item:' + itemId;
+  }
   if(!image){ showToast("Image URL is required"); return; }
   if(editingBnId){
     const b = settings.heroBanners.find(x=>x.id===editingBnId);
