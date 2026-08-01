@@ -88,39 +88,46 @@
   .heat-item b{display:block;color:var(--marigold);font-size:20px;font-family:'Poppins',sans-serif;letter-spacing:-0.02em;font-weight:800;opacity:1;}
 
   /* ============ HERO CAROUSEL ============ */
-  .hero-carousel{position:relative;background:var(--ink);color:var(--cream);overflow:hidden;border-bottom:1px solid var(--line);}
-  .carousel-track{position:relative;min-height:420px;}
-  .carousel-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease;padding:76px 24px 64px;}
+  .hero-carousel{position:relative;background:var(--cream-2);padding:22px 24px 6px;border-bottom:1px solid var(--line-dark);}
+  .hero-carousel-inner{max-width:1400px;margin:0 auto;position:relative;}
+  .carousel-track{position:relative;min-height:400px;border-radius:26px;overflow:hidden;background:var(--cream);box-shadow:0 12px 32px rgba(21,12,9,0.10);}
+  .carousel-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease;padding:64px 320px 64px 56px;background:var(--cream);}
   .carousel-slide.active{opacity:1;visibility:visible;position:relative;}
-  .carousel-slide .hero-inner{max-width:1120px;margin:0 auto;position:relative;z-index:2;}
-  .carousel-slide::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%, rgba(214,48,28,0.35), transparent 45%);}
-  .carousel-slide.tone-marigold::before{background:radial-gradient(circle at 85% 20%, rgba(242,169,59,0.28), transparent 45%);}
-  .carousel-slide.tone-teal::before{background:radial-gradient(circle at 85% 20%, rgba(31,111,114,0.32), transparent 45%);}
-  .carousel-slide.has-media .hero-inner{max-width:1120px;}
-  .carousel-slide .hero-copy{position:relative;z-index:2;max-width:600px;}
-  .carousel-media{position:absolute;right:2%;top:50%;transform:translateY(-50%);width:min(34vw,420px);height:min(34vw,420px);z-index:1;pointer-events:none;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.45));animation:heroFloat 4.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .carousel-media img{width:100%;height:100%;object-fit:contain;}
-  .carousel-media .emoji-hero{font-size:min(16vw,190px);line-height:1;display:block;text-align:center;}
-  @keyframes heroFloat{0%,100%{transform:translateY(-50%);}50%{transform:translateY(calc(-50% - 12px));}}
-  @media (max-width:900px){ .carousel-media{display:none;} }
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--marigold);background:rgba(242,169,59,0.12);padding:6px 12px;border-radius:20px;border:1px solid rgba(242,169,59,0.3);margin-bottom:22px;}
-  .carousel-slide h1 em{font-style:italic;color:var(--red);}
-  .carousel-slide p.lead{max-width:520px;font-size:16.5px;color:var(--cream-2);opacity:0.85;margin-top:18px;}
-  .hero-cta{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
+  .carousel-slide .hero-inner{max-width:none;margin:0;position:relative;z-index:2;}
+  .carousel-slide.tone-marigold{background:#FCEACB;}
+  .carousel-slide.tone-teal{background:#E1EEEC;}
+  .carousel-slide .hero-copy{position:relative;z-index:2;max-width:520px;}
+  .carousel-media{position:absolute;right:4%;top:50%;transform:translateY(-50%);width:min(30vw,380px);height:min(30vw,380px);z-index:1;pointer-events:none;filter:drop-shadow(0 18px 34px rgba(21,12,9,0.22));animation:heroFloat 4.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .carousel-media img{width:100%;height:100%;object-fit:contain;border-radius:18px;}
+  .carousel-media .emoji-hero{font-size:min(14vw,170px);line-height:1;display:block;text-align:center;}
+  @keyframes heroFloat{0%,100%{transform:translateY(-50%);}50%{transform:translateY(calc(-50% - 10px));}}
+  @media (max-width:900px){ .carousel-media{display:none;} .carousel-slide{padding:52px 28px;} }
+  .price-badge{position:absolute;top:30px;right:calc(4% + min(30vw,380px) - 30px);width:76px;height:76px;border-radius:50%;background:#1F6F72;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:800;font-size:22px;z-index:3;box-shadow:0 8px 20px rgba(31,111,114,0.35);}
+  @media (max-width:900px){ .price-badge{display:none;} }
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red-dark);background:rgba(225,44,27,0.08);padding:6px 12px;border-radius:20px;border:1px solid rgba(225,44,27,0.22);margin-bottom:20px;}
+  .carousel-slide h1{font-size:clamp(30px,4.2vw,50px);line-height:1.02;color:var(--ink);}
+  .carousel-slide h1 em{font-style:normal;color:var(--red);}
+  .carousel-slide p.lead{max-width:460px;font-size:15.5px;color:var(--brown);opacity:0.78;margin-top:16px;line-height:1.5;}
+  .hero-cta{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;}
   .btn{border:none;border-radius:999px;padding:15px 28px;font-weight:800;font-size:14.5px;letter-spacing:0.02em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer;transition:transform .15s ease;}
   .btn:hover{transform:translateY(-1px);}
-  .btn-primary{background:var(--red);color:var(--cream);box-shadow:0 6px 18px rgba(225,44,27,0.35);}
-  .btn-primary:hover{background:var(--red-dark);box-shadow:0 8px 22px rgba(225,44,27,0.45);}
-  .btn-ghost{background:transparent;color:var(--cream);border:1.5px solid var(--line);}
-  .btn-ghost:hover{border-color:var(--marigold);color:var(--marigold);}
-  .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:40px;height:40px;border-radius:50%;background:rgba(255,246,233,0.08);border:1px solid var(--line);color:var(--cream);font-size:16px;display:flex;align-items:center;justify-content:center;}
-  .carousel-arrow:hover{background:var(--red);border-color:var(--red);}
-  .carousel-arrow.prev{left:20px;}
-  .carousel-arrow.next{right:20px;}
-  .carousel-dots{display:flex;gap:8px;justify-content:center;padding:16px 0 20px;position:relative;z-index:3;}
-  .carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,246,233,0.25);border:none;padding:0;}
-  .carousel-dot.active{background:var(--marigold);width:22px;border-radius:5px;transition:width .2s;}
-  .heat-strip{display:flex;gap:36px;margin-top:44px;border-top:1px solid var(--line);padding-top:20px;flex-wrap:wrap;}
+  .btn-primary{background:var(--red);color:#fff;box-shadow:0 6px 18px rgba(225,44,27,0.3);}
+  .btn-primary:hover{background:var(--red-dark);box-shadow:0 8px 22px rgba(225,44,27,0.4);}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-dark);}
+  .btn-ghost:hover{border-color:var(--red);color:var(--red);}
+  .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--line-dark);color:var(--ink);font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(21,12,9,0.1);}
+  .carousel-arrow:hover{background:var(--red);border-color:var(--red);color:#fff;}
+  .carousel-arrow.prev{left:8px;}
+  .carousel-arrow.next{right:8px;}
+  .carousel-controls{display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 0 18px;}
+  .carousel-pause{width:22px;height:22px;border:none;background:none;color:var(--brown);opacity:0.55;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .carousel-pause:hover{opacity:1;}
+  .carousel-dots{display:flex;gap:8px;justify-content:center;position:relative;z-index:3;}
+  .carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(62,33,22,0.2);border:none;padding:0;cursor:pointer;}
+  .carousel-dot.active{background:var(--red);width:22px;border-radius:5px;transition:width .2s;}
+  .heat-strip{display:flex;gap:30px;margin-top:40px;border-top:1px solid var(--line-dark);padding-top:18px;flex-wrap:wrap;}
+  .heat-item{color:var(--brown);}
+  .heat-item b{color:var(--red);}
 
   /* ============ CATEGORY TILE RAIL ============ */
   .cat-rail-wrap{background:var(--cream-2);border-bottom:1px solid var(--line-dark);}
@@ -449,10 +456,15 @@
   </header>
 
   <section class="hero-carousel" id="heroCarousel" onmouseenter="pauseCarousel()" onmouseleave="resumeCarousel()">
-    <button class="carousel-arrow prev" onclick="stepCarousel(-1)" aria-label="Previous slide">‹</button>
-    <button class="carousel-arrow next" onclick="stepCarousel(1)" aria-label="Next slide">›</button>
-    <div class="carousel-track" id="carouselTrack"></div>
-    <div class="carousel-dots" id="carouselDots"></div>
+    <div class="hero-carousel-inner">
+      <button class="carousel-arrow prev" onclick="stepCarousel(-1)" aria-label="Previous slide">‹</button>
+      <button class="carousel-arrow next" onclick="stepCarousel(1)" aria-label="Next slide">›</button>
+      <div class="carousel-track" id="carouselTrack"></div>
+      <div class="carousel-controls">
+        <button class="carousel-pause" id="carouselPauseBtn" onclick="toggleCarouselPause()" aria-label="Pause carousel">⏸</button>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </div>
   </section>
 
   <div class="cat-rail-wrap">
@@ -568,6 +580,8 @@
     <div class="drawer-head"><h3>Your order</h3><button onclick="closeCart()">✕</button></div>
     <div class="drawer-body" id="cartBody"></div>
     <div class="drawer-foot">
+      <div class="cart-total-row" style="font-size:13px;font-weight:500;opacity:0.7;"><span>Subtotal</span><span id="cartSubtotal">Rs. 0</span></div>
+      <div class="cart-total-row" id="cartFeeRow" style="font-size:13px;font-weight:500;opacity:0.7;display:none;"><span>Delivery fee</span><span id="cartFeeAmount">Rs. 0</span></div>
       <div class="cart-total-row"><span>Total</span><span id="cartTotal">Rs. 0</span></div>
       <button class="checkout-btn" onclick="checkout()">Checkout</button>
     </div>
@@ -640,6 +654,14 @@ const DEFAULT_POSTS = [
 ];
 const DEFAULT_SETTINGS = {
   adminPassword: "popeyes123",
+  heroBanners: [],
+  orderConfig: {
+    acceptingOrders: true,
+    closedMessage: "We're currently closed for online orders — please check back soon.",
+    deliveryFee: 300,
+    minOrder: 0,
+    prepTimeMins: 25
+  },
   story: {
     eyebrow: "Our story",
     badgeNum: "1972",
@@ -699,6 +721,8 @@ async function loadSettings(){
   try{ let r = await window.storage.get('settings', true); settings = r ? JSON.parse(r.value) : null; }catch(e){ settings = null; }
   if(!settings){ settings = DEFAULT_SETTINGS; try{ await window.storage.set('settings', JSON.stringify(settings), true); }catch(e){} }
   if(!settings.story){ settings.story = DEFAULT_SETTINGS.story; try{ await window.storage.set('settings', JSON.stringify(settings), true); }catch(e){} }
+  if(!settings.heroBanners){ settings.heroBanners = []; try{ await window.storage.set('settings', JSON.stringify(settings), true); }catch(e){} }
+  if(!settings.orderConfig){ settings.orderConfig = DEFAULT_SETTINGS.orderConfig; try{ await window.storage.set('settings', JSON.stringify(settings), true); }catch(e){} }
 }
 async function saveSettings(){ try{ await window.storage.set('settings', JSON.stringify(settings), true); }catch(e){ showToast("Couldn't save — try again"); } }
 async function loadTestimonials(){
@@ -1025,8 +1049,21 @@ function renderTabs(){
 function setCategory(c){ activeCategory = c; renderTabs(); renderMenu(); }
 
 /* ============ HERO CAROUSEL ============ */
-let carouselSlides = [], carouselIndex = 0, carouselTimer = null;
+let carouselSlides = [], carouselIndex = 0, carouselTimer = null, carouselPausedByUser = false;
 function buildCarouselSlides(){
+  const banners = (settings && Array.isArray(settings.heroBanners)) ? settings.heroBanners.filter(b=>b.enabled!==false) : [];
+  if(banners.length){
+    return banners.map(b => ({
+      tone: b.tone || "",
+      eyebrow: b.eyebrow || "",
+      title: b.title || "",
+      lead: b.subtitle || "",
+      ctaLabel: b.ctaLabel || "Order now",
+      ctaHref: b.ctaHref || "#menu",
+      image: b.image || null,
+      priceBadge: b.priceBadge || null
+    }));
+  }
   const slides = [{
     tone:"", eyebrow:"● Louisiana kitchen, Colombo",
     title:"Fried to order.<br><em>Never rushed.</em>",
@@ -1079,6 +1116,7 @@ function renderCarousel(){
         </div>
         ${s.image ? `<div class="carousel-media"><img src="${s.image}" alt="${s.title}" onerror="this.parentElement.style.display='none'"></div>`
           : (s.emoji ? `<div class="carousel-media"><span class="emoji-hero">${s.emoji}</span></div>` : '')}
+        ${s.priceBadge ? `<div class="price-badge">${s.priceBadge}</div>` : ''}
       </div>
     </div>
   `).join('');
@@ -1098,7 +1136,18 @@ function stepCarousel(dir){
   goToSlide((carouselIndex + dir + carouselSlides.length) % carouselSlides.length);
 }
 function pauseCarousel(){ if(carouselTimer){ clearInterval(carouselTimer); carouselTimer = null; } }
-function resumeCarousel(){ if(!carouselTimer){ carouselTimer = setInterval(()=>stepCarousel(1), 5000); } }
+function resumeCarousel(){ if(!carouselTimer && !carouselPausedByUser){ carouselTimer = setInterval(()=>stepCarousel(1), 5000); } }
+function toggleCarouselPause(){
+  carouselPausedByUser = !carouselPausedByUser;
+  const btn = document.getElementById('carouselPauseBtn');
+  if(carouselPausedByUser){
+    pauseCarousel();
+    if(btn){ btn.textContent = '▶'; btn.setAttribute('aria-label','Play carousel'); }
+  }else{
+    resumeCarousel();
+    if(btn){ btn.textContent = '⏸'; btn.setAttribute('aria-label','Pause carousel'); }
+  }
+}
 
 /* ============ CATEGORY TILE RAIL ============ */
 function renderCatTiles(){
@@ -1316,14 +1365,34 @@ function updateCartUI(){
       </div>
     `).join('');
   }
-  const total = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const subtotal = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const oc = (settings && settings.orderConfig) || DEFAULT_SETTINGS.orderConfig;
+  const deliveryFee = cart.length ? (oc.deliveryFee||0) : 0;
+  const total = subtotal + deliveryFee;
+  const feeRow = document.getElementById('cartFeeRow');
+  if(feeRow) feeRow.style.display = deliveryFee ? 'flex' : 'none';
+  const feeEl = document.getElementById('cartFeeAmount');
+  if(feeEl) feeEl.textContent = money(deliveryFee);
+  const subEl = document.getElementById('cartSubtotal');
+  if(subEl) subEl.textContent = money(subtotal);
   document.getElementById('cartTotal').textContent = money(total);
 }
 function openCart(){ document.getElementById('overlay').classList.add('open'); document.getElementById('drawer').classList.add('open'); }
 function closeCart(){ document.getElementById('overlay').classList.remove('open'); document.getElementById('drawer').classList.remove('open'); }
 async function checkout(){
   if(!cart.length){ showToast("Cart is empty"); return; }
-  const total = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  const oc = (settings && settings.orderConfig) || DEFAULT_SETTINGS.orderConfig;
+  if(oc.acceptingOrders === false){
+    showToast(oc.closedMessage || "We're not accepting online orders right now");
+    return;
+  }
+  const subtotal = cart.reduce((s,c)=>s+c.price*c.qty,0);
+  if(oc.minOrder && subtotal < oc.minOrder){
+    showToast(`Minimum order is ${money(oc.minOrder)}`);
+    return;
+  }
+  const deliveryFee = oc.deliveryFee || 0;
+  const total = subtotal + deliveryFee;
   if(currentCustomer && customers[currentCustomer.email]){
     const cust = customers[currentCustomer.email];
     cust.orders = cust.orders || [];
@@ -1334,6 +1403,7 @@ async function checkout(){
       placedAt: now,
       items: cart.map(c=>({...c})),
       total,
+      deliveryFee,
       status: 'Placed',
       etaMinutes: null,
       branchId: null,

@@ -43,6 +43,8 @@
     padding:12px 14px;border-radius:10px;font-size:13.5px;font-weight:700;margin-bottom:4px;opacity:0.7;letter-spacing:0.01em;
   }
   .nav-item:hover{opacity:1;background:rgba(255,255,255,0.06);}
+  .nav-section-label{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;opacity:0.38;margin:20px 10px 8px;color:var(--cream-2);}
+  .nav-section-label:first-of-type{margin-top:4px;}
   .nav-item.active{background:var(--red);color:#fff;opacity:1;box-shadow:0 4px 14px rgba(225,44,27,0.4);}
   .main{flex:1;padding:36px 40px;max-width:980px;}
   .main-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;}
@@ -164,16 +166,24 @@
   <div class="sidebar">
     <div class="brand">POPEYES<span>.</span></div>
     <div class="brand-sub">KITCHEN CONTROL</div>
+    <div class="nav-section-label">Catalog</div>
     <button class="nav-item active" data-panel="menuPanel" onclick="switchPanel('menuPanel',this)">Menu items</button>
-    <button class="nav-item" data-panel="postsPanel" onclick="switchPanel('postsPanel',this)">Posts</button>
-    <button class="nav-item" data-panel="commentsPanel" onclick="switchPanel('commentsPanel',this)">Comments</button>
-    <button class="nav-item" data-panel="restaurantsPanel" onclick="switchPanel('restaurantsPanel',this)">Restaurants</button>
     <button class="nav-item" data-panel="offersPanel" onclick="switchPanel('offersPanel',this)">Offers</button>
     <button class="nav-item" data-panel="galleryPanel" onclick="switchPanel('galleryPanel',this)">Gallery</button>
-    <button class="nav-item" data-panel="contentPanel" onclick="switchPanel('contentPanel',this)">Content</button>
+
+    <div class="nav-section-label">Content</div>
+    <button class="nav-item" data-panel="postsPanel" onclick="switchPanel('postsPanel',this)">Posts</button>
+    <button class="nav-item" data-panel="commentsPanel" onclick="switchPanel('commentsPanel',this)">Comments</button>
+    <button class="nav-item" data-panel="contentPanel" onclick="switchPanel('contentPanel',this)">Story & reviews</button>
+
+    <div class="nav-section-label">Operations</div>
     <button class="nav-item" data-panel="ordersPanel" onclick="switchPanel('ordersPanel',this)">Orders<span class="nav-badge" id="ordersBadge" style="display:none;"></span></button>
     <button class="nav-item" data-panel="customersPanel" onclick="switchPanel('customersPanel',this)">Customers</button>
-    <button class="nav-item" data-panel="settingsPanel" onclick="switchPanel('settingsPanel',this)">Settings</button>
+    <button class="nav-item" data-panel="restaurantsPanel" onclick="switchPanel('restaurantsPanel',this)">Restaurants</button>
+
+    <div class="nav-section-label">Configuration</div>
+    <button class="nav-item" data-panel="websiteSettingsPanel" onclick="switchPanel('websiteSettingsPanel',this)">Website Settings</button>
+    <button class="nav-item" data-panel="orderSettingsPanel" onclick="switchPanel('orderSettingsPanel',this)">Order Settings</button>
   </div>
 
   <div class="main">
@@ -363,11 +373,55 @@
       </div>
     </div>
 
-    <div class="panel" id="settingsPanel">
-      <div class="main-head"><div><h2>Settings</h2><p>Manage admin access.</p></div></div>
+    <div class="panel" id="websiteSettingsPanel">
+      <div class="main-head"><div><h2>Website Settings</h2><p>Control the homepage banner carousel and admin access.</p></div></div>
+      <div class="card">
+        <h3 style="font-size:15px;margin-bottom:4px;" id="bnFormTitle">Add banner</h3>
+        <p class="hint" style="margin:0 0 14px;">Leave this list empty and the homepage falls back to auto-generated slides from your posts and popular items.</p>
+        <div class="form-grid">
+          <div class="field full"><label>Image URL</label><input id="bnImage" placeholder="https://example.com/banner.png"></div>
+          <div class="field"><label>Eyebrow tag</label><input id="bnEyebrow" placeholder="● Limited time"></div>
+          <div class="field"><label>Price badge (optional)</label><input id="bnPrice" placeholder="$20"></div>
+          <div class="field full"><label>Title</label><input id="bnTitle" placeholder="Build Your Own Bundle"></div>
+          <div class="field full"><label>Subtitle</label><textarea id="bnSubtitle" rows="2" placeholder="Pick 3 proteins. 2 sides. $20 feeds the whole krewe."></textarea></div>
+          <div class="field"><label>Button label</label><input id="bnCtaLabel" placeholder="Build Your Bundle"></div>
+          <div class="field"><label>Button link (section id, e.g. #menu)</label><input id="bnCtaHref" placeholder="#menu"></div>
+          <div class="field"><label>Tone</label>
+            <select id="bnTone">
+              <option value="">Cream</option>
+              <option value="tone-marigold">Marigold</option>
+              <option value="tone-teal">Teal</option>
+            </select>
+          </div>
+          <div class="checkboxes"><label><input type="checkbox" id="bnEnabled" checked> Enabled</label></div>
+        </div>
+        <button class="save-btn" id="bnSaveBtn" onclick="saveBannerForm()">Add banner</button>
+        <button class="icon-btn" id="bnCancelBtn" style="display:none;margin-top:6px;margin-left:8px;" onclick="cancelBannerEdit()">Cancel edit</button>
+      </div>
+      <div class="card">
+        <table>
+          <thead><tr><th>Image</th><th>Banner</th><th>Status</th><th></th></tr></thead>
+          <tbody id="bannersTable"></tbody>
+        </table>
+      </div>
       <div class="card" style="max-width:360px;">
+        <h3 style="font-size:15px;margin-bottom:14px;">Admin access</h3>
         <div class="field"><label>New admin password</label><input id="newPw" type="password" placeholder="Enter a new password"></div>
         <button class="save-btn" onclick="changePassword()">Update password</button>
+      </div>
+    </div>
+
+    <div class="panel" id="orderSettingsPanel">
+      <div class="main-head"><div><h2>Order Settings</h2><p>Control checkout behavior across the customer site.</p></div></div>
+      <div class="card" style="max-width:520px;">
+        <div class="checkboxes" style="margin-bottom:16px;"><label><input type="checkbox" id="osAccepting" checked> Currently accepting online orders</label></div>
+        <div class="field full"><label>Message shown when closed</label><textarea id="osClosedMsg" rows="2" placeholder="We're currently closed for online orders — please check back soon."></textarea></div>
+        <div class="form-grid">
+          <div class="field"><label>Delivery fee (Rs.)</label><input id="osDeliveryFee" type="number" placeholder="300"></div>
+          <div class="field"><label>Minimum order (Rs.)</label><input id="osMinOrder" type="number" placeholder="0"></div>
+          <div class="field"><label>Estimated prep time (mins)</label><input id="osPrepTime" type="number" placeholder="25"></div>
+        </div>
+        <button class="save-btn" onclick="saveOrderSettings()">Save order settings</button>
       </div>
     </div>
 
@@ -430,6 +484,14 @@ const DEFAULT_POSTS = [
 ];
 const DEFAULT_SETTINGS = {
   adminPassword: "popeyes123",
+  heroBanners: [],
+  orderConfig: {
+    acceptingOrders: true,
+    closedMessage: "We're currently closed for online orders — please check back soon.",
+    deliveryFee: 300,
+    minOrder: 0,
+    prepTimeMins: 25
+  },
   story: {
     eyebrow: "Our story",
     badgeNum: "1972",
@@ -480,6 +542,8 @@ async function tryLogin(){
   }catch(e){ s = null; }
   if(!s){ s = DEFAULT_SETTINGS; try{ await window.storage.set('settings', JSON.stringify(s), true); }catch(e){} }
   if(!s.story){ s.story = DEFAULT_SETTINGS.story; try{ await window.storage.set('settings', JSON.stringify(s), true); }catch(e){} }
+  if(!s.heroBanners){ s.heroBanners = []; try{ await window.storage.set('settings', JSON.stringify(s), true); }catch(e){} }
+  if(!s.orderConfig){ s.orderConfig = DEFAULT_SETTINGS.orderConfig; try{ await window.storage.set('settings', JSON.stringify(s), true); }catch(e){} }
   settings = s;
   if(pw === settings.adminPassword){
     document.getElementById('gate').style.display = 'none';
@@ -528,6 +592,8 @@ async function loadAll(){
   renderOffersAdminPanel();
   renderGalleryTable();
   renderContentPanel();
+  renderBannersTable();
+  renderOrderSettingsForm();
   populateStatusFilter();
   renderOrdersPanel();
   if(knownOrderIds === null){
@@ -1286,6 +1352,109 @@ async function deleteTestimonial(id){
   await saveTestimonials();
   renderTestimonialsTable();
   showToast("Testimonial removed");
+}
+
+/* ============ WEBSITE SETTINGS — HOMEPAGE BANNERS ============ */
+let editingBnId = null;
+function renderBannersTable(){
+  const tbody = document.getElementById('bannersTable');
+  if(!tbody || !settings) return;
+  const banners = settings.heroBanners || [];
+  if(!banners.length){ tbody.innerHTML = '<tr><td colspan="4" class="empty">No custom banners yet — homepage shows auto-generated slides from your posts &amp; popular items.</td></tr>'; return; }
+  tbody.innerHTML = banners.map(b => `
+    <tr>
+      <td>${b.image ? `<img src="${b.image}" style="width:56px;height:38px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">` : '—'}</td>
+      <td><b>${b.title||''}</b><br><span style="opacity:0.55;font-size:12px;">${b.eyebrow||''}</span></td>
+      <td>${b.enabled!==false ? '<span class="pill">Live</span>' : '<span class="pill" style="opacity:0.5;">Hidden</span>'}</td>
+      <td class="row-actions">
+        <button class="icon-btn" onclick="editBanner('${b.id}')">Edit</button>
+        <button class="icon-btn danger" onclick="deleteBanner('${b.id}')">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+}
+function editBanner(id){
+  const b = (settings.heroBanners||[]).find(x=>x.id===id);
+  if(!b) return;
+  editingBnId = id;
+  document.getElementById('bnImage').value = b.image||'';
+  document.getElementById('bnEyebrow').value = b.eyebrow||'';
+  document.getElementById('bnPrice').value = b.priceBadge||'';
+  document.getElementById('bnTitle').value = b.title||'';
+  document.getElementById('bnSubtitle').value = b.subtitle||'';
+  document.getElementById('bnCtaLabel').value = b.ctaLabel||'';
+  document.getElementById('bnCtaHref').value = b.ctaHref||'';
+  document.getElementById('bnTone').value = b.tone||'';
+  document.getElementById('bnEnabled').checked = b.enabled!==false;
+  document.getElementById('bnFormTitle').textContent = 'Edit banner';
+  document.getElementById('bnSaveBtn').textContent = 'Save changes';
+  document.getElementById('bnCancelBtn').style.display = 'inline-block';
+  document.getElementById('bnFormTitle').scrollIntoView({behavior:'smooth', block:'center'});
+}
+function cancelBannerEdit(){
+  editingBnId = null;
+  ['bnImage','bnEyebrow','bnPrice','bnTitle','bnSubtitle','bnCtaLabel','bnCtaHref'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('bnTone').value = '';
+  document.getElementById('bnEnabled').checked = true;
+  document.getElementById('bnFormTitle').textContent = 'Add banner';
+  document.getElementById('bnSaveBtn').textContent = 'Add banner';
+  document.getElementById('bnCancelBtn').style.display = 'none';
+}
+async function saveBannerForm(){
+  if(!settings.heroBanners) settings.heroBanners = [];
+  const image = document.getElementById('bnImage').value.trim();
+  const eyebrow = document.getElementById('bnEyebrow').value.trim();
+  const priceBadge = document.getElementById('bnPrice').value.trim();
+  const title = document.getElementById('bnTitle').value.trim();
+  const subtitle = document.getElementById('bnSubtitle').value.trim();
+  const ctaLabel = document.getElementById('bnCtaLabel').value.trim() || 'Order now';
+  const ctaHref = document.getElementById('bnCtaHref').value.trim() || '#menu';
+  const tone = document.getElementById('bnTone').value;
+  const enabled = document.getElementById('bnEnabled').checked;
+  if(!title){ showToast("Title is required"); return; }
+  if(editingBnId){
+    const b = settings.heroBanners.find(x=>x.id===editingBnId);
+    if(b){ Object.assign(b, {image,eyebrow,priceBadge,title,subtitle,ctaLabel,ctaHref,tone,enabled}); }
+    await saveSettings();
+    renderBannersTable();
+    cancelBannerEdit();
+    showToast("Banner updated");
+    return;
+  }
+  settings.heroBanners.push({id:uid('bn'), image,eyebrow,priceBadge,title,subtitle,ctaLabel,ctaHref,tone,enabled});
+  await saveSettings();
+  renderBannersTable();
+  cancelBannerEdit();
+  showToast("Banner added");
+}
+async function deleteBanner(id){
+  settings.heroBanners = (settings.heroBanners||[]).filter(b=>b.id!==id);
+  if(editingBnId===id) cancelBannerEdit();
+  await saveSettings();
+  renderBannersTable();
+  showToast("Banner removed");
+}
+
+/* ============ ORDER SETTINGS ============ */
+function renderOrderSettingsForm(){
+  if(!settings) return;
+  const oc = Object.assign({}, DEFAULT_SETTINGS.orderConfig, settings.orderConfig || {});
+  document.getElementById('osAccepting').checked = oc.acceptingOrders !== false;
+  document.getElementById('osClosedMsg').value = oc.closedMessage || '';
+  document.getElementById('osDeliveryFee').value = oc.deliveryFee ?? 0;
+  document.getElementById('osMinOrder').value = oc.minOrder ?? 0;
+  document.getElementById('osPrepTime').value = oc.prepTimeMins ?? 25;
+}
+async function saveOrderSettings(){
+  settings.orderConfig = {
+    acceptingOrders: document.getElementById('osAccepting').checked,
+    closedMessage: document.getElementById('osClosedMsg').value.trim() || DEFAULT_SETTINGS.orderConfig.closedMessage,
+    deliveryFee: Number(document.getElementById('osDeliveryFee').value) || 0,
+    minOrder: Number(document.getElementById('osMinOrder').value) || 0,
+    prepTimeMins: Number(document.getElementById('osPrepTime').value) || 0
+  };
+  await saveSettings();
+  showToast("Order settings saved");
 }
 
 async function changePassword(){
