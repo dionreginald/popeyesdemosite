@@ -90,31 +90,11 @@
   /* ============ HERO CAROUSEL ============ */
   .hero-carousel{position:relative;background:var(--cream-2);padding:22px 24px 6px;border-bottom:1px solid var(--line-dark);}
   .hero-carousel-inner{max-width:1400px;margin:0 auto;position:relative;}
-  .carousel-track{position:relative;min-height:400px;border-radius:26px;overflow:hidden;background:var(--cream);box-shadow:0 12px 32px rgba(21,12,9,0.10);}
-  .carousel-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease;padding:64px 320px 64px 56px;background:var(--cream);}
+  .carousel-track{position:relative;min-height:320px;border-radius:26px;overflow:hidden;background:var(--cream);box-shadow:0 12px 32px rgba(21,12,9,0.10);}
+  .carousel-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .55s ease;}
   .carousel-slide.active{opacity:1;visibility:visible;position:relative;}
-  .carousel-slide .hero-inner{max-width:none;margin:0;position:relative;z-index:2;}
-  .carousel-slide.tone-marigold{background:#FCEACB;}
-  .carousel-slide.tone-teal{background:#E1EEEC;}
-  .carousel-slide .hero-copy{position:relative;z-index:2;max-width:520px;}
-  .carousel-media{position:absolute;right:4%;top:50%;transform:translateY(-50%);width:min(30vw,380px);height:min(30vw,380px);z-index:1;pointer-events:none;filter:drop-shadow(0 18px 34px rgba(21,12,9,0.22));animation:heroFloat 4.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .carousel-media img{width:100%;height:100%;object-fit:contain;border-radius:18px;}
-  .carousel-media .emoji-hero{font-size:min(14vw,170px);line-height:1;display:block;text-align:center;}
-  @keyframes heroFloat{0%,100%{transform:translateY(-50%);}50%{transform:translateY(calc(-50% - 10px));}}
-  @media (max-width:900px){ .carousel-media{display:none;} .carousel-slide{padding:52px 28px;} }
-  .price-badge{position:absolute;top:30px;right:calc(4% + min(30vw,380px) - 30px);width:76px;height:76px;border-radius:50%;background:#1F6F72;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:800;font-size:22px;z-index:3;box-shadow:0 8px 20px rgba(31,111,114,0.35);}
-  @media (max-width:900px){ .price-badge{display:none;} }
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red-dark);background:rgba(225,44,27,0.08);padding:6px 12px;border-radius:20px;border:1px solid rgba(225,44,27,0.22);margin-bottom:20px;}
-  .carousel-slide h1{font-size:clamp(30px,4.2vw,50px);line-height:1.02;color:var(--ink);}
-  .carousel-slide h1 em{font-style:normal;color:var(--red);}
-  .carousel-slide p.lead{max-width:460px;font-size:15.5px;color:var(--brown);opacity:0.78;margin-top:16px;line-height:1.5;}
-  .hero-cta{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;}
-  .btn{border:none;border-radius:999px;padding:15px 28px;font-weight:800;font-size:14.5px;letter-spacing:0.02em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer;transition:transform .15s ease;}
-  .btn:hover{transform:translateY(-1px);}
-  .btn-primary{background:var(--red);color:#fff;box-shadow:0 6px 18px rgba(225,44,27,0.3);}
-  .btn-primary:hover{background:var(--red-dark);box-shadow:0 8px 22px rgba(225,44,27,0.4);}
-  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line-dark);}
-  .btn-ghost:hover{border-color:var(--red);color:var(--red);}
+  .carousel-image-link{display:block;width:100%;height:100%;position:absolute;inset:0;}
+  .carousel-image-link img{width:100%;height:100%;object-fit:cover;display:block;}
   .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--line-dark);color:var(--ink);font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(21,12,9,0.1);}
   .carousel-arrow:hover{background:var(--red);border-color:var(--red);color:#fff;}
   .carousel-arrow.prev{left:8px;}
@@ -125,9 +105,6 @@
   .carousel-dots{display:flex;gap:8px;justify-content:center;position:relative;z-index:3;}
   .carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(62,33,22,0.2);border:none;padding:0;cursor:pointer;}
   .carousel-dot.active{background:var(--red);width:22px;border-radius:5px;transition:width .2s;}
-  .heat-strip{display:flex;gap:30px;margin-top:40px;border-top:1px solid var(--line-dark);padding-top:18px;flex-wrap:wrap;}
-  .heat-item{color:var(--brown);}
-  .heat-item b{color:var(--red);}
 
   /* ============ CATEGORY TILE RAIL ============ */
   .cat-rail-wrap{background:var(--cream-2);border-bottom:1px solid var(--line-dark);}
@@ -1051,80 +1028,37 @@ function setCategory(c){ activeCategory = c; renderTabs(); renderMenu(); }
 /* ============ HERO CAROUSEL ============ */
 let carouselSlides = [], carouselIndex = 0, carouselTimer = null, carouselPausedByUser = false;
 function buildCarouselSlides(){
-  const banners = (settings && Array.isArray(settings.heroBanners)) ? settings.heroBanners.filter(b=>b.enabled!==false) : [];
+  const banners = (settings && Array.isArray(settings.heroBanners)) ? settings.heroBanners.filter(b=>b.enabled!==false && b.image) : [];
   if(banners.length){
-    return banners.map(b => ({
-      tone: b.tone || "",
-      eyebrow: b.eyebrow || "",
-      title: b.title || "",
-      lead: b.subtitle || "",
-      ctaLabel: b.ctaLabel || "Order now",
-      ctaHref: b.ctaHref || "#menu",
-      image: b.image || null,
-      priceBadge: b.priceBadge || null
-    }));
+    return banners.map(b => ({ image: b.image, link: b.link || "" }));
   }
-  const slides = [{
-    tone:"", eyebrow:"● Louisiana kitchen, Colombo",
-    title:"Fried to order.<br><em>Never rushed.</em>",
-    lead:"Hand-battered, Cajun-spiced chicken — cooked when you order, not before. Sandwiches, burgers, and combos made the slow way.",
-    ctaLabel:"See the menu", ctaHref:"#menu", ghostLabel:"Kitchen notes", ghostHref:"#kitchen",
-    emoji:"🍗"
-  }];
-  posts.slice(0,2).forEach((post,i)=>{
-    slides.push({
-      tone: i===0 ? "tone-marigold":"tone-teal",
-      eyebrow:"● " + (post.tag || "Kitchen note"),
-      title:post.title,
-      lead:post.body,
-      ctaLabel:"Read kitchen notes", ctaHref:"#kitchen",
-      image: post.image || null
-    });
-  });
-  menu.filter(m=>m.popular).slice(0,2).forEach(item=>{
-    slides.push({
-      tone:"tone-marigold",
-      eyebrow:"● Popular pick",
-      title:item.emoji + " " + item.name,
-      lead:(item.desc||"") + (item.comboPrice ? ` Combo from ${money(item.comboPrice)}.` : ` From ${money(item.price)}.`),
-      ctaLabel:"Order now", ctaHref:"#menu",
-      emoji: item.emoji || "🍗"
-    });
-  });
+  const slides = [];
+  posts.forEach(post=>{ if(post.image) slides.push({ image: post.image, link: "#kitchen" }); });
+  menu.forEach(item=>{ if(item.image) slides.push({ image: item.image, link: "#menu" }); });
   return slides;
 }
 function renderCarousel(){
   carouselSlides = buildCarouselSlides();
   carouselIndex = 0;
   const track = document.getElementById('carouselTrack');
+  if(!carouselSlides.length){
+    track.innerHTML = '';
+    document.getElementById('heroCarousel').style.display = 'none';
+    return;
+  }
+  document.getElementById('heroCarousel').style.display = '';
   track.innerHTML = carouselSlides.map((s,i) => `
-    <div class="carousel-slide ${s.tone} ${(s.image||s.emoji)?'has-media':''} ${i===0?'active':''}" data-i="${i}">
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <div class="eyebrow">${s.eyebrow}</div>
-          <h1>${s.title}</h1>
-          <p class="lead">${s.lead}</p>
-          <div class="hero-cta">
-            <a href="${s.ctaHref}" class="btn btn-primary" onclick="return smoothNav(event,'${s.ctaHref.replace('#','')}')">${s.ctaLabel}</a>
-            ${s.ghostLabel ? `<a href="${s.ghostHref}" class="btn btn-ghost" onclick="return smoothNav(event,'${s.ghostHref.replace('#','')}')">${s.ghostLabel}</a>` : ''}
-          </div>
-          ${i===0 ? `<div class="heat-strip">
-            <div class="heat-item"><b>100%</b>Bone-in, hand-battered</div>
-            <div class="heat-item"><b>12 hr</b>Cajun spice marinade</div>
-            <div class="heat-item"><b>Daily</b>Fresh biscuits, baked in-house</div>
-          </div>` : ''}
-        </div>
-        ${s.image ? `<div class="carousel-media"><img src="${s.image}" alt="${s.title}" onerror="this.parentElement.style.display='none'"></div>`
-          : (s.emoji ? `<div class="carousel-media"><span class="emoji-hero">${s.emoji}</span></div>` : '')}
-        ${s.priceBadge ? `<div class="price-badge">${s.priceBadge}</div>` : ''}
-      </div>
+    <div class="carousel-slide ${i===0?'active':''}" data-i="${i}">
+      ${s.link ? `<a href="${s.link}" class="carousel-image-link" onclick="return smoothNav(event,'${s.link.replace('#','')}')">` : '<div class="carousel-image-link">'}
+        <img src="${s.image}" alt="" onerror="this.closest('.carousel-slide').style.display='none'">
+      ${s.link ? '</a>' : '</div>'}
     </div>
   `).join('');
   document.getElementById('carouselDots').innerHTML = carouselSlides.map((s,i) =>
     `<button class="carousel-dot ${i===0?'active':''}" onclick="goToSlide(${i})" aria-label="Slide ${i+1}"></button>`
   ).join('');
   if(carouselTimer) clearInterval(carouselTimer);
-  carouselTimer = setInterval(()=>stepCarousel(1), 5000);
+  if(!carouselPausedByUser) carouselTimer = setInterval(()=>stepCarousel(1), 5000);
 }
 function goToSlide(i){
   carouselIndex = i;
